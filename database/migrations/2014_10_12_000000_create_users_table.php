@@ -20,6 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('nip')->unique();
             $table->foreignId('pangkat_id');
             $table->foreignId('jabatan_id');
+            $table->foreignId('penilai_id')->nullable();
+            $table->foreignId('atasan_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

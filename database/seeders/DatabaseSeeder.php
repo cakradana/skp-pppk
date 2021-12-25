@@ -64,6 +64,8 @@ class DatabaseSeeder extends Seeder
             'nip' => '198507252021211003',
             'pangkat_id' => 1,
             'jabatan_id' => 1,
+            'penilai_id' => 3,
+            'atasan_id' => 5,
             'password' => bcrypt('12345')
         ]);
 
@@ -73,6 +75,8 @@ class DatabaseSeeder extends Seeder
             'nip' => '196906111993032005',
             'pangkat_id' => 2,
             'jabatan_id' => 2,
+            'penilai_id' => 4,
+            'atasan_id' => 5,
             'password' => bcrypt('12345')
         ]);
 
@@ -84,6 +88,7 @@ class DatabaseSeeder extends Seeder
             'nip' => '198105092021211004',
             'pangkat_id' => 1,
             'jabatan_id' => 4,
+            'atasan_id' => 5,
             'password' => bcrypt('12345')
         ]);
 
@@ -93,6 +98,7 @@ class DatabaseSeeder extends Seeder
             'nip' => '195908041988121001',
             'pangkat_id' => 3,
             'jabatan_id' => 3,
+            'atasan_id' => 5,
             'password' => bcrypt('12345')
         ]);
 
@@ -102,6 +108,17 @@ class DatabaseSeeder extends Seeder
             'role' => 'Atasan Pejabat Penilai',
             'name' => 'Dr.Ir. Aris Tjahyanto, M.Kom.',
             'nip' => '196503101991021001',
+            'pangkat_id' => 4,
+            'jabatan_id' => 5,
+            'password' => bcrypt('12345')
+        ]);
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+
+        User::create([
+            'role' => 'Admin',
+            'name' => 'R. Cakradana',
+            'nip' => '190202064',
             'pangkat_id' => 4,
             'jabatan_id' => 5,
             'password' => bcrypt('12345')
