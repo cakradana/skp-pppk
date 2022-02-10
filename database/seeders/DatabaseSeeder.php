@@ -6,6 +6,7 @@ use App\Models\Jabatan;
 use App\Models\Pangkat;
 use App\Models\Penilai;
 use App\Models\Atasan;
+use App\Models\Kegiatan;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -57,6 +58,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         ///////////////////////////////////////////////////////////////////
+
+        Kegiatan::create([
+            'jabatan_id' => '1',
+            'nama' => 'Merencanakan program pemeliharaan/perawatan dan penyimpanan peralatan kategori 1 (satu)'
+        ]);
+
+        //////////////////////////////////////////////////////////////////
 
         User::create([
             'role' => 'Pegawai yang Dinilai',

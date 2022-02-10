@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PangkatController;
+use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\ProfilController;
@@ -45,3 +46,6 @@ Route::resource('/master/pangkat', PangkatController::class)->except('show')->mi
 
 // resource jabatan
 Route::resource('/master/jabatan', JabatanController::class)->except('show')->middleware('auth');
+
+// resource kegiatan
+Route::resource('/master/kegiatan', KegiatanController::class)->middleware('auth');
