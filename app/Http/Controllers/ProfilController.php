@@ -8,9 +8,11 @@ class ProfilController extends Controller
 {
     public function index()
     {
+        $user = auth()->user();
+
         return view('profil.index', [
             "title" => "Profil",
-            "pegawai" => auth()->user()
+            "pegawai" => $user
         ]);
     }
 }

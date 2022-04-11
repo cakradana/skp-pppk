@@ -7,6 +7,10 @@ use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\RencanaController;
+use App\Http\Controllers\PersetujuanController;
+use App\Http\Controllers\PengajuanRealisasiController;
+use App\Http\Controllers\PenilaianRealisasiController;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\User;
@@ -49,3 +53,15 @@ Route::resource('/master/jabatan', JabatanController::class)->except('show')->mi
 
 // resource kegiatan
 Route::resource('/master/kegiatan', KegiatanController::class)->middleware('auth');
+
+// resource rencana
+Route::resource('/skp/rencana', RencanaController::class)->middleware('auth');
+
+// resource persetujuan
+Route::resource('/penilaian/persetujuan', PersetujuanController::class)->middleware('auth');
+
+// resource pengajuan realisasi
+Route::resource('/skp/realisasi', PengajuanRealisasiController::class)->middleware('auth');
+
+// resource penilaian realisasi
+Route::resource('/penilaian/prealisasi', PenilaianRealisasiController::class)->middleware('auth');

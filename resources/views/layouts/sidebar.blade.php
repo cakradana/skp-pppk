@@ -79,6 +79,68 @@
                     </ul>
                 </li>
                 @endcan
+                @can('Pegawai yang Dinilai')
+                <li class="nav-item">
+                    <a href="" class="nav-link {{ Request::is('skp*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>
+                            SKP & Perilaku Kerja
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/skp/rencana" class="nav-link {{ Request::is('skp/rencana*') ? 'active' : '' }}">
+                                <i class="fas fa-calendar-alt nav-icon"></i>
+                                <p>Rencana SKP</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/skp/realisasi" class="nav-link {{ Request::is('skp/realisasi*') ? 'active' : '' }}">
+                                <i class="fas fa-calendar-check nav-icon"></i>
+                                <p>Pengajuan Realisasi</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/skp/prestasi" class="nav-link {{ Request::is('skp/prestasi*') ? 'active' : '' }}">
+                                <i class="fas fa-balance-scale nav-icon"></i>
+                                <p>Nilai Prestasi Kerja</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @endcan
+                @can('Pejabat Penilai')
+                <li class="nav-item">
+                    <a href="" class="nav-link {{ Request::is('penilaian*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-book"></i>
+                        <p>
+                            Penilaian Pegawai
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/penilaian/persetujuan" class="nav-link {{ Request::is('penilaian/persetujuan*') ? 'active' : '' }}">
+                                <i class="fas fa-calendar-alt nav-icon"></i>
+                                <p>Persetujuan Rencana</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/penilaian/prealisasi" class="nav-link {{ Request::is('penilaian/prealisasi*') ? 'active' : '' }}">
+                                <i class="fas fa-calendar-check nav-icon"></i>
+                                <p>Penilaian Realisasi</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/penilaian/perilaku" class="nav-link {{ Request::is('penilaian/perilaku*') ? 'active' : '' }}">
+                                <i class="fas fa-balance-scale nav-icon"></i>
+                                <p>Penilaian Perilaku</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @endcan
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

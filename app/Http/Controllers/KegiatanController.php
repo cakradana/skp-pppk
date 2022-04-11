@@ -45,6 +45,7 @@ class KegiatanController extends Controller
         $validatedData = $request->validate([
             'jabatan_id' => ['required'],
             'nama' => ['required'],
+            'ak' => ['required']
         ]);
 
         // if ($request->file('image')) {

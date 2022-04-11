@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
+use App\Models\Kegiatan;
 use App\Models\Pangkat;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -15,7 +16,8 @@ class DashboardController extends Controller
             "title" => "Dashboard",
             "pegawai" => User::all()->count(),
             "pangkat" => Pangkat::all()->count(),
-            "jabatan" => Jabatan::all()->count()
+            "jabatan" => Jabatan::all()->count(),
+            "kegiatan" => Kegiatan::all()->count()
         ]);
     }
 }

@@ -26,6 +26,7 @@
                                     <th class="col-1">No</th>
                                     <th>Jabatan</th>
                                     <th>Nama Kegiatan Tugas Jabatan</th>
+                                    <th>AK</th>
                                     <th class="col-3">Aksi</th>
                                 </tr>
                             </thead>
@@ -35,6 +36,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $kegiatan->jabatan->nama }}</td>
                                     <td>{{ $kegiatan->nama }}</td>
+                                    <td>{{ $kegiatan->ak }}</td>
                                     <td>
                                         <a href="/master/kegiatan/{{ $kegiatan->id }}/edit" class="btn btn-warning"><i class="fas fa-pen"></i> Edit</a>
                                         <form action="/master/kegiatan/{{ $kegiatan->id }}" method="POST" class="d-inline">

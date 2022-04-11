@@ -47,6 +47,17 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="ak" class="col-sm-3 col-form-label">Angka Kredit</label>
+                            <div class="col-sm-9">
+                                <input type="number" step="0.01" min="0" class="form-control @error('ak') is-invalid @enderror" id="ak" name="ak" value="{{ old('ak') }}">
+                                <div class="invalid-feedback">
+                                    @error('ak')
+                                        {{ $message }}
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card-footer">

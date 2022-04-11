@@ -7,6 +7,7 @@ use App\Models\Pangkat;
 use App\Models\Penilai;
 use App\Models\Atasan;
 use App\Models\Kegiatan;
+use App\Models\Rencana;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -61,7 +62,20 @@ class DatabaseSeeder extends Seeder
 
         Kegiatan::create([
             'jabatan_id' => '1',
-            'nama' => 'Merencanakan program pemeliharaan/perawatan dan penyimpanan peralatan kategori 1 (satu)'
+            'nama' => 'Merencanakan program pemeliharaan/perawatan dan penyimpanan peralatan kategori 1 (satu)',
+            'ak' => '0.25'
+        ]);
+
+        Kegiatan::create([
+            'jabatan_id' => '2',
+            'nama' => 'Menganalisis jabatan yang meliputi uraian jabatan, syarat jabatan, dan peta jabatan serta kekuatan pegawai yang menghasilkan informasi jabatan',
+            'ak' => '0.1'
+        ]);
+
+        Kegiatan::create([
+            'jabatan_id' => '2',
+            'nama' => 'Melaksanakan pengumpulan data, dengan: Mengumpulkan data pegawai tahun berjalan, untuk mengetahui pegawai yang pensiun meninggal dunia, naik pangkat, pindah instansi, maupun berhenti',
+            'ak' => '0.01'
         ]);
 
         //////////////////////////////////////////////////////////////////
@@ -130,6 +144,18 @@ class DatabaseSeeder extends Seeder
             'pangkat_id' => 4,
             'jabatan_id' => 5,
             'password' => bcrypt('12345')
+        ]);
+
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
+        Rencana::create([
+            'user_id' => '1',
+            'kegiatan_id' => '1',
+            'kuantitas' => '2',
+            'output' => 'Dokumen',
+            'waktu' => '1',
+            'penilai_id' => '3',
+            'status' => 'belum disetujui'
         ]);
 
         // \App\Models\User::factory(10)->create();

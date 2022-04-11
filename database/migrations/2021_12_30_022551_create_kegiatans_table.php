@@ -17,6 +17,7 @@ class CreateKegiatansTable extends Migration
             $table->id();
             $table->foreignId('jabatan_id');
             $table->string('nama');
+            $table->float('ak');
             $table->timestamps();
         });
     }
