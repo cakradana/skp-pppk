@@ -39,7 +39,7 @@
                         <div class="form-group row">
                             <label for="kuantitas" class="col-sm-3 col-form-label">Kuantitas</label>
                             <div class="col-sm-1">
-                                <input type="number" class="form-control @error('kuantitas') is-invalid @enderror" id="kuantitas" name="kuantitas" value="{{ old('kuantitas') }}">
+                                <input type="number" min="1" class="form-control @error('kuantitas') is-invalid @enderror" id="kuantitas" name="kuantitas" value="{{ old('kuantitas') }}">
                                 <div class="invalid-feedback">
                                     @error('kuantitas')
                                         {{ $message }}

@@ -103,7 +103,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="/skp/prestasi" class="nav-link {{ Request::is('skp/prestasi*') ? 'active' : '' }}">
-                                <i class="fas fa-balance-scale nav-icon"></i>
+                                <i class="fas fa-file nav-icon"></i>
                                 <p>Nilai Prestasi Kerja</p>
                             </a>
                         </li>
