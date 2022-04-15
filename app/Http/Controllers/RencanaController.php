@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Kegiatan;
 use App\Models\Rencana;
+use Illuminate\Http\Request;
 
 class RencanaController extends Controller
 {
@@ -17,7 +17,7 @@ class RencanaController extends Controller
     {
         return view('skp.rencana.index', [
             "title" => "Rencana SKP",
-            "rencanas" => Rencana::where('user_id', auth()->user()->id)->get()
+            "rencanas" => Rencana::where('user_id', auth()->user()->id)->get(),
         ]);
     }
 
@@ -28,9 +28,20 @@ class RencanaController extends Controller
      */
     public function create()
     {
+        // get all kegiatan where jabatan_id and not in rencana by user_id year
+        $kegiatans = Kegiatan::where('jabatan_id', auth()->user()->jabatan_id)
+            ->whereNotIn('id', function ($query) {
+                $query->select('kegiatan_id')
+                    ->from('rencana')
+                    ->where('user_id', auth()->user()->id)
+                    ->whereYear('created_at', date('Y'));
+            })
+            ->get();
+
         return view('skp.rencana.create', [
             "title" => "Tambah Kegiatan",
-            'kegiatans' => Kegiatan::where('jabatan_id', auth()->user()->jabatan_id)->get()
+            // 'kegiatans' => Kegiatan::where('jabatan_id', auth()->user()->jabatan_id)->get()
+            'kegiatans' => $kegiatans,
         ]);
     }
 
@@ -46,7 +57,7 @@ class RencanaController extends Controller
             'kegiatan_id' => ['required'],
             'kuantitas' => ['required'],
             'output' => ['required'],
-            'waktu' => ['required']
+            'waktu' => ['required'],
         ]);
 
         $validatedData['user_id'] = auth()->user()->id;
