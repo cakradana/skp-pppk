@@ -17,9 +17,6 @@
         <a href="/skp/rencana/create" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Tambah Rencana</a>
         <a href="#cetak" class="btn btn-success mb-3"><i class="fas fa-file-pdf"></i> Cetak Rencana</a>
         <div class="card card-secondary card-outline">
-            <div class="card-header">
-                <h3 class="card-title mt-2">Formulir Rencana SKP</h3>
-            </div>
             <div class="card-body table-responsive p-0">
                 <div class="container" style="padding: 20px 20px 20px;">
                     <table id="" class="table table-striped table-bordered small" style="width:100%">

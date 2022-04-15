@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Rencana;
+use App\Models\User;
 
 class PersetujuanController extends Controller
 {
@@ -51,11 +52,13 @@ class PersetujuanController extends Controller
      */
     public function show($id)
     {
-        $user = auth()->user();
+        $rencanas = Rencana::where('user_id', $id)->get();
+        $pegawai = User::find($id);
 
         return view('penilaian.rencana.show', [
             'title' => "Detail Rencana SKP",
-            'rencanas' => Rencana::where('penilai_id', $user->id)->get()
+            'pegawai' => $pegawai,
+            'rencanas' => $rencanas
         ]);
     }
 

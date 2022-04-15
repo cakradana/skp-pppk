@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('judul')
-    Rencana SKP {{ $rencanas->user->name }}
+    Detail Rencana SKP {{ $pegawai->name }}
 @endsection
 
 @section('isi')
@@ -14,12 +14,9 @@
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-        <a href="/skp/rencana/create" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Tambah Rencana</a>
-        <a href="#cetak" class="btn btn-success mb-3"><i class="fas fa-file-pdf"></i> Cetak Rencana</a>
+        {{-- <a href="/skp/rencana/create" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Tambah Rencana</a>
+        <a href="#cetak" class="btn btn-success mb-3"><i class="fas fa-file-pdf"></i> Cetak Rencana</a> --}}
         <div class="card card-secondary card-outline">
-            <div class="card-header">
-                <h3 class="card-title mt-2">Formulir Rencana SKP</h3>
-            </div>
             <div class="card-body table-responsive p-0">
                 <div class="container" style="padding: 20px 20px 20px;">
                     <table id="" class="table table-striped table-bordered small" style="width:100%">
@@ -29,7 +26,6 @@
                                 <th rowspan="2" class="align-middle">Kegiatan Tugas Jabatan</th>
                                 <th rowspan="2" class="align-middle">AK</th>
                                 <th colspan="2" class="">Target</th>
-                                <th rowspan="2" class="align-middle">Aksi</th>
                             </tr>
                             <tr>
                                 <th class="col-3 align-middle">Kuantitas / Output</th>
@@ -59,7 +55,6 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td><a href="#" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a></td>
                             </tr>
                             @endforeach
                         </tbody>

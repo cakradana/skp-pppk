@@ -59,6 +59,8 @@ Route::resource('/skp/rencana', RencanaController::class)->middleware('auth');
 
 // resource persetujuan
 Route::resource('/penilaian/persetujuan', PersetujuanController::class)->middleware('auth');
+Route::get('/penilaian/persetujuan/setuju/{id}', [PersetujuanController::class, 'update']);
+
 
 // resource pengajuan realisasi
 Route::resource('/skp/realisasi', PengajuanRealisasiController::class)->middleware('auth');

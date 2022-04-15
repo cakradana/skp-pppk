@@ -17,9 +17,6 @@
         {{-- <a href="/skp/rencana/create" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Tambah Rencana</a>
         <a href="#cetak" class="btn btn-success mb-3"><i class="fas fa-file-pdf"></i> Cetak Rencana</a> --}}
         <div class="card card-secondary card-outline">
-            <div class="card-header">
-                <h3 class="card-title mt-2">Persetujuan Rencana SKP Pegawai</h3>
-            </div>
             <div class="card-body table-responsive p-0">
                 <div class="container" style="padding: 20px 20px 20px;">
                     <table id="" class="table table-striped table-bordered small" style="width:100%">
@@ -45,7 +42,7 @@
                                 <td>{{ $pengajuan->status }}</td>
                                 <td>
                                     <a href="/penilaian/persetujuan/{{ $pengajuan->user->id }}" class="btn btn-sm btn-success mb-3"><i class="fas fa-search"></i></a>
-                                    <a href="/penilaian/persetujuan/{{ $pengajuan->user->id }}" class="mb-3 btn btn-sm btn-primary"><i class="fas fa-check"></i></a>
+                                    <a href="/penilaian/persetujuan/setuju/{{ $pengajuan->user->id }}" class="mb-3 btn btn-sm btn-primary"><i class="fas fa-check"></i></a>
                                 </td>
                             </tr>
                             @endforeach
