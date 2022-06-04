@@ -22,6 +22,18 @@
         <div class="col-lg-3 col-6">
             <div class="small-box bg-info">
                 <div class="inner">
+                    <h3>{{ $pejabat }}</h3>
+                    <p>Pejabat Penilai</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <a href="/master/penilai" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-6">
+            <div class="small-box bg-info">
+                <div class="inner">
                     <h3>{{ $pangkat }}</h3>
                     <p>Pangkat</p>
                 </div>

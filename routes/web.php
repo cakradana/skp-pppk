@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PangkatController;
 use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\PenilaiController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\RencanaController;
@@ -44,6 +45,9 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('aut
 
 // resource pegawai
 Route::resource('/master/pegawai', PegawaiController::class)->middleware('auth');
+
+// resource penilai
+Route::resource('/master/penilai', PenilaiController::class)->middleware('auth');
 
 // resource pangkat
 Route::resource('/master/pangkat', PangkatController::class)->except('show')->middleware('auth');

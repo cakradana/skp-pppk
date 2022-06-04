@@ -42,7 +42,7 @@
                                 <td>{{ $pengajuan->status }}</td>
                                 <td>
                                     <a href="/penilaian/persetujuan/{{ $pengajuan->user->id }}" class="btn btn-sm btn-success mb-3"><i class="fas fa-search"></i></a>
-                                    <a href="/penilaian/persetujuan/setuju/{{ $pengajuan->user->id }}" class="mb-3 btn btn-sm btn-primary"><i class="fas fa-check"></i></a>
+                                    <a href="/penilaian/persetujuan/setuju/{{ $pengajuan->user->id }}" class="mb-3 btn btn-sm btn-primary {{ $pengajuan->status == 'disetujui' ? 'disabled' : '' }}"><i class="fas fa-check"></i></a>
                                 </td>
                             </tr>
                             @endforeach

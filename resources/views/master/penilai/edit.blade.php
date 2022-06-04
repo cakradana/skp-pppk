@@ -1,29 +1,29 @@
 @extends('layouts.main')
 
 @section('judul')
-    Master Pegawai
+    Master penilai
 @endsection
 
 @section('isi')
 <div class="row">
     <div class="col">
-        <a href="/master/pegawai" class="btn btn-secondary mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
+        <a href="/master/penilai" class="btn btn-secondary mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
         <div class="card card-warning card-outline">
             <div class="card-header">
-                <h3 class="card-title mt-2">Edit Pegawai</h3>
+                <h3 class="card-title mt-2">Edit penilai</h3>
             </div>
             <div class="card-body p-0">
                 <div class="container" style="padding: 20px 20px 20px;">
-                    <form action="/master/pegawai/{{ $pegawai->id }}" method="POST" class="mb-5" enctype="multipart/form-data">
+                    <form action="/master/penilai/{{ $penilai->id }}" method="POST" class="mb-5" enctype="multipart/form-data">
                         @method('put')
                         @csrf
-                        <div class="form-group row d-none">
+                        {{-- <div class="form-group row d-none">
                             <label for="role" class="col-sm-3 col-form-label">Role</label>
                             <div class="col-sm-9">
                                 <select class="form-control @error('role') is-invalid @enderror" name="role">
-                                    @if (old('role', $pegawai->role) == $pegawai->role)
-                                    <option value="{{ $pegawai->role }}" selected>{{ $pegawai->role }}</option>
-                                    <option value="Pegawai yang Dinilai">Pegawai yang Dinilai</option>
+                                    @if (old('role', $penilai->role) == $penilai->role)
+                                    <option value="{{ $penilai->role }}" selected>{{ $penilai->role }}</option>
+                                    <option value="penilai yang Dinilai">penilai yang Dinilai</option>
                                     <option value="Pejabat Penilai">Pejabat Penilai</option>
                                     <option value="Atasan Pejabat Penilai">Atasan Pejabat Penilai</option>
                                     @endif
@@ -34,15 +34,15 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label for="penilai" class="col-sm-3 col-form-label">Penilai</label>
                             <div class="col-sm-9">
 
                                 <select class="form-control @error('penilai_id') is-invalid @enderror" name="penilai_id">
                                     @foreach ($penilais as $penilai)
-                                    @if (old('penilai_id', $pegawai->penilai_id) == $penilai->id)
+                                    @if (old('penilai_id', $penilai->penilai_id) == $penilai->id)
                                         <option value="{{ $penilai->id }}" selected>{{ $penilai->name }}</option>
                                     @else
                                         <option value="{{ $penilai->id }}">{{ $penilai->name }}</option>
@@ -55,13 +55,13 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
 
 
                         <div class="form-group row">
                             <label for="name" class="col-sm-3 col-form-label">Nama</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $pegawai->name) }}">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $penilai->name) }}">
                                 <div class="invalid-feedback">
                                     @error('name')
                                     {{ $message }}
@@ -72,7 +72,7 @@
                         <div class="form-group row">
                             <label for="nip" class="col-sm-3 col-form-label">NIP</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('nip') is-invalid @enderror" id="nip" name="nip" value="{{ old('nip', $pegawai->nip) }}">
+                                <input type="text" class="form-control @error('nip') is-invalid @enderror" id="nip" name="nip" value="{{ old('nip', $penilai->nip) }}">
                                 <div class="invalid-feedback">
                                     @error('nip')
                                     {{ $message }}
@@ -85,7 +85,7 @@
                             <div class="col-sm-9">
                                 <select class="form-control @error('pangkat_id') is-invalid @enderror" name="pangkat_id">
                                     @foreach ($pangkats as $pangkat)
-                                    @if (old('pangkat_id', $pegawai->pangkat_id) == $pangkat->id)
+                                    @if (old('pangkat_id', $penilai->pangkat_id) == $pangkat->id)
                                     <option value="{{ $pangkat->id }}" selected>{{ $pangkat->nama }}</option>
                                     @else
                                     <option value="{{ $pangkat->id }}">{{ $pangkat->nama }}</option>
@@ -104,7 +104,7 @@
                             <div class="col-sm-9">
                                 <select class="form-control @error('jabatan_id') is-invalid @enderror" name="jabatan_id">
                                     @foreach ($jabatans as $jabatan)
-                                    @if (old('jabatan_id', $pegawai->jabatan_id) == $jabatan->id)
+                                    @if (old('jabatan_id', $penilai->jabatan_id) == $jabatan->id)
                                     <option value="{{ $jabatan->id }}" selected>{{ $jabatan->nama }}</option>
                                     @else
                                     <option value="{{ $jabatan->id }}">{{ $jabatan->nama }}</option>

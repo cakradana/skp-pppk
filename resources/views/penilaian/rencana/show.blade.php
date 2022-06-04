@@ -8,6 +8,7 @@
 
 <div class="row">
     <div class="col">
+        <a href="/penilaian/persetujuan" class="btn btn-secondary mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
         @if (session()->has('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong>{{ session('success') }}</strong>

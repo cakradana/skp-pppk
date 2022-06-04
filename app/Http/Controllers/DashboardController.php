@@ -14,7 +14,8 @@ class DashboardController extends Controller
     {
         return view('dashboard.index', [
             "title" => "Dashboard",
-            "pegawai" => User::all()->count(),
+            "pegawai" => User::where('role', 'Pegawai yang Dinilai')->count(),
+            "pejabat" => User::where('role', 'Pejabat Penilai')->count(),
             "pangkat" => Pangkat::all()->count(),
             "jabatan" => Jabatan::all()->count(),
             "kegiatan" => Kegiatan::all()->count()

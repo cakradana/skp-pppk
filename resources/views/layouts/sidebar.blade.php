@@ -71,6 +71,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="/master/penilai" class="nav-link {{ Request::is('master/penilai*') ? 'active' : '' }}">
+                                <i class="fas fa-user-tie nav-icon"></i>
+                                <p>Master Penilai</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="/master/kegiatan" class="nav-link {{ Request::is('master/kegiatan*') ? 'active' : '' }}">
                                 <i class="fas fa-tasks nav-icon"></i>
                                 <p>Master Kegiatan</p>

@@ -15,9 +15,11 @@ class PersetujuanController extends Controller
      */
     public function index()
     {
-        $user = auth()->user();
-        $pengajuans = Rencana::where('penilai_id', $user->id)->select(['status', 'user_id'])->groupBy(['user_id', 'status'])->get();
+        $login = auth()->user();
+        $pengajuans = Rencana::where('penilai_id', $login->id)->select(['status', 'user_id'])->groupBy(['user_id', 'status'])->get();
         // $list = $pengajuan->user()->get();
+
+        // dd($pengajuans);
 
         return view('penilaian.rencana.index', [
             "title" => "Persetujuan Rencana SKP",

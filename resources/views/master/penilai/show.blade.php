@@ -1,16 +1,16 @@
 @extends('layouts.main')
 
 @section('judul')
-    Master Pegawai
+    Master Penilai
 @endsection
 
 @section('isi')
 <div class="row">
     <div class="col">
-        <a href="/master/pegawai" class="btn btn-secondary mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
+        <a href="/master/penilai" class="btn btn-secondary mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
         <div class="card card-secondary card-outline">
             <div class="card-header">
-                <h3 class="card-title mt-2">Detail Pegawai</h3>
+                <h3 class="card-title mt-2">Detail Penilai</h3>
             </div>
             <div class="card-body p-0">
                 <div class="container" style="padding: 20px 20px 20px;">
@@ -18,37 +18,37 @@
                         <div class="form-group row d-none">
                             <label for="role" class="col-sm-3 col-form-label">Role</label>
                             <div class="col-sm-9">
-                                <input type="text" readonly class="form-control-plaintext" id="role" name="role" value="{{ $pegawai->role }}">
+                                <input type="text" readonly class="form-control-plaintext" id="role" name="role" value="{{ $penilai->role }}">
                             </div>
                         </div>
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label for="penilai" class="col-sm-3 col-form-label">Pejabat Penilai</label>
                             <div class="col-sm-9">
-                                <input type="text" readonly class="form-control-plaintext" id="penilai" name="penilai" value="{{ $pegawai->penilai->name }}">
+                                <input type="text" readonly class="form-control-plaintext" id="penilai" name="penilai" value="{{ $penilai->penilai->name }}">
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="form-group row">
                             <label for="nama" class="col-sm-3 col-form-label">Nama</label>
                             <div class="col-sm-9">
-                                <input type="text" readonly class="form-control-plaintext" id="nama" name="nama" value="{{ $pegawai->name }}">
+                                <input type="text" readonly class="form-control-plaintext" id="nama" name="nama" value="{{ $penilai->name }}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="nip" class="col-sm-3 col-form-label">NIP</label>
                             <div class="col-sm-9">
-                                <input type="text" readonly class="form-control-plaintext" id="nip" name="nip" value="{{ $pegawai->nip }}">
+                                <input type="text" readonly class="form-control-plaintext" id="nip" name="nip" value="{{ $penilai->nip }}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="pangkat" class="col-sm-3 col-form-label">Pangkat, Gol. Ruang</label>
                             <div class="col-sm-9">
-                                <input type="text" readonly class="form-control-plaintext" id="pangkat" name="pangkat" value="{{ $pegawai->pangkat->nama ?? 'None' }}">
+                                <input type="text" readonly class="form-control-plaintext" id="pangkat" name="pangkat" value="{{ $penilai->pangkat->nama ?? 'None' }}">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="jabatan" class="col-sm-3 col-form-label">Jabatan</label>
                             <div class="col-sm-9">
-                                <input type="text" readonly class="form-control-plaintext" id="jabatan" name="jabatan" value="{{ $pegawai->jabatan->nama ?? 'None' }}">
+                                <input type="text" readonly class="form-control-plaintext" id="jabatan" name="jabatan" value="{{ $penilai->jabatan->nama ?? 'None' }}">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -61,8 +61,8 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a href="/master/pegawai/{{ $pegawai->id }}/edit" class="btn btn-warning"><i class="fas fa-user-edit"></i> Edit</a>
-                <form action="/master/pegawai/{{ $pegawai->id }}" method="POST" class="d-inline">
+                <a href="/master/penilai/{{ $penilai->id }}/edit" class="btn btn-warning"><i class="fas fa-user-edit"></i> Edit</a>
+                <form action="/master/penilai/{{ $penilai->id }}" method="POST" class="d-inline">
                     @csrf
                     @method('delete')
                     <button class="btn btn-danger" onclick="return confirm('Yakin?')"><i class="fas fa-user-minus"></i> Delete</button>

@@ -15,9 +15,21 @@ class RencanaController extends Controller
      */
     public function index()
     {
+        $login = auth()->user();
+
+        $rencana = Rencana::where('user_id', $login->id)->where('status', 'disetujui')->get();
+        if (count($rencana) > 0) {
+            $atribut = 'true';
+        } else {
+            $atribut = 'false';
+        }
+
+        // dd($rencana);
+
         return view('skp.rencana.index', [
             "title" => "Rencana SKP",
             "rencanas" => Rencana::where('user_id', auth()->user()->id)->get(),
+            "atribut" => $atribut
         ]);
     }
 
@@ -32,7 +44,7 @@ class RencanaController extends Controller
         $kegiatans = Kegiatan::where('jabatan_id', auth()->user()->jabatan_id)
             ->whereNotIn('id', function ($query) {
                 $query->select('kegiatan_id')
-                    ->from('rencana')
+                    ->from('rencanas')
                     ->where('user_id', auth()->user()->id)
                     ->whereYear('created_at', date('Y'));
             })
@@ -41,7 +53,7 @@ class RencanaController extends Controller
         return view('skp.rencana.create', [
             "title" => "Tambah Kegiatan",
             // 'kegiatans' => Kegiatan::where('jabatan_id', auth()->user()->jabatan_id)->get()
-            'kegiatans' => $kegiatans,
+            'kegiatans' => $kegiatans
         ]);
     }
 

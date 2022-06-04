@@ -1,25 +1,25 @@
 @extends('layouts.main')
 
 @section('judul')
-    Master Pegawai
+    Master Penilai
 @endsection
 
 @section('isi')
 <div class="row">
     <div class="col">
-        <a href="/master/pegawai" class="btn btn-secondary mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
+        <a href="/master/penilai" class="btn btn-secondary mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
         <div class="card card-primary card-outline">
             <div class="card-header">
-                <h3 class="card-title mt-2">Tambah Pegawai</h3>
+                <h3 class="card-title mt-2">Tambah Penilai</h3>
             </div>
             <div class="card-body p-0">
                 <div class="container" style="padding: 20px 20px 20px;">
-                    <form action="/master/pegawai" method="POST" class="mb-5" enctype="multipart/form-data">
+                    <form action="/master/penilai" method="POST" class="mb-5" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row d-none">
                             <label for="role" class="col-sm-3 col-form-label">Role</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('role') is-invalid @enderror" name="role" value="Pegawai yang Dinilai">
+                                <input type="text" class="form-control @error('role') is-invalid @enderror" name="role" value="Pejabat Penilai">
                                 {{-- <select class="form-control @error('role') is-invalid @enderror" name="role">
                                     @error('nip')
                                     <option value="{{ old('role') }}">{{ old('role') }}</option>
@@ -45,7 +45,7 @@
                                 </div> --}}
                             </div>
                         </div>
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label for="penilai" class="col-sm-3 col-form-label">Pejabat Penilai</label>
                             <div class="col-sm-9">
                                 <select class="form-control @error('penilai_id') is-invalid @enderror" name="penilai_id">
@@ -64,7 +64,7 @@
                                     @enderror
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="form-group row">
                             <label for="name" class="col-sm-3 col-form-label">Nama</label>
                             <div class="col-sm-9">
