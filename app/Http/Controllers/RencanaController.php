@@ -76,9 +76,35 @@ class RencanaController extends Controller
         $validatedData['penilai_id'] = auth()->user()->penilai_id;
         $validatedData['status'] = 'belum disetujui';
 
-        Rencana::create($validatedData);
+        // dd($validatedData);
 
-        return redirect('/skp/rencana')->with('success', 'Rencana Kegiatan telah berhasil ditambahkan!');
+        return view('skp.rencana.bulan', [
+            "title" => "Tambah Kegiatan",
+            "data" => $validatedData
+        ]);
+
+        // Rencana::create($validatedData);
+
+        // return redirect('/skp/rencana')->with('success', 'Rencana Kegiatan telah berhasil ditambahkan!');
+    }
+
+    public function bulan(Request $request)
+    {
+        // $validatedData = $request->validate([
+        //     'kegiatan_id' => ['required'],
+        //     'kuantitas' => ['required'],
+        //     'output' => ['required'],
+        //     'bulan' => ['required'],
+        //     'user_id' => ['required'],
+        //     'penilai_id' => ['required'],
+        //     'status' => ['required']
+        // ]);
+
+        // dd($request->all());
+
+        // for ($i = 0; $i < $request->waktu; $i++) {
+        //     Rencana::create($validatedData);
+        // }
     }
 
     /**

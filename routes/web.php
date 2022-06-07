@@ -13,6 +13,7 @@ use App\Http\Controllers\RencanaController;
 use App\Http\Controllers\PersetujuanController;
 use App\Http\Controllers\PengajuanRealisasiController;
 use App\Http\Controllers\PenilaianRealisasiController;
+use App\Models\Rencana;
 use Illuminate\Support\Facades\Route;
 
 use App\Models\User;
@@ -64,6 +65,7 @@ Route::resource('/master/kegiatan', KegiatanController::class)->middleware('auth
 
 // resource rencana
 Route::resource('/skp/rencana', RencanaController::class)->middleware('auth');
+Route::post('/skp/rencana/bulan', [RencanaController::class, 'bulan']);
 
 // resource persetujuan
 Route::resource('/penilaian/persetujuan', PersetujuanController::class)->middleware('auth');
