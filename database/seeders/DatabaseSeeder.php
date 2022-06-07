@@ -148,15 +148,15 @@ class DatabaseSeeder extends Seeder
 
         ////////////////////////////////////////////////////////////////////////////////////////////
 
-        Rencana::create([
-            'user_id' => '1',
-            'kegiatan_id' => '1',
-            'kuantitas' => '2',
-            'output' => 'Dokumen',
-            'waktu' => '1',
-            'penilai_id' => '3',
-            'status' => 'belum disetujui'
-        ]);
+        // Rencana::create([
+        //     'user_id' => '1',
+        //     'kegiatan_id' => '1',
+        //     'kuantitas' => '2',
+        //     'output' => 'Dokumen',
+        //     'waktu' => '1',
+        //     'penilai_id' => '3',
+        //     'status' => 'belum disetujui'
+        // ]);
 
         // \App\Models\User::factory(10)->create();
     }

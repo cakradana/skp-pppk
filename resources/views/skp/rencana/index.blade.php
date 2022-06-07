@@ -14,7 +14,7 @@
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-        <a href="/skp/rencana/create" class="btn btn-primary mb-3 {{ $atribut == 'true' ? 'disabled' : '' }}"><i class="fas fa-plus"></i> Tambah Rencana</a>
+        <a href="/skp/rencana/create" class="btn mb-3 {{ $atribut == 'true' ? 'btn-secondary disabled' : 'btn-primary' }}"><i class="fas fa-plus"></i> Tambah Rencana</a>
         <a href="#cetak" class="btn btn-success mb-3"><i class="fas fa-file-pdf"></i> Cetak Rencana</a>
         <div class="card card-secondary card-outline">
             <div class="card-body table-responsive p-0">

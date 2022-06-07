@@ -1,7 +1,7 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="/index3.html" class="brand-link">
+    <a href="#" class="brand-link">
         <img src="/assets/dist/img/eskp-icon.png" alt="ESKP Logo" class="brand-image img-circle elevation-3">
         <span class="brand-text">eSKP PPPK PNC</span>
     </a>
@@ -52,6 +52,12 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/master/periode" class="nav-link {{ Request::is('master/periode*') ? 'active' : '' }}">
+                                <i class="fas fa-calendar-alt nav-icon"></i>
+                                <p>Master Periode</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="/master/pangkat" class="nav-link {{ Request::is('master/pangkat*') ? 'active' : '' }}">
                                 <i class="fas fa-star nav-icon"></i>
