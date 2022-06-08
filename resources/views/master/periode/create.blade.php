@@ -27,7 +27,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        {{-- <div class="form-group row">
                             <label for="awal" class="col-sm-3 col-form-label">Awal Periode</label>
                             <div class="col-sm-3">
                                 <div class="input-group date" id="datepicker">
@@ -57,6 +57,24 @@
                                     </span>
                                     <div class="invalid-feedback">
                                         @error('akhir')
+                                            {{ $message }}
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                        </div> --}}
+                        <div class="form-group row">
+                            <label for="range" class="col-sm-3 col-form-label">Range Periode</label>
+                            <div class="col-sm-4">
+                                <div class="input-group date" id="reservation">
+                                    <input type="text" class="form-control @error('range') is-invalid @enderror" id="range" name="range" value="{{ old('range') }}">
+                                    <span class="input-group-append">
+                                        <span class="input-group-text bg-white">
+                                            <i class="fas fa-calendar-alt"></i>
+                                        </span>
+                                    </span>
+                                    <div class="invalid-feedback">
+                                        @error('range')
                                             {{ $message }}
                                         @enderror
                                     </div>

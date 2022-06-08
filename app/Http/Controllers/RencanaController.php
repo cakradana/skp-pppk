@@ -17,18 +17,23 @@ class RencanaController extends Controller
     {
         $login = auth()->user();
 
-        $rencana = Rencana::where('user_id', $login->id)->where('status', 'disetujui')->get();
-        if (count($rencana) > 0) {
+        $disetujui = Rencana::where('user_id', $login->id)->where('status', 'disetujui')->get();
+        if (count($disetujui) > 0) {
             $atribut = 'true';
         } else {
             $atribut = 'false';
         }
 
-        // dd($rencana);
+        // $rencana = Rencana::where('user_id', auth()->user()->id)->get();
+
+        $rencana = Rencana::where('user_id', $login->id)->select(['kegiatan_id', 'kuantitas', 'output'])->groupBy(['kegiatan_id', 'kuantitas', 'output'])->get();
+
+        // dd($waktu);
 
         return view('skp.rencana.index', [
             "title" => "Rencana SKP",
-            "rencanas" => Rencana::where('user_id', auth()->user()->id)->get(),
+            "login" => $login,
+            "rencanas" => $rencana,
             "atribut" => $atribut
         ]);
     }
@@ -90,21 +95,19 @@ class RencanaController extends Controller
 
     public function bulan(Request $request)
     {
-        // $validatedData = $request->validate([
-        //     'kegiatan_id' => ['required'],
-        //     'kuantitas' => ['required'],
-        //     'output' => ['required'],
-        //     'bulan' => ['required'],
-        //     'user_id' => ['required'],
-        //     'penilai_id' => ['required'],
-        //     'status' => ['required']
-        // ]);
+        for ($i = 0; $i < $request->waktu; $i++) {
+            Rencana::create([
+                'kegiatan_id' => $request->kegiatan_id,
+                'kuantitas' => $request->kuantitas,
+                'output' => $request->output,
+                'bulan' => $request->bulan[$i],
+                'user_id' => $request->user_id,
+                'penilai_id' => $request->penilai_id,
+                'status' => $request->status
+            ]);
+        };
 
-        // dd($request->all());
-
-        // for ($i = 0; $i < $request->waktu; $i++) {
-        //     Rencana::create($validatedData);
-        // }
+        return redirect('/skp/rencana')->with('success', 'Rencana Kegiatan telah berhasil ditambahkan!');
     }
 
     /**

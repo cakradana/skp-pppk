@@ -8,7 +8,7 @@
     <div class="row">
         @can('Admin')
         <div class="col-lg-3 col-6">
-            <div class="small-box bg-info">
+            <div class="small-box bg-white card-primary card-outline">
                 <div class="inner">
                     <h3>{{ $pegawai }}</h3>
                     <p>Pegawai</p>
@@ -20,7 +20,7 @@
             </div>
         </div>
         <div class="col-lg-3 col-6">
-            <div class="small-box bg-info">
+            <div class="small-box bg-white card-primary card-outline">
                 <div class="inner">
                     <h3>{{ $pejabat }}</h3>
                     <p>Pejabat Penilai</p>
@@ -32,7 +32,7 @@
             </div>
         </div>
         <div class="col-lg-3 col-6">
-            <div class="small-box bg-info">
+            <div class="small-box bg-white card-primary card-outline">
                 <div class="inner">
                     <h3>{{ $pangkat }}</h3>
                     <p>Pangkat</p>
@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="col-lg-3 col-6">
-            <div class="small-box bg-info">
+            <div class="small-box bg-white card-primary card-outline">
                 <div class="inner">
                     <h3>{{ $jabatan }}</h3>
                     <p>Jabatan</p>
@@ -56,7 +56,7 @@
             </div>
         </div>
         <div class="col-lg-3 col-6">
-            <div class="small-box bg-info">
+            <div class="small-box bg-white card-primary card-outline">
                 <div class="inner">
                     <h3>{{ $kegiatan }}</h3>
                     <p>Kegiatan</p>

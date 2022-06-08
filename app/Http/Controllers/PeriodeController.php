@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Periode;
 use Illuminate\Http\Request;
 
@@ -26,9 +27,17 @@ class PeriodeController extends Controller
     {
         $validatedData = $request->validate([
             'nama' => ['required'],
-            'awal' => ['required'],
-            'akhir' => ['required']
+            // 'range' => ['required'],
+            // 'akhir' => ['required']
         ]);
+        $range = explode(' - ', $request->range);
+        // dd($request->range);
+        // dd(Str::snake($request->range, '-'));
+
+        $validatedData['awal'] = Carbon::createFromFormat('m/d/Y', $range[0])->format('Y-m-d');
+        $validatedData['akhir'] = Carbon::createFromFormat('m/d/Y', $range[1])->format('Y-m-d');
+
+        // dd($validatedData);
 
         Periode::create($validatedData);
 

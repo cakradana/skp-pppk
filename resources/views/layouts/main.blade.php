@@ -20,6 +20,8 @@
     <!-- SweetAlert2 -->
     <link rel="stylesheet" href="/assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
 
+    <link rel="stylesheet" href="/assets/plugins/daterangepicker/daterangepicker.css">
+
     <!-- My CSS -->
     <link rel="stylesheet" href="/assets/dist/css/style.css">
 
@@ -27,6 +29,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -112,6 +120,11 @@
                 format: 'yyyy-mm-dd'
             });
         });
+        $(function() {
+            $('input[name="range"]').daterangepicker({
+                format: 'yyyy-mm-dd'
+            });
+        });
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script> --}}
@@ -121,6 +134,8 @@
     <script src="/assets/plugins/sweetalert2/sweetalert2.min.js"></script>
     <!-- MyScript -->
     <script src="/assets/dist/myscript/script.js"></script>
+
+    <script src="/assets/plugins/daterangepicker/daterangepicker.js"></script>
 </body>
 
 </html>

@@ -19,7 +19,7 @@ class CreateRencanasTable extends Migration
             $table->foreignId('kegiatan_id');
             $table->integer('kuantitas');
             $table->string('output');
-            $table->integer('waktu');
+            $table->string('bulan');
             $table->foreignId('penilai_id');
             $table->enum('status', ['disetujui', 'belum disetujui']);
             $table->timestamps();

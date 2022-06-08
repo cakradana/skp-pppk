@@ -54,7 +54,7 @@ class PersetujuanController extends Controller
      */
     public function show($id)
     {
-        $rencanas = Rencana::where('user_id', $id)->get();
+        $rencanas = Rencana::where('user_id', $id)->select(['kegiatan_id', 'kuantitas', 'output'])->groupBy(['kegiatan_id', 'kuantitas', 'output'])->get();
         $pegawai = User::find($id);
 
         return view('penilaian.rencana.show', [

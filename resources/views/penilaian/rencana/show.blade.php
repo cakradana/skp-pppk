@@ -52,7 +52,7 @@
                                 <td>
                                     <div class="form-row">
                                         <div class="col">
-                                            <input type="number" max="12" min="1" class="form-control form-control-sm" value="{{ $rencana->waktu }}" readonly>
+                                            <input type="number" max="12" min="1" class="form-control form-control-sm" value="{{ \App\Models\Rencana::where('user_id', $pegawai->id)->where('kegiatan_id', $rencana->kegiatan_id)->count() }}" readonly>
                                         </div>
                                     </div>
                                 </td>
