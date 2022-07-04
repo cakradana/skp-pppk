@@ -15,7 +15,7 @@ class JabatanController extends Controller
     public function index()
     {
         return view('master.jabatan.index', [
-            "title" => "Master jabatan",
+            "title" => "Master Jabatan",
             "jabatans" => Jabatan::all()
         ]);
     }
@@ -46,7 +46,7 @@ class JabatanController extends Controller
 
         Jabatan::create($validatedData);
 
-        return redirect('/master/jabatan')->with('success', 'Jabatan telah berhasil ditambahkan!');
+        return redirect('/master/jabatan')->with('toast_success', 'Jabatan telah berhasil ditambahkan!');
     }
 
     /**
@@ -91,7 +91,7 @@ class JabatanController extends Controller
 
         Jabatan::where('id', $jabatan->id)->update($validatedData);
 
-        return redirect('/master/jabatan')->with('success', 'Jabatan telah berhasil diubah!');
+        return redirect('/master/jabatan')->with('toast_success', 'Jabatan telah berhasil diubah!');
     }
 
     /**
@@ -104,6 +104,6 @@ class JabatanController extends Controller
     {
         Jabatan::destroy($jabatan->id);
 
-        return redirect('/master/jabatan')->with('success', 'Jabatan telah berhasil dihapus!');
+        return redirect('/master/jabatan')->with('toast_success', 'Jabatan telah berhasil dihapus!');
     }
 }

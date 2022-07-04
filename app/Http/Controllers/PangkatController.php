@@ -46,7 +46,7 @@ class PangkatController extends Controller
 
         Pangkat::create($validatedData);
 
-        return redirect('/master/pangkat')->with('success', 'Pangkat telah berhasil ditambahkan!');
+        return redirect('/master/pangkat')->with('toast_success', 'Pangkat telah berhasil ditambahkan!');
     }
 
     /**
@@ -91,7 +91,7 @@ class PangkatController extends Controller
 
         Pangkat::where('id', $pangkat->id)->update($validatedData);
 
-        return redirect('/master/pangkat')->with('success', 'Pangkat telah berhasil diubah!');
+        return redirect('/master/pangkat')->with('toast_success', 'Pangkat telah berhasil diubah!');
     }
 
     /**
@@ -104,6 +104,6 @@ class PangkatController extends Controller
     {
         Pangkat::destroy($pangkat->id);
 
-        return redirect('/master/pangkat')->with('success', 'Pangkat telah berhasil dihapus!');
+        return redirect('/master/pangkat')->with('toast_success', 'Pangkat telah berhasil dihapus!');
     }
 }

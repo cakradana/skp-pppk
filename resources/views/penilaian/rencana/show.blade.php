@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('judul')
-    Detail Rencana SKP {{ $pegawai->name }}
+    {{ $title }}: {{ $pegawai->name }}
 @endsection
 
 @section('isi')
@@ -9,11 +9,10 @@
 <div class="row">
     <div class="col">
         <a href="/penilaian/persetujuan" class="btn btn-secondary mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
-        @if (session()->has('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>{{ session('success') }}</strong>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
-            </div>
+        @if ($atribut == 'true')
+            <a href="/penilaian/persetujuan/tolak/{{ $pegawai->id }}" class="btn mb-3 btn-danger tolak-pengajuan"><i class="fas fa-times"></i> Tolak Pengajuan</a>
+        @else
+            <a href="/penilaian/persetujuan/setuju/{{ $pegawai->id }}" class="btn btn-primary mb-3"><i class="fas fa-check"></i> Setujui Pengajuan</a>
         @endif
         {{-- <a href="/skp/rencana/create" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Tambah Rencana</a>
         <a href="#cetak" class="btn btn-success mb-3"><i class="fas fa-file-pdf"></i> Cetak Rencana</a> --}}

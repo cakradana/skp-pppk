@@ -78,11 +78,35 @@ class DatabaseSeeder extends Seeder
             'ak' => '0.01'
         ]);
 
+        Kegiatan::create([
+            'jabatan_id' => '1',
+            'nama' => 'Merencanakan program pemeriksaan dan kalibrasi pealatan kategori 1 (satu)',
+            'ak' => '0.16'
+        ]);
+
+        Kegiatan::create([
+            'jabatan_id' => '1',
+            'nama' => 'Menyusun kebutuhan peralatan pada kegiatan pendidikan kategori 1 (satu)',
+            'ak' => '0.12'
+        ]);
+
+        Kegiatan::create([
+            'jabatan_id' => '1',
+            'nama' => 'Menyusun kebutuhan bahan umum pada kegiatan pendidikan',
+            'ak' => '0.09'
+        ]);
+
+        Kegiatan::create([
+            'jabatan_id' => '1',
+            'nama' => 'Menyusun jadwal pemeliharaan/perawatan peralatan kategori 2 (dua);',
+            'ak' => '0.2'
+        ]);
+
         //////////////////////////////////////////////////////////////////
 
         User::create([
             'role' => 'Pegawai yang Dinilai',
-            'name' => 'Andriansyah Zakaria, S.Kom.,M.Kom',
+            'name' => 'Andriansyah Zakaria, S.Kom.,M.Kom.',
             'nip' => '198507252021211003',
             'pangkat_id' => 1,
             'jabatan_id' => 1,
@@ -106,7 +130,7 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'role' => 'Pejabat Penilai',
-            'name' => 'Nur Wahyu Rahadi, S.Kom., M.Eng',
+            'name' => 'Nur Wahyu Rahadi, S.Kom., M.Eng.',
             'nip' => '198105092021211004',
             'pangkat_id' => 1,
             'jabatan_id' => 4,

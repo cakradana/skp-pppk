@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('judul')
-    Master Pegawai
+    {{ $title }}: {{ $pegawai->name }}
 @endsection
 
 @section('isi')
@@ -65,7 +65,7 @@
                 <form action="/master/pegawai/{{ $pegawai->id }}" method="POST" class="d-inline">
                     @csrf
                     @method('delete')
-                    <button class="btn btn-danger" onclick="return confirm('Yakin?')"><i class="fas fa-user-minus"></i> Delete</button>
+                    <button class="btn btn-danger delete-confirm"><i class="fas fa-user-minus"></i> Delete</button>
                 </form>
             </div>
         </div>

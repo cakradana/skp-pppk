@@ -1,18 +1,12 @@
 @extends('layouts.main')
 
 @section('judul')
-    Master Kegiatan Tugas Jabatan
+    {{ $title }}
 @endsection
 
 @section('isi')
     <div class="row">
         <div class="col">
-            @if (session()->has('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>{{ session('success') }}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
             <a href="/master/kegiatan/create" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Tambah Kegiatan Tugas Jabatan</a>
             <div class="card card-secondary card-outline">
                 <div class="card-header">
@@ -20,14 +14,14 @@
                 </div>
                 <div class="card-body table-responsive p-0">
                     <div class="container" style="padding: 20px 20px 20px;">
-                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                        <table id="data-table" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
                                     <th class="col-1">No</th>
                                     <th>Jabatan</th>
                                     <th>Nama Kegiatan Tugas Jabatan</th>
                                     <th>AK</th>
-                                    <th class="col-3">Aksi</th>
+                                    <th class="col-2">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,11 +32,11 @@
                                     <td>{{ $kegiatan->nama }}</td>
                                     <td>{{ $kegiatan->ak }}</td>
                                     <td>
-                                        <a href="/master/kegiatan/{{ $kegiatan->id }}/edit" class="btn btn-warning"><i class="fas fa-pen"></i> Edit</a>
+                                        <a href="/master/kegiatan/{{ $kegiatan->id }}/edit" class="btn btn-sm btn-warning"><i class="fas fa-pen"></i></a>
                                         <form action="/master/kegiatan/{{ $kegiatan->id }}" method="POST" class="d-inline">
                                             @csrf
                                             @method('delete')
-                                            <button class="btn btn-danger" onclick="return confirm('Yakin?')"><i class="fas fa-trash"></i> Delete</button>
+                                            <button class="btn btn-sm btn-danger delete-confirm"><i class="fas fa-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>

@@ -67,7 +67,7 @@ class PenilaiController extends Controller
 
         User::create($validatedData);
 
-        return redirect('/master/penilai')->with('success', 'Penilai telah berhasil ditambahkan!');
+        return redirect('/master/penilai')->with('toast_success', 'Penilai telah berhasil ditambahkan!');
     }
 
     /**
@@ -123,7 +123,7 @@ class PenilaiController extends Controller
 
         User::where('id', $penilai->id)->update($validatedData);
 
-        return redirect('/master/penilai')->with('success', 'Penilai telah berhasil diubah!');
+        return redirect('/master/penilai')->with('toast_success', 'Penilai telah berhasil diubah!');
     }
 
     /**
@@ -136,6 +136,6 @@ class PenilaiController extends Controller
     {
         User::destroy($penilai->id);
 
-        return redirect('/master/penilai')->with('success', 'Penilai telah berhasil dihapus!');
+        return redirect('/master/penilai')->with('toast_success', 'Penilai telah berhasil dihapus!');
     }
 }

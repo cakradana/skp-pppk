@@ -26,7 +26,9 @@ class RencanaController extends Controller
 
         // $rencana = Rencana::where('user_id', auth()->user()->id)->get();
 
-        $rencana = Rencana::where('user_id', $login->id)->select(['kegiatan_id', 'kuantitas', 'output'])->groupBy(['kegiatan_id', 'kuantitas', 'output'])->get();
+        $rencana = Rencana::where('user_id', $login->id)->select(['kegiatan_id', 'output'])->groupBy(['kegiatan_id', 'output'])->get();
+
+        // dd($rencana);
 
         // dd($waktu);
 
@@ -35,6 +37,19 @@ class RencanaController extends Controller
             "login" => $login,
             "rencanas" => $rencana,
             "atribut" => $atribut
+        ]);
+    }
+
+    public function cetak()
+    {
+        $login = auth()->user();
+
+        $rencana = Rencana::where('user_id', $login->id)->select(['kegiatan_id', 'output'])->groupBy(['kegiatan_id', 'output'])->get();
+
+        return view('skp.rencana.cetak', [
+            "title" => "Cetak Rencana SKP",
+            "login" => $login,
+            "rencanas" => $rencana
         ]);
     }
 
@@ -70,27 +85,32 @@ class RencanaController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
+
+        // $request->validate([
+        //     'bulan' => 'required'
+        // ]);
+
         $validatedData = $request->validate([
             'kegiatan_id' => ['required'],
             'kuantitas' => ['required'],
             'output' => ['required'],
-            'waktu' => ['required'],
+            'bulan' => ['required']
         ]);
 
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['penilai_id'] = auth()->user()->penilai_id;
         $validatedData['status'] = 'belum disetujui';
 
-        // dd($validatedData);
+        // dd($request[0]);
 
-        return view('skp.rencana.bulan', [
-            "title" => "Tambah Kegiatan",
-            "data" => $validatedData
-        ]);
+        foreach ($request->bulan as $index) {
+            $validatedData['bulan'] = $index;
+            Rencana::create($validatedData);
+        }
 
-        // Rencana::create($validatedData);
 
-        // return redirect('/skp/rencana')->with('success', 'Rencana Kegiatan telah berhasil ditambahkan!');
+        return redirect('/skp/rencana')->with('toast_success', 'Rencana Kegiatan telah berhasil ditambahkan!');
     }
 
     public function bulan(Request $request)
@@ -107,7 +127,7 @@ class RencanaController extends Controller
             ]);
         };
 
-        return redirect('/skp/rencana')->with('success', 'Rencana Kegiatan telah berhasil ditambahkan!');
+        return redirect('/skp/rencana')->with('toast_success', 'Rencana Kegiatan telah berhasil ditambahkan!');
     }
 
     /**

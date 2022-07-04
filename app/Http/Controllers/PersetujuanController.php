@@ -54,13 +54,21 @@ class PersetujuanController extends Controller
      */
     public function show($id)
     {
+        // dd($id);
+        $disetujui = Rencana::where('user_id', $id)->where('status', 'disetujui')->get();
+        if (count($disetujui) > 0) {
+            $atribut = 'true';
+        } else {
+            $atribut = 'false';
+        }
         $rencanas = Rencana::where('user_id', $id)->select(['kegiatan_id', 'kuantitas', 'output'])->groupBy(['kegiatan_id', 'kuantitas', 'output'])->get();
         $pegawai = User::find($id);
 
         return view('penilaian.rencana.show', [
             'title' => "Detail Rencana SKP",
             'pegawai' => $pegawai,
-            'rencanas' => $rencanas
+            'rencanas' => $rencanas,
+            'atribut' => $atribut
         ]);
     }
 
@@ -85,7 +93,16 @@ class PersetujuanController extends Controller
             'status' => 'disetujui'
         ]);
 
-        return redirect('/penilaian/persetujuan')->with('success', 'Pengajuan telah berhasil diupdate!');
+        return redirect('/penilaian/persetujuan')->with('toast_success', 'Pengajuan telah berhasil disetujui!');
+    }
+
+    public function tolak(Request $request, $id)
+    {
+        Rencana::where('user_id', $id)->update([
+            'status' => 'belum disetujui'
+        ]);
+
+        return redirect('/penilaian/persetujuan')->with('toast_success', 'Pengajuan telah berhasil ditolak!');
     }
 
     /**

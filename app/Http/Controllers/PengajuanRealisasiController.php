@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Rencana;
+use App\Models\Realisasi;
 
 class PengajuanRealisasiController extends Controller
 {
@@ -13,8 +15,27 @@ class PengajuanRealisasiController extends Controller
      */
     public function index()
     {
+        $login = auth()->user();
+
+        $disetujui = Rencana::where('user_id', $login->id)->where('status', 'disetujui')->get();
+
+        if (count($disetujui) > 0) {
+            $atribut = 'true';
+        } else {
+            $atribut = 'false';
+        }
+
+        // $rencana = Rencana::where('user_id', auth()->user()->id)->get();
+
+        $rencana = Rencana::where('user_id', $login->id)->select(['kegiatan_id', 'output'])->groupBy(['kegiatan_id', 'output'])->get();
+
+        // dd($waktu);
+
         return view('skp.realisasi.index', [
             "title" => "Pengajuan Realisasi SKP",
+            "login" => $login,
+            "rencanas" => $rencana,
+            "atribut" => $atribut
         ]);
     }
 
@@ -25,7 +46,17 @@ class PengajuanRealisasiController extends Controller
      */
     public function create()
     {
-        // 
+        $login = auth()->user();
+
+        $rencana = Rencana::where('user_id', $login->id)->select(['id', 'kegiatan_id', 'kuantitas', 'output', 'bulan'])->groupBy(['id', 'kegiatan_id', 'kuantitas', 'output', 'bulan'])->get();
+
+        // $realisasi = Realisasi::where('')
+        // dd($rencana);
+
+        return view('skp.realisasi.create', [
+            "title" => "Isi Realisasi Per Bulan",
+            "rencanas" => $rencana
+        ]);
     }
 
     /**

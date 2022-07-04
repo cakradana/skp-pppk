@@ -1,16 +1,10 @@
 @extends('layouts.main')
 @section('judul')
-    Master Periode
+    {{ $title }}
 @endsection
 @section('isi')
     <div class="row">
         <div class="col">
-            @if (session()->has('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <strong>{{ session('success') }}</strong>
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
             <a href="/master/periode/create" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Tambah Periode</a>
             <div class="card card-secondary card-outline">
                 <div class="card-header">
@@ -18,7 +12,7 @@
                 </div>
                 <div class="card-body table-responsive p-0">
                     <div class="container" style="padding: 20px 20px 20px;">
-                        <table id="example" class="table table-striped table-bordered" style="width:100%">
+                        <table id="data-table" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
                                     <th class="col-1">No</th>
@@ -40,7 +34,7 @@
                                         <form action="/master/periode/{{ $periode->id }}" method="POST" class="d-inline">
                                             @csrf
                                             @method('delete')
-                                            <button class="btn btn-danger" onclick="return confirm('Yakin?')"><i class="fas fa-trash"></i> Delete</button>
+                                            <button class="btn btn-danger delete-confirm"><i class="fas fa-trash"></i> Delete</button>
                                         </form>
                                     </td>
                                 </tr>

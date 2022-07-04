@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
 use App\Models\Kegiatan;
+use App\Models\Rencana;
 use Illuminate\Http\Request;
 
 class KegiatanController extends Controller
@@ -16,7 +17,7 @@ class KegiatanController extends Controller
     public function index()
     {
         return view('master.kegiatan.index', [
-            "title" => "Master Kegiatan",
+            "title" => "Master Kegiatan Tugas Jabatan",
             "kegiatans" => Kegiatan::all()
         ]);
     }
@@ -29,7 +30,7 @@ class KegiatanController extends Controller
     public function create()
     {
         return view('master.kegiatan.create', [
-            "title" => "Tambah Kegiatan",
+            "title" => "Tambah Kegiatan Tugas Jabatan",
             'jabatans' => Jabatan::all()
         ]);
     }
@@ -57,7 +58,7 @@ class KegiatanController extends Controller
 
         Kegiatan::create($validatedData);
 
-        return redirect('/master/kegiatan')->with('success', 'Kegiatan Tugas Jabatan telah berhasil ditambahkan!');
+        return redirect('/master/kegiatan')->with('toast_success', 'Kegiatan Tugas Jabatan telah berhasil ditambahkan!');
     }
 
     /**
@@ -107,7 +108,7 @@ class KegiatanController extends Controller
 
         Kegiatan::where('id', $kegiatan->id)->update($validatedData);
 
-        return redirect('/master/kegiatan')->with('success', 'Kegiatan Tugas Jabatan telah berhasil diubah!');
+        return redirect('/master/kegiatan')->with('toast_success', 'Kegiatan Tugas Jabatan telah berhasil diubah!');
     }
 
     /**
@@ -118,8 +119,10 @@ class KegiatanController extends Controller
      */
     public function destroy(Kegiatan $kegiatan)
     {
+        if ($kegiatan->rencana->first()) {
+            return redirect('/master/kegiatan')->with('toast_error', 'Kegiatan Tugas Jabatan tidak dapat dihapus!');
+        }
         Kegiatan::destroy($kegiatan->id);
-
-        return redirect('/master/kegiatan')->with('success', 'Kegiatan Tugas Jabatan telah berhasil dihapus!');
+        return redirect('/master/kegiatan')->with('toast_success', 'Kegiatan Tugas Jabatan telah berhasil dihapus!');
     }
 }

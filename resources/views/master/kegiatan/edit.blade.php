@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('judul')
-    Master Kegiatan Tugas Jabatan
+    {{ $title }}
 @endsection
 
 @section('isi')

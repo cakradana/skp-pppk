@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('judul')
-    Penilaian Realisasi SKP
+    {{ $title }}
 @endsection
 
 @section('isi')

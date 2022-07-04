@@ -25,4 +25,9 @@ class Rencana extends Model
     {
         return $this->belongsTo(User::class, 'penilai_id');
     }
+
+    public function realisasi()
+    {
+        return $this->hasOne(Realisasi::class);
+    }
 }

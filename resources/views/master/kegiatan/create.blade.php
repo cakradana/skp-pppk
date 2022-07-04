@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('judul')
-    Master Kegiatan
+    {{ $title }}
 @endsection
 
 @section('isi')
@@ -49,8 +49,8 @@
                         </div>
                         <div class="form-group row">
                             <label for="ak" class="col-sm-3 col-form-label">Angka Kredit</label>
-                            <div class="col-sm-9">
-                                <input type="number" step="0.01" min="0" class="form-control @error('ak') is-invalid @enderror" id="ak" name="ak" value="{{ old('ak') }}">
+                            <div class="col-sm-2">
+                                <input type="number" step="0.01" min="0" max="10" class="form-control @error('ak') is-invalid @enderror" id="ak" name="ak" value="{{ old('ak') }}">
                                 <div class="invalid-feedback">
                                     @error('ak')
                                         {{ $message }}

@@ -69,7 +69,7 @@ class PegawaiController extends Controller
 
         User::create($validatedData);
 
-        return redirect('/master/pegawai')->with('success', 'Pegawai telah berhasil ditambahkan!');
+        return redirect('/master/pegawai')->with('toast_success', 'Pegawai telah berhasil ditambahkan!');
     }
 
     /**
@@ -128,7 +128,7 @@ class PegawaiController extends Controller
 
         User::where('id', $pegawai->id)->update($validatedData);
 
-        return redirect('/master/pegawai')->with('success', 'Pegawai telah berhasil diubah!');
+        return redirect('/master/pegawai')->with('toast_success', 'Pegawai telah berhasil diubah!');
     }
 
     /**
@@ -141,6 +141,6 @@ class PegawaiController extends Controller
     {
         User::destroy($pegawai->id);
 
-        return redirect('/master/pegawai')->with('success', 'Pegawai telah berhasil dihapus!');
+        return redirect('/master/pegawai')->with('toast_success', 'Pegawai telah berhasil dihapus!');
     }
 }

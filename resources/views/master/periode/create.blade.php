@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('judul')
-    Master Periode
+    {{ $title }}
 @endsection
 
 @section('isi')

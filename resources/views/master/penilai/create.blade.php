@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('judul')
-    Master Penilai
+    {{ $title }}
 @endsection
 
 @section('isi')

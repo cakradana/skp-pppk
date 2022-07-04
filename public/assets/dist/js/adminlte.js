@@ -2084,7 +2084,7 @@
     maxResults: 7,
     highlightName: true,
     highlightPath: false,
-    highlightClass: 'text-light',
+    highlightClass: 'text-dark',
     notFoundText: 'No element found!'
   };
   var SearchItems = [];

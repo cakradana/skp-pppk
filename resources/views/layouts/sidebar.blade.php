@@ -11,9 +11,9 @@
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image justify-content-center align-self-center">
-                <img src="https://lh3.googleusercontent.com/a-/AOh14GgE2A_caB4a_lKWvM7mfiesxq4JMeKSWruK2SQXA5Q=s288-p-rw-no" class="img-circle elevation-2" alt="User Image">
+                <img src="/assets/dist/img/blank.png" class="img-circle elevation-2" alt="User Image">
             </div>
-            <div class="info">
+            <div class="info" style="white-space: normal">
                 <a href="/profil" class="d-block">{{ auth()->user()->name }}</a>
                 <span class="badge badge-primary">{{ auth()->user()->role }}</span>
             </div>

@@ -65,11 +65,12 @@ Route::resource('/master/kegiatan', KegiatanController::class)->middleware('auth
 
 // resource rencana
 Route::resource('/skp/rencana', RencanaController::class)->middleware('auth');
-Route::post('/skp/rencana/bulan', [RencanaController::class, 'bulan']);
+Route::get('/skp/rencana/cetak-rencana/{id}', [RencanaController::class, 'cetak']);
 
 // resource persetujuan
 Route::resource('/penilaian/persetujuan', PersetujuanController::class)->middleware('auth');
 Route::get('/penilaian/persetujuan/setuju/{id}', [PersetujuanController::class, 'update']);
+Route::get('/penilaian/persetujuan/tolak/{id}', [PersetujuanController::class, 'tolak']);
 
 
 // resource pengajuan realisasi

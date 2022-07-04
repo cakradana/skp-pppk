@@ -41,7 +41,7 @@ class PeriodeController extends Controller
 
         Periode::create($validatedData);
 
-        return redirect('/master/periode')->with('success', 'Periode telah berhasil ditambahkan!');
+        return redirect('/master/periode')->with('toast_success', 'Periode telah berhasil ditambahkan!');
     }
 
     public function show()
@@ -69,13 +69,13 @@ class PeriodeController extends Controller
 
         Periode::where('id', $periode->id)->update($validatedData);
 
-        return redirect('/master/periode')->with('success', 'Periode telah berhasil diubah!');
+        return redirect('/master/periode')->with('toast_success', 'Periode telah berhasil diubah!');
     }
 
     public function destroy(Periode $periode)
     {
         Periode::destroy($periode->id);
 
-        return redirect('/master/periode')->with('success', 'Periode telah berhasil dihapus!');
+        return redirect('/master/periode')->with('toast_success', 'Periode telah berhasil dihapus!');
     }
 }

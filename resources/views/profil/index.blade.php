@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('judul')
-    Profil
+    {{ $title }}
 @endsection
 
 @section('isi')
@@ -10,7 +10,7 @@
         <div class="card card-secondary card-outline">
             <div class="card-body box-profile">
                 <div class="text-center">
-                    <img class="profile-user-img img-fluid img-circle" src="https://source.unsplash.com/128x128?profile" alt="User profile picture">
+                    <img class="profile-user-img img-fluid img-circle" src="/assets/dist/img/blank.png" alt="User profile picture">
                 </div>
                 <h3 class="profile-username text-center">{{ $pegawai->name }}</h3>
                 <p class="text-muted text-center">{{ $pegawai->role }}</p>
@@ -34,7 +34,7 @@
         <div class="card card-secondary card-outline">
             <div class="card-body box-profile">
                 <div class="text-center">
-                    <img class="profile-user-img img-fluid img-circle" src="https://source.unsplash.com/128x128?profile" alt="User profile picture">
+                    <img class="profile-user-img img-fluid img-circle" src="/assets/dist/img/blank.png" alt="User profile picture">
                 </div>
                 <h3 class="profile-username text-center">{{ $pegawai->penilai->name }}</h3>
                 <p class="text-muted text-center">{{ $pegawai->penilai->role }}</p>
@@ -58,7 +58,7 @@
         <div class="card card-secondary card-outline">
             <div class="card-body box-profile">
                 <div class="text-center">
-                    <img class="profile-user-img img-fluid img-circle" src="https://source.unsplash.com/128x128?profile" alt="User profile picture">
+                    <img class="profile-user-img img-fluid img-circle" src="/assets/dist/img/blank.png" alt="User profile picture">
                 </div>
                 <h3 class="profile-username text-center">{{ $pegawai->atasan->name }}</h3>
                 <p class="text-muted text-center">{{ $pegawai->atasan->role }}</p>

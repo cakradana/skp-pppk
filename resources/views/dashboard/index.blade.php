@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('judul')
-    Dashboard
+    {{ $title }}
 @endsection
 
 @section('isi')
@@ -65,6 +65,26 @@
                     <i class="fas fa-tasks"></i>
                 </div>
                 <a href="/master/kegiatan" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        @endcan
+
+        @can('Pejabat Penilai')
+        <div class="col-lg-12 col-6">
+            <div class="small-box bg-white card-primary card-outline">
+                <div class="card-body">
+                    s
+                </div>
+            </div>
+        </div>
+        @endcan
+
+        @can('Pegawai yang Dinilai')
+        <div class="col-lg-12 col-6">
+            <div class="small-box bg-white card-primary card-outline">
+                <div class="card-body">
+                    s
+                </div>
             </div>
         </div>
         @endcan

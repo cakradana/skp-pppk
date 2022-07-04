@@ -14307,6 +14307,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
 
 .sidebar-search-results .search-title {
   margin-bottom: -.1rem;
+  color: #343a40 !important;
 }
 
 .sidebar-search-results .list-group {
