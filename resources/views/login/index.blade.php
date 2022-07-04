@@ -18,6 +18,11 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="/assets/dist/css/adminlte.min.css">
 </head>
+<style>
+    body {
+        background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%);
+    }
+</style>
 
 @if (session()->has('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -36,6 +41,7 @@
             @endif
 
 <body class="hold-transition login-page">
+    
     <div class="login-box">
         <!-- <div class="login-logo">
     <a href="/assets/index2.html"><b>Admin</b>LTE</a>

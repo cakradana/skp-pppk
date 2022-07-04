@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kegiatan;
 use App\Models\Rencana;
 use Illuminate\Http\Request;
+use PDF;
 
 class RencanaController extends Controller
 {
@@ -46,11 +47,18 @@ class RencanaController extends Controller
 
         $rencana = Rencana::where('user_id', $login->id)->select(['kegiatan_id', 'output'])->groupBy(['kegiatan_id', 'output'])->get();
 
-        return view('skp.rencana.cetak', [
+        $data = [
             "title" => "Cetak Rencana SKP",
             "login" => $login,
             "rencanas" => $rencana
-        ]);
+        ];
+
+        return view('skp.rencana.cetak', $data);
+
+
+        // $pdf = PDF::loadView('skp.rencana.cetak', $data);
+        // $pdf->setPaper('A4', 'landscape');
+        // return $pdf->download('SKP ' . $login->name . '.pdf');
     }
 
     /**
