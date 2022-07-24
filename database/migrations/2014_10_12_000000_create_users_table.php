@@ -24,6 +24,8 @@ class CreateUsersTable extends Migration
             $table->foreignId('atasan_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('foto')->nullable();
+            $table->string('ttd')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

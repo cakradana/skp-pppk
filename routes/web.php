@@ -38,6 +38,10 @@ Route::post('/logout', [LoginController::class, 'logout']);
 
 // halaman profil
 Route::get('/profil', [ProfilController::class, 'index']);
+Route::put('/profil/profilUpdate/{id}', [ProfilController::class, 'profilUpdate'])->middleware('auth');
+Route::put('/profil/passwordUpdate/{id}', [ProfilController::class, 'passwordUpdate'])->middleware('auth');
+Route::put('/profil/fotoUpdate/{id}', [ProfilController::class, 'fotoUpdate'])->middleware('auth');
+Route::put('/profil/ttdUpdate/{id}', [ProfilController::class, 'ttdUpdate'])->middleware('auth');
 
 Route::get('/', function () {
     return view('welcome');
@@ -46,22 +50,22 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
 // resource periode
-Route::resource('/master/periode', PeriodeController::class)->middleware('auth');
+Route::resource('/master/periode', PeriodeController::class)->middleware('admin');
 
 // resource pegawai
-Route::resource('/master/pegawai', PegawaiController::class)->middleware('auth');
+Route::resource('/master/pegawai', PegawaiController::class)->middleware('admin');
 
 // resource penilai
-Route::resource('/master/penilai', PenilaiController::class)->middleware('auth');
+Route::resource('/master/penilai', PenilaiController::class)->middleware('admin');
 
 // resource pangkat
-Route::resource('/master/pangkat', PangkatController::class)->except('show')->middleware('auth');
+Route::resource('/master/pangkat', PangkatController::class)->except('show')->middleware('admin');
 
 // resource jabatan
-Route::resource('/master/jabatan', JabatanController::class)->except('show')->middleware('auth');
+Route::resource('/master/jabatan', JabatanController::class)->except('show')->middleware('admin');
 
 // resource kegiatan
-Route::resource('/master/kegiatan', KegiatanController::class)->middleware('auth');
+Route::resource('/master/kegiatan', KegiatanController::class)->middleware('admin');
 
 // resource rencana
 Route::resource('/skp/rencana', RencanaController::class)->middleware('auth');
@@ -75,6 +79,7 @@ Route::get('/penilaian/persetujuan/tolak/{id}', [PersetujuanController::class, '
 
 // resource pengajuan realisasi
 Route::resource('/skp/realisasi', PengajuanRealisasiController::class)->middleware('auth');
+Route::post('/skp/realisasi/search/', [PengajuanRealisasiController::class, 'search'])->middleware('auth');
 
 // resource penilaian realisasi
 Route::resource('/penilaian/prealisasi', PenilaianRealisasiController::class)->middleware('auth');

@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('judul')
-    {{ $title }}
+{{ $title }}
 @endsection
 
 @section('isi')
@@ -9,29 +9,30 @@
     <div class="col">
         <a href="/master/pangkat" class="btn btn-secondary mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
         <div class="card card-primary card-outline">
-            <div class="card-header">
+            {{-- <div class="card-header">
                 <h3 class="card-title mt-2">Tambah Pangkat</h3>
-            </div>
+            </div> --}}
             <div class="card-body p-0">
-                <div class="container" style="padding: 20px 20px 20px;">
+                <div class="" style="padding: 20px 20px 20px;">
                     <form action="/master/pangkat" method="POST" class="mb-5" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group row">
                             <label for="name" class="col-sm-3 col-form-label">Nama Pangkat</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" value="{{ old('nama') }}">
+                                <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
+                                    name="nama" value="{{ old('nama') }}">
                                 <div class="invalid-feedback">
                                     @error('nama')
-                                        {{ $message }}
+                                    {{ $message }}
                                     @enderror
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
-                </div>
+            </div>
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan</button>
+            </div>
             </form>
         </div>
     </div>

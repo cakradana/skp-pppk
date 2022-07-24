@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('judul')
-    {{ $title }}: {{ $pegawai->name }}
+{{ $title }}: {{ $pegawai->name }}
 @endsection
 
 @section('isi')
@@ -10,15 +10,17 @@
     <div class="col">
         <a href="/penilaian/persetujuan" class="btn btn-secondary mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
         @if ($atribut == 'true')
-            <a href="/penilaian/persetujuan/tolak/{{ $pegawai->id }}" class="btn mb-3 btn-danger tolak-pengajuan"><i class="fas fa-times"></i> Tolak Pengajuan</a>
+        <a href="/penilaian/persetujuan/tolak/{{ $pegawai->id }}" class="btn mb-3 btn-danger tolak-pengajuan"><i
+                class="fas fa-times"></i> Tolak Pengajuan</a>
         @else
-            <a href="/penilaian/persetujuan/setuju/{{ $pegawai->id }}" class="btn btn-primary mb-3"><i class="fas fa-check"></i> Setujui Pengajuan</a>
+        <a href="/penilaian/persetujuan/setuju/{{ $pegawai->id }}" class="btn btn-primary mb-3"><i
+                class="fas fa-check"></i> Setujui Pengajuan</a>
         @endif
         {{-- <a href="/skp/rencana/create" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Tambah Rencana</a>
         <a href="#cetak" class="btn btn-success mb-3"><i class="fas fa-file-pdf"></i> Cetak Rencana</a> --}}
         <div class="card card-secondary card-outline">
             <div class="card-body table-responsive p-0">
-                <div class="container" style="padding: 20px 20px 20px;">
+                <div class="" style="padding: 20px 20px 20px;">
                     <table id="" class="table table-striped table-bordered small" style="width:100%">
                         <thead class="text-center">
                             <tr>
@@ -41,17 +43,21 @@
                                 <td>
                                     <div class="form-row">
                                         <div class="col">
-                                            <input type="number" min="1" class="form-control form-control-sm" value="{{ $rencana->kuantitas }}" readonly>
+                                            <input type="number" min="1" class="form-control form-control-sm"
+                                                value="{{ $rencana->kuantitas }}" readonly>
                                         </div>
                                         <div class="col">
-                                            <input type="text" class="form-control form-control-sm" value="{{ $rencana->output }}" readonly>
+                                            <input type="text" class="form-control form-control-sm"
+                                                value="{{ $rencana->output }}" readonly>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="form-row">
                                         <div class="col">
-                                            <input type="number" max="12" min="1" class="form-control form-control-sm" value="{{ \App\Models\Rencana::where('user_id', $pegawai->id)->where('kegiatan_id', $rencana->kegiatan_id)->count() }}" readonly>
+                                            <input type="number" max="12" min="1" class="form-control form-control-sm"
+                                                value="{{ \App\Models\Rencana::where('user_id', $pegawai->id)->where('kegiatan_id', $rencana->kegiatan_id)->count() }}"
+                                                readonly>
                                         </div>
                                     </div>
                                 </td>

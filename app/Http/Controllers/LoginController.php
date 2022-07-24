@@ -20,7 +20,7 @@ class LoginController extends Controller
     {
         $credential = $request->validate([
             'nip' => ['required', 'max:18'],
-            'password' => ['required', 'min:5', 'max:255']
+            'password' => ['required', 'min:3', 'max:255']
         ]);
 
         if (Auth::attempt($credential)) {

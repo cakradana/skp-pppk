@@ -16,9 +16,9 @@ class RencanaController extends Controller
      */
     public function index()
     {
-        $login = auth()->user();
+        $user = auth()->user();
 
-        $disetujui = Rencana::where('user_id', $login->id)->where('status', 'disetujui')->get();
+        $disetujui = Rencana::where('user_id', $user->id)->where('status', 'disetujui')->get();
         if (count($disetujui) > 0) {
             $atribut = 'true';
         } else {
@@ -27,7 +27,7 @@ class RencanaController extends Controller
 
         // $rencana = Rencana::where('user_id', auth()->user()->id)->get();
 
-        $rencana = Rencana::where('user_id', $login->id)->select(['kegiatan_id', 'output'])->groupBy(['kegiatan_id', 'output'])->get();
+        $rencana = Rencana::where('user_id', $user->id)->select(['kegiatan_id', 'output'])->groupBy(['kegiatan_id', 'output'])->get();
 
         // dd($rencana);
 
@@ -35,7 +35,7 @@ class RencanaController extends Controller
 
         return view('skp.rencana.index', [
             "title" => "Rencana SKP",
-            "login" => $login,
+            "user" => $user,
             "rencanas" => $rencana,
             "atribut" => $atribut
         ]);
@@ -43,13 +43,13 @@ class RencanaController extends Controller
 
     public function cetak()
     {
-        $login = auth()->user();
+        $user = auth()->user();
 
-        $rencana = Rencana::where('user_id', $login->id)->select(['kegiatan_id', 'output'])->groupBy(['kegiatan_id', 'output'])->get();
+        $rencana = Rencana::where('user_id', $user->id)->select(['kegiatan_id', 'output'])->groupBy(['kegiatan_id', 'output'])->get();
 
         $data = [
             "title" => "Cetak Rencana SKP",
-            "login" => $login,
+            "user" => $user,
             "rencanas" => $rencana
         ];
 
@@ -58,7 +58,7 @@ class RencanaController extends Controller
 
         // $pdf = PDF::loadView('skp.rencana.cetak', $data);
         // $pdf->setPaper('A4', 'landscape');
-        // return $pdf->download('SKP ' . $login->name . '.pdf');
+        // return $pdf->download('SKP ' . $user->name . '.pdf');
     }
 
     /**
@@ -68,6 +68,8 @@ class RencanaController extends Controller
      */
     public function create()
     {
+        $user = auth()->user();
+
         // get all kegiatan where jabatan_id and not in rencana by user_id year
         $kegiatans = Kegiatan::where('jabatan_id', auth()->user()->jabatan_id)
             ->whereNotIn('id', function ($query) {
@@ -79,7 +81,8 @@ class RencanaController extends Controller
             ->get();
 
         return view('skp.rencana.create', [
-            "title" => "Tambah Kegiatan",
+            "title" => "Tambah Rencana",
+            "user" => $user,
             // 'kegiatans' => Kegiatan::where('jabatan_id', auth()->user()->jabatan_id)->get()
             'kegiatans' => $kegiatans
         ]);
@@ -112,31 +115,35 @@ class RencanaController extends Controller
 
         // dd($request[0]);
 
-        foreach ($request->bulan as $index) {
-            $validatedData['bulan'] = $index;
+        $bulans = $request->bulan;
+        $kuantitases = $request->kuantitas;
+
+        foreach ($bulans as $index => $bulan) {
+            $kuantitas = $kuantitases[$index];
+            $validatedData['bulan'] = $bulan;
+            $validatedData['kuantitas'] = $kuantitas;
             Rencana::create($validatedData);
         }
 
-
         return redirect('/skp/rencana')->with('toast_success', 'Rencana Kegiatan telah berhasil ditambahkan!');
     }
 
-    public function bulan(Request $request)
-    {
-        for ($i = 0; $i < $request->waktu; $i++) {
-            Rencana::create([
-                'kegiatan_id' => $request->kegiatan_id,
-                'kuantitas' => $request->kuantitas,
-                'output' => $request->output,
-                'bulan' => $request->bulan[$i],
-                'user_id' => $request->user_id,
-                'penilai_id' => $request->penilai_id,
-                'status' => $request->status
-            ]);
-        };
+    // public function bulan(Request $request)
+    // {
+    //     for ($i = 0; $i < $request->waktu; $i++) {
+    //         Rencana::create([
+    //             'kegiatan_id' => $request->kegiatan_id,
+    //             'kuantitas' => $request->kuantitas,
+    //             'output' => $request->output,
+    //             'bulan' => $request->bulan[$i],
+    //             'user_id' => $request->user_id,
+    //             'penilai_id' => $request->penilai_id,
+    //             'status' => $request->status
+    //         ]);
+    //     };
 
-        return redirect('/skp/rencana')->with('toast_success', 'Rencana Kegiatan telah berhasil ditambahkan!');
-    }
+    //     return redirect('/skp/rencana')->with('toast_success', 'Rencana Kegiatan telah berhasil ditambahkan!');
+    // }
 
     /**
      * Display the specified resource.

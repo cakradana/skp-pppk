@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('judul')
-    Master Pegawai
+Master Pegawai
 @endsection
 
 @section('isi')
@@ -9,12 +9,13 @@
     <div class="col">
         <a href="/master/pegawai" class="btn btn-secondary mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
         <div class="card card-warning card-outline">
-            <div class="card-header">
+            {{-- <div class="card-header">
                 <h3 class="card-title mt-2">Edit Pegawai</h3>
-            </div>
+            </div> --}}
             <div class="card-body p-0">
-                <div class="container" style="padding: 20px 20px 20px;">
-                    <form action="/master/pegawai/{{ $pegawai->id }}" method="POST" class="mb-5" enctype="multipart/form-data">
+                <div class="" style="padding: 20px 20px 20px;">
+                    <form action="/master/pegawai/{{ $pegawai->id }}" method="POST" class="mb-5"
+                        enctype="multipart/form-data">
                         @method('put')
                         @csrf
                         <div class="form-group row d-none">
@@ -40,12 +41,13 @@
                             <label for="penilai" class="col-sm-3 col-form-label">Penilai</label>
                             <div class="col-sm-9">
 
-                                <select class="form-control @error('penilai_id') is-invalid @enderror" name="penilai_id">
+                                <select class="form-control select2 @error('penilai_id') is-invalid @enderror"
+                                    name="penilai_id">
                                     @foreach ($penilais as $penilai)
                                     @if (old('penilai_id', $pegawai->penilai_id) == $penilai->id)
-                                        <option value="{{ $penilai->id }}" selected>{{ $penilai->name }}</option>
+                                    <option value="{{ $penilai->id }}" selected>{{ $penilai->name }}</option>
                                     @else
-                                        <option value="{{ $penilai->id }}">{{ $penilai->name }}</option>
+                                    <option value="{{ $penilai->id }}">{{ $penilai->name }}</option>
                                     @endif
                                     @endforeach
                                 </select>
@@ -61,7 +63,8 @@
                         <div class="form-group row">
                             <label for="name" class="col-sm-3 col-form-label">Nama</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name', $pegawai->name) }}">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                                    name="name" value="{{ old('name', $pegawai->name) }}">
                                 <div class="invalid-feedback">
                                     @error('name')
                                     {{ $message }}
@@ -72,7 +75,8 @@
                         <div class="form-group row">
                             <label for="nip" class="col-sm-3 col-form-label">NIP</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control @error('nip') is-invalid @enderror" id="nip" name="nip" value="{{ old('nip', $pegawai->nip) }}">
+                                <input type="text" class="form-control @error('nip') is-invalid @enderror" id="nip"
+                                    name="nip" value="{{ old('nip', $pegawai->nip) }}">
                                 <div class="invalid-feedback">
                                     @error('nip')
                                     {{ $message }}
@@ -83,7 +87,8 @@
                         <div class="form-group row">
                             <label for="pangkat" class="col-sm-3 col-form-label">Pangkat, Gol. Ruang</label>
                             <div class="col-sm-9">
-                                <select class="form-control @error('pangkat_id') is-invalid @enderror" name="pangkat_id">
+                                <select class="form-control select2 @error('pangkat_id') is-invalid @enderror"
+                                    name="pangkat_id">
                                     @foreach ($pangkats as $pangkat)
                                     @if (old('pangkat_id', $pegawai->pangkat_id) == $pangkat->id)
                                     <option value="{{ $pangkat->id }}" selected>{{ $pangkat->nama }}</option>
@@ -94,7 +99,7 @@
                                 </select>
                                 <div class="invalid-feedback">
                                     @error('pangkat_id')
-                                        {{ $message }}
+                                    {{ $message }}
                                     @enderror
                                 </div>
                             </div>
@@ -102,7 +107,8 @@
                         <div class="form-group row">
                             <label for="jabatan" class="col-sm-3 col-form-label">Jabatan</label>
                             <div class="col-sm-9">
-                                <select class="form-control @error('jabatan_id') is-invalid @enderror" name="jabatan_id">
+                                <select class="form-control select2 @error('jabatan_id') is-invalid @enderror"
+                                    name="jabatan_id">
                                     @foreach ($jabatans as $jabatan)
                                     @if (old('jabatan_id', $pegawai->jabatan_id) == $jabatan->id)
                                     <option value="{{ $jabatan->id }}" selected>{{ $jabatan->nama }}</option>
@@ -113,7 +119,7 @@
                                 </select>
                                 <div class="invalid-feedback">
                                     @error('jabatan_id')
-                                        {{ $message }}
+                                    {{ $message }}
                                     @enderror
                                 </div>
                             </div>
@@ -123,7 +129,7 @@
             <div class="card-footer">
                 <button type="submit" class="btn btn-warning"><i class="fas fa-save"></i> Simpan</button>
             </div>
-        </form>
+            </form>
         </div>
     </div>
 </div>

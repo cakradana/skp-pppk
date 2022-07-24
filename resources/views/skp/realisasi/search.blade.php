@@ -5,21 +5,18 @@
 @endsection
 
 @section('isi')
-
 <div class="row">
     <div class="col">
-        <form method="POST" action="/skp/realisasi/search/">
+        <form type="get" action="/skp/realisasi/search">
             @csrf
-            {{-- <input type="text" value="Januari" name="bulan"> --}}
             <div class="form-inline">
                 <a href="/skp/realisasi" class="btn btn-secondary mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
                 <div class="input-group ml-1 mb-3" style="width: 25%">
                     <div class="input-group-prepend">
                         <div class="input-group-text">Pilih Bulan:</div>
                     </div>
-                    <select class="form-control" name="bulan">
-                        <option hidden selected value="{{ $selected }}">{{ $selected }}</option>
-                        <option value="Semua Bulan">Semua Bulan</option>
+                    <select class="form-control select2" name="bulan">
+                        <option selected>Semua Bulan</option>
                         <option value="Januari">Januari</option>
                         <option value="Februari">Februari</option>
                         <option value="Maret">Maret</option>
@@ -34,7 +31,7 @@
                         <option value="Desember">Desember</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary ml-1 mb-3"><i class="fas fa-search"></i> Proses</a>
+                <button type="submit" class="btn btn-primary ml-1 mb-3"><i class="fas fa-search"></i> Proses</button>
         </form>
         <button type="button" class="btn btn-success ml-auto p-2 mb-3" data-toggle="modal"
             data-target="#dasar-pengajuan-nilai"><i class="fas fa-eye"></i> Lihat Dasar Pengajuan Nilai</button>
@@ -70,8 +67,7 @@
                             <td>{{ $rencana->kegiatan->ak * $rencana->kuantitas }}</td>
                             <td class="text-center p-3">{{ $rencana->kuantitas }}</td>
                             <td>{{ $rencana->output }}</td>
-                            <td class="text-center p-3">{{ $rencana->realisasi ? $rencana->realisasi->realisasi : ''
-                                }}</td>
+                            <td class="text-center p-3">0</td>
                             <td>
                                 {{ $rencana->output }}
                                 {{-- <a href="/penilaian/persetujuan/{{ $pengajuan->user->id }}"
@@ -82,16 +78,11 @@
                             </td>
                             <td>{{ $rencana->bulan }}</td>
                             <td class="text-center p-3">{{ $rencana->realisasi ? $rencana->realisasi->pengajuan_nilai :
-                                '' }}</td>
-                            <td class="text-center p-3">{{ $rencana->realisasi ? $rencana->realisasi->nilai_atasan : ''
+                                '-' }}</td>
+                            <td class="text-center p-3">{{ $rencana->realisasi ? $rencana->realisasi->nilai_atasan : '-'
                                 }}</td>
                             <td>
-                                @if ($rencana->realisasi == null)
-                                <?php $disabled = "" ?>
-                                @else
-                                <?php $disabled = "disabled" ?>
-                                @endif
-                                <button {{ $disabled }} class="btn btn-sm btn-primary" data-toggle="modal"
+                                <button class="btn btn-sm btn-primary" data-toggle="modal"
                                     data-target="#isi-realisasi-{{ $rencana->id }}"><i class="fas fa-plus"></i></button>
                             </td>
                         </tr>
@@ -108,14 +99,11 @@
                                         <form action="/skp/realisasi" method="POST" enctype="multipart/form-data"
                                             class="form-inline">
                                             @csrf
-                                            {{-- <input type="hidden" name="user_id" value="{{ $user->id }}"> --}}
-                                            <input type="hidden" name="rencana_id" value="{{ $rencana->id }}">
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Kegiatan Tugas Jabatan</label>
                                                 <div class="col-sm-9">
                                                     <textarea rows="3" type="text" class="form-control" disabled
-                                                        style="resize: none">{{
-                                                        $rencana->kegiatan->nama }}</textarea>
+                                                        style="resize: none">{{ $rencana->kegiatan->nama }}</textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -141,7 +129,7 @@
                                                 <div class="col-sm-9">
                                                     <div class="input-group mb-1">
                                                         <input type="number" class="form-control" min="0"
-                                                            name="realisasi" max="{{ $rencana->kuantitas }}"
+                                                            max="{{ $rencana->kuantitas }}"
                                                             value="{{ $rencana->realisasi ? $rencana->realisasi->realisasi : "" }}">
                                                         <div class="input-group-append">
                                                             <span class="input-group-text">{{ $rencana->output }}</span>
@@ -152,8 +140,7 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Pengajuan Nilai</label>
                                                 <div class="col-sm-9">
-                                                    <input type="number" class="form-control" name="pengajuan_nilai"
-                                                        min="0" max="100">
+                                                    <input type="number" class="form-control" name="" min="0" max="100">
                                                 </div>
                                             </div>
                                     </div>

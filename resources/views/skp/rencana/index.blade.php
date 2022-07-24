@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('judul')
-    {{ $title }}
+{{ $title }}
 @endsection
 
 @section('isi')
@@ -9,16 +9,20 @@
 <div class="row">
     <div class="col">
         @if ($atribut == 'true')
-            <a href="/skp/rencana/create" class="btn mb-3 btn-success disabled"><i class="fas fa-check"></i> Rencana Telah Disetujui Atasan</a>
-            <a href="/skp/rencana/cetak-rencana/{{ $login->id }}" class="btn btn-success mb-3"><i class="fas fa-file-pdf"></i> Cetak Rencana</a>
+        <a href="/skp/rencana/create" class="btn mb-3 btn-success disabled"><i class="fas fa-check"></i> Rencana Telah
+            Disetujui Atasan</a>
+        <a href="/skp/rencana/cetak-rencana/{{ $user->id }}" class="btn btn-success mb-3"><i
+                class="fas fa-file-pdf"></i> Cetak Rencana</a>
         @else
-            <a href="/skp/rencana/create" class="btn mb-3 btn-primary"><i class="fas fa-plus"></i> Tambah Rencana</a>
-            <a href="#cetak" class="btn btn-success mb-3 disabled"><i class="fas fa-file-pdf"></i> Cetak Rencana</a>
+        <a href="/skp/rencana/create" class="btn mb-3 btn-primary"><i class="fas fa-plus"></i> Tambah Rencana</a>
+        <a href="#cetak" class="btn btn-success mb-3 disabled"><i class="fas fa-file-pdf"></i> Cetak Rencana</a>
         @endif
-        {{-- <a href="/skp/rencana/create" class="btn mb-3 {{ $atribut == 'true' ? 'btn-secondary disabled' : 'btn-primary' }}"><i class="fas fa-plus"></i> Tambah Rencana</a> --}}
+        {{-- <a href="/skp/rencana/create"
+            class="btn mb-3 {{ $atribut == 'true' ? 'btn-secondary disabled' : 'btn-primary' }}"><i
+                class="fas fa-plus"></i> Tambah Rencana</a> --}}
         <div class="card card-secondary card-outline">
             <div class="card-body table-responsive p-0">
-                <div class="container" style="padding: 20px 20px 20px;">
+                <div class="" style="padding: 20px 20px 20px;">
                     <table id="" class="table table-bordered small" style="width:100%">
                         <thead class="text-center">
                             <tr>
@@ -36,8 +40,8 @@
                         <tbody>
                             @foreach ($rencanas as $rencana)
                             <?php 
-                                $kuantitas = \App\Models\Rencana::where('user_id', $login->id)->where('kegiatan_id', $rencana->kegiatan_id)->select('kuantitas', $rencana->kuantitas)->sum('kuantitas');
-                                $waktu = \App\Models\Rencana::where('user_id', $login->id)->where('kegiatan_id', $rencana->kegiatan_id)->count();
+                                $kuantitas = \App\Models\Rencana::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->select('kuantitas', $rencana->kuantitas)->sum('kuantitas');
+                                $waktu = \App\Models\Rencana::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->count();
                             ?>
                             <tr>
                                 <td class="text-center p-3">{{ $loop->iteration }}</td>
@@ -46,17 +50,20 @@
                                 <td>
                                     <div class="form-row">
                                         <div class="col">
-                                            <input type="number" min="1" class="form-control form-control-sm" value="{{ $kuantitas }}" readonly>
+                                            <input type="number" min="1" class="form-control form-control-sm"
+                                                value="{{ $kuantitas }}" readonly>
                                         </div>
                                         <div class="col">
-                                            <input type="text" class="form-control form-control-sm" value="{{ $rencana->output }}" readonly>
+                                            <input type="text" class="form-control form-control-sm"
+                                                value="{{ $rencana->output }}" readonly>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="form-row">
                                         <div class="col">
-                                            <input type="number" max="12" min="1" class="form-control form-control-sm" value="{{ $waktu }}" readonly>
+                                            <input type="number" max="12" min="1" class="form-control form-control-sm"
+                                                value="{{ $waktu }}" readonly>
                                         </div>
                                     </div>
                                 </td>

@@ -13,8 +13,11 @@ class PenilaianRealisasiController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
+
         return view('penilaian.realisasi.index', [
             "title" => "Penilaian Realisasi SKP",
+            "user" => $user
         ]);
     }
 

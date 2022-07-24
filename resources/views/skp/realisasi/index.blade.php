@@ -1,14 +1,17 @@
 @extends('layouts.main')
 
 @section('judul')
-    {{ $title }}
+{{ $title }}
 @endsection
 
 @section('isi')
 <div class="row">
     <div class="col">
-        {{-- <a href="/skp/rencana/create" class="btn mb-3 {{ $atribut == 'true' ? 'btn-secondary disabled' : 'btn-primary' }}"><i class="fas fa-plus"></i> Tambah Rencana</a> --}}
-        <a href="/skp/realisasi/create" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Isi Realisasi Per Bulan</a>
+        {{-- <a href="/skp/rencana/create"
+            class="btn mb-3 {{ $atribut == 'true' ? 'btn-secondary disabled' : 'btn-primary' }}"><i
+                class="fas fa-plus"></i> Tambah Rencana</a> --}}
+        <a href="/skp/realisasi/create" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Isi Realisasi Per
+            Bulan</a>
         <a href="#cetak" class="btn btn-success mb-3"><i class="fas fa-file-pdf"></i> Cetak Realisasi</a>
         <div class="card card-secondary card-outline">
             <div class="card-body table-responsive p-0">
@@ -30,8 +33,8 @@
                         <tbody>
                             @foreach ($rencanas as $rencana)
                             <?php
-                                $kuantitas = \App\Models\Rencana::where('user_id', $login->id)->where('kegiatan_id', $rencana->kegiatan_id)->select('kuantitas', $rencana->kuantitas)->sum('kuantitas');
-                                $waktu = \App\Models\Rencana::where('user_id', $login->id)->where('kegiatan_id', $rencana->kegiatan_id)->count();
+                                $kuantitas = \App\Models\Rencana::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->select('kuantitas', $rencana->kuantitas)->sum('kuantitas');
+                                $waktu = \App\Models\Rencana::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->count();
                             ?>
                             <tr>
                                 <td rowspan="2" class="align-middle text-center p-3">{{ $loop->iteration }}</td>
@@ -40,17 +43,20 @@
                                 <td>
                                     <div class="form-row">
                                         <div class="col">
-                                            <input type="number" min="1" class="form-control form-control-sm" value="{{ $kuantitas }}" readonly>
+                                            <input type="number" min="1" class="form-control form-control-sm"
+                                                value="{{ $kuantitas }}" readonly>
                                         </div>
                                         <div class="col">
-                                            <input type="text" class="form-control form-control-sm" value="{{ $rencana->output }}" readonly>
+                                            <input type="text" class="form-control form-control-sm"
+                                                value="{{ $rencana->output }}" readonly>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="form-row">
                                         <div class="col">
-                                            <input type="number" max="12" min="1" class="form-control form-control-sm" value="{{ $waktu }}" readonly>
+                                            <input type="number" max="12" min="1" class="form-control form-control-sm"
+                                                value="{{ $waktu }}" readonly>
                                         </div>
                                     </div>
                                 </td>
@@ -62,17 +68,21 @@
                                 <td>
                                     <div class="form-row">
                                         <div class="col">
-                                            <input type="number" min="1" class="form-control form-control-sm" value="kuantitas" readonly>
+                                            <input type="number" min="1" class="form-control form-control-sm" {{--
+                                                value="{{ $loop->iteration }}" readonly> --}}
+                                            value="{{ $rencana->realisasi }}" readonly>
                                         </div>
                                         <div class="col">
-                                            <input type="text" class="form-control form-control-sm" value="{{ $rencana->output }}" readonly>
+                                            <input type="text" class="form-control form-control-sm"
+                                                value="{{ $rencana->output }}" readonly>
                                         </div>
                                     </div>
                                 </td>
                                 <td class="p-3">
                                     <div class="form-row">
                                         <div class="col">
-                                            <input type="number" max="12" min="1" class="form-control form-control-sm" value="waktu" readonly>
+                                            <input type="number" max="12" min="1" class="form-control form-control-sm"
+                                                value="waktu" readonly>
                                         </div>
                                     </div>
                                 </td>

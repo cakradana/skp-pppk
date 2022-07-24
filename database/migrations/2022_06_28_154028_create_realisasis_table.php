@@ -18,7 +18,7 @@ class CreateRealisasisTable extends Migration
             $table->foreignId('rencana_id');
             $table->integer('realisasi');
             $table->float('pengajuan_nilai');
-            $table->float('nilai_atasan');
+            $table->float('nilai_atasan')->nullable();
             $table->timestamps();
         });
     }

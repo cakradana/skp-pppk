@@ -15,14 +15,15 @@ class PersetujuanController extends Controller
      */
     public function index()
     {
-        $login = auth()->user();
-        $pengajuans = Rencana::where('penilai_id', $login->id)->select(['status', 'user_id'])->groupBy(['user_id', 'status'])->get();
+        $user = auth()->user();
+        $pengajuans = Rencana::where('penilai_id', $user->id)->select(['status', 'user_id'])->groupBy(['user_id', 'status'])->get();
         // $list = $pengajuan->user()->get();
 
         // dd($pengajuans);
 
         return view('penilaian.rencana.index', [
             "title" => "Persetujuan Rencana SKP",
+            "user" => $user,
             "pengajuans" => $pengajuans
         ]);
     }
@@ -54,6 +55,8 @@ class PersetujuanController extends Controller
      */
     public function show($id)
     {
+        $user = auth()->user();
+
         // dd($id);
         $disetujui = Rencana::where('user_id', $id)->where('status', 'disetujui')->get();
         if (count($disetujui) > 0) {
@@ -66,6 +69,7 @@ class PersetujuanController extends Controller
 
         return view('penilaian.rencana.show', [
             'title' => "Detail Rencana SKP",
+            "user" => $user,
             'pegawai' => $pegawai,
             'rencanas' => $rencanas,
             'atribut' => $atribut

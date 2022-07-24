@@ -4,13 +4,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= $title; ?></title>
+    <title>
+        <?= $title; ?>
+    </title>
 
     <!-- favicon -->
     <link rel="icon" href="/eskp-icon.ico">
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/assets/plugins/fontawesome-free/css/all.min.css">
     <!-- icheck bootstrap -->
@@ -20,35 +23,35 @@
 </head>
 <style>
     body {
-        background: linear-gradient(60deg, rgba(84,58,183,1) 0%, rgba(0,172,193,1) 100%);
+        background: linear-gradient(140deg, rgb(148 196 238) 0%, rgb(2 117 216) 100%);
     }
 </style>
 
 @if (session()->has('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <strong>{{ session('success') }}</strong>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div> 
-            @endif
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>{{ session('success') }}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
 
-            @if (session()->has('loginError'))
-            <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                <strong>{{ session('loginError') }}</strong> Silakan coba lagi.
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            @endif
+@if (session()->has('loginError'))
+<div class="alert alert-primary alert-dismissible fade show" role="alert">
+    <strong>{{ session('loginError') }}</strong> Silakan coba lagi.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+@endif
 
 <body class="hold-transition login-page">
-    
+
     <div class="login-box">
         <!-- <div class="login-logo">
     <a href="/assets/index2.html"><b>Admin</b>LTE</a>
     </div> -->
         <!-- /.login-logo -->
-        <div class="card">
-            <div class="card-body login-card-body">
+        <div class="card" style="border-radius: 30px;">
+            <div class="card-body login-card-body" style="border-radius: 30px">
                 <div style="text-align: center;"> <img src="/assets/dist/img/eskp-logo-wide.png" style="width: 300px;">
                 </div>
 
@@ -66,7 +69,8 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" class="form-control" name="password" placeholder="Password" id="mypassword">
+                        <input type="password" class="form-control" name="password" placeholder="Password"
+                            id="mypassword">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>

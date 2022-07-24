@@ -141,6 +141,8 @@ return [
         'pangkat_id' => 'pangkat',
         'jabatan_id' => 'jabatan',
         'ak' => 'angka kredit',
-        'kegiatan_id' => 'kegiatan'
+        'kegiatan_id' => 'kegiatan',
+        'newPasswordA' => 'password baru',
+        'newPasswordB' => 'konfirmasi password',
     ]
 ];
