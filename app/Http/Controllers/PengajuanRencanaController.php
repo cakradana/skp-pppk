@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sasaran;
 use App\Models\Kegiatan;
-use App\Models\Rencana;
 use Illuminate\Http\Request;
-use PDF;
 
-class RencanaController extends Controller
+class PengajuanRencanaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,6 +15,23 @@ class RencanaController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
+
+        $disetujui = Sasaran::where('user_id', $user->id)->where('status', 'Disetujui')->get();
+        if (count($disetujui) > 0) {
+            $atribut = 'true';
+        } else {
+            $atribut = 'false';
+        }
+
+        $rencana = Sasaran::where('user_id', $user->id)->select(['kegiatan_id', 'output'])->groupBy(['kegiatan_id', 'output'])->get();
+
+        return view('pengajuan.rencana.index', [
+            "title" => "Rencana SKP",
+            "user" => $user,
+            "rencanas" => $rencana,
+            "atribut" => $atribut
+        ]);
     }
 
     public function cetak()
@@ -51,7 +67,7 @@ class RencanaController extends Controller
         $kegiatans = Kegiatan::where('jabatan_id', auth()->user()->jabatan_id)
             ->whereNotIn('id', function ($query) {
                 $query->select('kegiatan_id')
-                    ->from('rencanas')
+                    ->from('sasarans')
                     ->where('user_id', auth()->user()->id)
                     ->whereYear('created_at', date('Y'));
             })
@@ -60,7 +76,6 @@ class RencanaController extends Controller
         return view('pengajuan.rencana.create', [
             "title" => "Tambah Rencana",
             "user" => $user,
-            // 'kegiatans' => Kegiatan::where('jabatan_id', auth()->user()->jabatan_id)->get()
             'kegiatans' => $kegiatans
         ]);
     }
@@ -73,12 +88,6 @@ class RencanaController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-
-        // $request->validate([
-        //     'bulan' => 'required'
-        // ]);
-
         $validatedData = $request->validate([
             'kegiatan_id' => ['required'],
             'kuantitas' => ['required'],
@@ -89,8 +98,9 @@ class RencanaController extends Controller
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['penilai_id'] = auth()->user()->penilai_id;
         $validatedData['status'] = 'Belum Disetujui';
-
-        // dd($request[0]);
+        $validatedData['realisasi'] = null;
+        $validatedData['pengajuan_nilai'] = null;
+        $validatedData['nilai_atasan'] = null;
 
         $bulans = $request->bulan;
         $kuantitases = $request->kuantitas;
@@ -99,36 +109,19 @@ class RencanaController extends Controller
             $kuantitas = $kuantitases[$index];
             $validatedData['bulan'] = $bulan;
             $validatedData['kuantitas'] = $kuantitas;
-            Rencana::create($validatedData);
+            Sasaran::create($validatedData);
         }
 
         return redirect('/pengajuan/rencana')->with('toast_success', 'Rencana Kegiatan telah berhasil ditambahkan!');
     }
 
-    // public function bulan(Request $request)
-    // {
-    //     for ($i = 0; $i < $request->waktu; $i++) {
-    //         Rencana::create([
-    //             'kegiatan_id' => $request->kegiatan_id,
-    //             'kuantitas' => $request->kuantitas,
-    //             'output' => $request->output,
-    //             'bulan' => $request->bulan[$i],
-    //             'user_id' => $request->user_id,
-    //             'penilai_id' => $request->penilai_id,
-    //             'status' => $request->status
-    //         ]);
-    //     };
-
-    //     return redirect('/pengajuan/rencana')->with('toast_success', 'Rencana Kegiatan telah berhasil ditambahkan!');
-    // }
-
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Sasaran  $sasaran
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Sasaran $sasaran)
     {
         //
     }
@@ -136,10 +129,10 @@ class RencanaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Sasaran  $sasaran
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Sasaran $sasaran)
     {
         //
     }
@@ -148,10 +141,10 @@ class RencanaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Sasaran  $sasaran
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Sasaran $sasaran)
     {
         //
     }
@@ -159,10 +152,10 @@ class RencanaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Sasaran  $sasaran
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Sasaran $sasaran)
     {
         //
     }

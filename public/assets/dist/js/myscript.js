@@ -73,11 +73,11 @@ $(document).ready(function () {
     <div class="col-sm-2">\
         <input type="number" min="1"\
             class="form-control" id="kuantitas"\
-            name="kuantitas[]">\
+            name="kuantitas[]" required>\
     </div>\
     <div class="col-sm-3">\
         <select class="select2 form-control" name="bulan[]"\
-            data-placeholder="Pilih Bulan" style="width: 100%;">\
+            data-placeholder="Pilih Bulan" style="width: 100%;" required>\
             <option value="" hidden>Pilih Bulan</option>\
             <option value="Januari">Januari</option>\
             <option value="Februari">Februari</option>\

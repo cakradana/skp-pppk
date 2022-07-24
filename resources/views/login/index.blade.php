@@ -23,7 +23,24 @@
 </head>
 <style>
     body {
-        background: linear-gradient(140deg, rgb(148 196 238) 0%, rgb(2 117 216) 100%);
+        background: linear-gradient(140deg, rgba(245, 250, 255, 1) 0%, rgba(0, 122, 255, 1) 50%, rgba(0, 42, 255, 1) 100%);
+        background-size: 200% 200%;
+        animation: gradient 10s ease infinite;
+        height: 100vh;
+    }
+
+    @keyframes gradient {
+        0% {
+            background-position: 0% 50%;
+        }
+
+        50% {
+            background-position: 100% 50%;
+        }
+
+        100% {
+            background-position: 0% 50%;
+        }
     }
 </style>
 

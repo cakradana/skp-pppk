@@ -20,4 +20,9 @@ class Kegiatan extends Model
     {
         return $this->hasMany(Rencana::class);
     }
+
+    public function skp()
+    {
+        return $this->hasMany(SKP::class);
+    }
 }

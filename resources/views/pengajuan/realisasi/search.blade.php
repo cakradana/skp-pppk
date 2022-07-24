@@ -7,10 +7,11 @@
 @section('isi')
 <div class="row">
     <div class="col">
-        <form type="get" action="/skp/realisasi/search">
+        <form type="get" action="/pengajuan/realisasi/search">
             @csrf
             <div class="form-inline">
-                <a href="/skp/realisasi" class="btn btn-secondary mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
+                <a href="/pengajuan/realisasi" class="btn btn-secondary mb-3"><i class="fas fa-arrow-left"></i>
+                    Kembali</a>
                 <div class="input-group ml-1 mb-3" style="width: 25%">
                     <div class="input-group-prepend">
                         <div class="input-group-text">Pilih Bulan:</div>
@@ -70,9 +71,9 @@
                             <td class="text-center p-3">0</td>
                             <td>
                                 {{ $rencana->output }}
-                                {{-- <a href="/penilaian/persetujuan/{{ $pengajuan->user->id }}"
+                                {{-- <a href="/persetujuan/rencana-pegawai/{{ $pengajuan->user->id }}"
                                     class="btn btn-sm btn-success"><i class="fas fa-search"></i></a>
-                                <a href="/penilaian/persetujuan/setuju/{{ $pengajuan->user->id }}"
+                                <a href="/persetujuan/rencana-pegawai/setuju/{{ $pengajuan->user->id }}"
                                     class="btn btn-sm {{ $pengajuan->status == 'disetujui' ? 'btn-secondary disabled' : 'btn-primary' }}"><i
                                         class="fas fa-check"></i></a> --}}
                             </td>
@@ -96,7 +97,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="/skp/realisasi" method="POST" enctype="multipart/form-data"
+                                        <form action="/pengajuan/realisasi" method="POST" enctype="multipart/form-data"
                                             class="form-inline">
                                             @csrf
                                             <div class="form-group row">

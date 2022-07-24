@@ -106,8 +106,8 @@
             </tr>
             @foreach ($rencanas as $rencana)
             <?php 
-            $kuantitas = \App\Models\Rencana::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->select('kuantitas', $rencana->kuantitas)->sum('kuantitas');
-            $waktu = \App\Models\Rencana::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->count();
+            $kuantitas = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->select('kuantitas', $rencana->kuantitas)->sum('kuantitas');
+            $waktu = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->count();
         ?>
             <tr class="row11">
                 <td class="column0 style4 n">{{$loop->iteration }}</td>
@@ -158,10 +158,10 @@
                 <td class="column4 style11 s style11" colspan="7">Pegawai Yang Dinilai</td>
             </tr>
             <tr class="row17">
-                <td class="column0 style26 s style26" colspan="4"><img style="width:200px;margin:-50px"
+                <td class="column0 style26 s style26" colspan="4"><img style="width:150px;margin:-10px"
                         src="{{ asset('/files'.'/'. $user->penilai->ttd) }}" alt="ttd_pjb">
                 </td>
-                <td class="column4 style26 s style26" colspan="7"><img style="width:200px;margin:-50px"
+                <td class="column4 style26 s style26" colspan="7"><img style="width:150px;margin:-10px"
                         src="{{ asset('/files'.'/'. $user->ttd) }}" alt="ttd_pgw"></td>
             </tr>
             <tr class="row20">

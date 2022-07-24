@@ -7,10 +7,14 @@
 @section('isi')
 <div class="row">
     <div class="col">
-        {{-- <a href="/skp/rencana/create"
-            class="btn mb-3 {{ $atribut == 'true' ? 'btn-secondary disabled' : 'btn-primary' }}"><i
-                class="fas fa-plus"></i> Tambah Rencana</a> --}}
-        <a href="/skp/realisasi/create" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Isi Realisasi Per
+
+        @if ($atribut == 'false')
+        <div class="alert alert-danger alert-dismissible">
+            <h5><i class="icon fas fa-ban"></i>Tidak Dapat Mengajukan Realisasi</h5>
+            {{ $user->penilai->name }} Belum Menyetujui Rencana Anda.
+        </div>
+        @else
+        <a href="/pengajuan/realisasi/create" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Isi Realisasi Per
             Bulan</a>
         <a href="#cetak" class="btn btn-success mb-3"><i class="fas fa-file-pdf"></i> Cetak Realisasi</a>
         <div class="card card-secondary card-outline">
@@ -33,8 +37,14 @@
                         <tbody>
                             @foreach ($rencanas as $rencana)
                             <?php
-                                $kuantitas = \App\Models\Rencana::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->select('kuantitas', $rencana->kuantitas)->sum('kuantitas');
-                                $waktu = \App\Models\Rencana::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->count();
+                                $perhitungan = 
+
+
+
+                                // dd($rencana->id);
+                                $realisasi = \App\Models\Sasaran::where('kegiatan_id', $rencana->kegiatan->id)->sum('realisasi');
+                                $kuantitas = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->select('kuantitas', $rencana->kuantitas)->sum('kuantitas');
+                                $waktu = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->count();
                             ?>
                             <tr>
                                 <td rowspan="2" class="align-middle text-center p-3">{{ $loop->iteration }}</td>
@@ -60,17 +70,17 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td rowspan="2" class="align-middle text-center p-3">0</td>
+                                <td rowspan="2" class="align-middle text-center p-3">0.00</td>
                             </tr>
                             <tr>
                                 <td class="p-3 font-weight-bold">Realisasi</td>
-                                <td class="text-center">ak * kuantitas</td>
+                                <td class="text-center">{{ $rencana->kegiatan->ak * $realisasi }}</td>
                                 <td>
                                     <div class="form-row">
                                         <div class="col">
                                             <input type="number" min="1" class="form-control form-control-sm" {{--
                                                 value="{{ $loop->iteration }}" readonly> --}}
-                                            value="{{ $rencana->realisasi }}" readonly>
+                                            value="{{ $realisasi }}" readonly>
                                         </div>
                                         <div class="col">
                                             <input type="text" class="form-control form-control-sm"
@@ -78,11 +88,11 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class="p-3">
+                                <td>
                                     <div class="form-row">
                                         <div class="col">
                                             <input type="number" max="12" min="1" class="form-control form-control-sm"
-                                                value="waktu" readonly>
+                                                value="{{ $realisasi ? $waktu : '0' }}" readonly>
                                         </div>
                                     </div>
                                 </td>
@@ -96,6 +106,21 @@
                 </div>
             </div>
         </div>
+        @endif
+
+
+
+
+
+
+
+
+
+
+        {{-- <a href="/pengajuan/rencana/create"
+            class="btn mb-3 {{ $atribut == 'true' ? 'btn-secondary disabled' : 'btn-primary' }}"><i
+                class="fas fa-plus"></i> Tambah Rencana</a> --}}
+
     </div>
 </div>
 @endsection

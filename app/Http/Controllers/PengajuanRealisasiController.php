@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Rencana;
+use App\Models\Sasaran;
 use App\Models\Realisasi;
 use Exception;
 
@@ -18,7 +18,7 @@ class PengajuanRealisasiController extends Controller
     {
         $user = auth()->user();
 
-        $disetujui = Rencana::where('user_id', $user->id)->where('status', 'disetujui')->get();
+        $disetujui = Sasaran::where('user_id', $user->id)->where('status', 'Disetujui')->get();
 
         if (count($disetujui) > 0) {
             $atribut = 'true';
@@ -26,35 +26,12 @@ class PengajuanRealisasiController extends Controller
             $atribut = 'false';
         }
 
-        // $rencana = Rencana::where('user_id', auth()->user()->id)->get();
+        $rencana = Sasaran::where('user_id', $user->id)->select(['kegiatan_id', 'output'])->groupBy(['kegiatan_id', 'output'])->get();
 
-        $rencanas = Rencana::where('user_id', $user->id)->select(['id', 'kegiatan_id', 'output'])->groupBy(['id', 'kegiatan_id', 'output'])->get();
-        // $realisasis[0] = Realisasi::where('rencana_id', $rencanas[0]->id)->first();
-        // $n = 1;
-
-        $rencanas = Rencana::join('realisasis', 'rencanas.id', 'realisasis.rencana_id')
-            ->where('rencanas.user_id', $user->id)
-            ->select(['rencanas.id', 'rencanas.kegiatan_id', 'rencanas.output', 'realisasis.*'])
-            ->groupBy(['rencana_id'])
-            ->get();
-        dd($rencanas);
-
-        // foreach ($rencanas->skip(1) as $rencana) {
-        //     $realisasis[$n] = Realisasi::orWhere('rencana_id', $rencana->id);
-        //     // $realisasis->push($realisasi);
-
-        //     $n++;
-        // }
-
-        // dd('ok');
-        // dd($realisasis);
-
-
-        return view('skp.realisasi.index', [
+        return view('pengajuan.realisasi.index', [
             "title" => "Pengajuan Realisasi SKP",
             "user" => $user,
-            // "realisasis" => $realisasis,
-            "rencanas" => $rencanas,
+            "rencanas" => $rencana,
             "atribut" => $atribut
         ]);
     }
@@ -69,19 +46,19 @@ class PengajuanRealisasiController extends Controller
         $bulan = $request->bulan;
 
         if ($bulan == "Semua Bulan") {
-            $rencanas = Rencana::where('user_id', $user->id)->select(['id', 'kegiatan_id', 'kuantitas', 'output', 'bulan'])->groupBy(['id', 'kegiatan_id', 'kuantitas', 'output', 'bulan'])->get();
+            $rencanas = Sasaran::where('user_id', $user->id)->get();
         } else {
-            $rencanas = Rencana::where('user_id', $user->id)->select(['id', 'kegiatan_id', 'kuantitas', 'output', 'bulan'])->groupBy(['id', 'kegiatan_id', 'kuantitas', 'output', 'bulan'])->where('bulan', $bulan)->get();
+            $rencanas = Sasaran::where('user_id', $user->id)->where('bulan', $bulan)->get();
         }
 
         // echo ('tes');
 
         // $search = $_GET['bulan'];
-        // $pilih_bulan = Rencana::where('bulan', 'LIKE', '%' . $search . '%')->get();
+        // $pilih_bulan = Sasaran::where('bulan', 'LIKE', '%' . $search . '%')->get();
 
         // dd($search);
 
-        return view('skp.realisasi.create', compact('rencanas'), [
+        return view('pengajuan.realisasi.create', compact('rencanas'), [
             "user" => $user,
             "selected" => $bulan,
             "title" => "Realisasi SKP " . $bulan
@@ -97,12 +74,12 @@ class PengajuanRealisasiController extends Controller
     {
         $user = auth()->user();
 
-        $rencana = Rencana::where('user_id', $user->id)->select(['id', 'kegiatan_id', 'kuantitas', 'output', 'bulan'])->groupBy(['id', 'kegiatan_id', 'kuantitas', 'output', 'bulan'])->get();
+        $rencana = Sasaran::where('user_id', $user->id)->get();
 
         // $realisasi = Realisasi::where('')
         // dd($rencana);
 
-        return view('skp.realisasi.create', [
+        return view('pengajuan.realisasi.create', [
             "title" => "Isi Realisasi Per Bulan",
             "user" => $user,
             "selected" => "Semua Bulan",
@@ -118,33 +95,20 @@ class PengajuanRealisasiController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        // $validatedData = [];
-        // try {
-        $rules = [
-            'rencana_id' => 'required',
-            'realisasi' => 'required',
-            'pengajuan_nilai' => 'required',
-            // 'nilai_atasan' => ['required']
-        ];
+        // $rules = [
+        //     'rencana_id' => 'required',
+        //     'realisasi' => 'required',
+        //     'pengajuan_nilai' => 'required',
+        //     // 'nilai_atasan' => ['required']
+        // ];
 
-        $validatedData = $request->validate($rules);
+        // $validatedData = $request->validate($rules);
+        // $validatedData['user_id'] = auth()->user()->id;
+        // $validatedData['nilai_atasan'] = null;
 
-        $validatedData['nilai_atasan'] = null;
-        Realisasi::create($validatedData);
-        // } catch (Exception $e) {
-        //     // dd($e->getMessage());
-        //     // dd($validatedData);
-        //     return redirect('/skp/realisasi')->with('toast_error', 'Realiasasi telah gagal ditambahkan!');
-        // }
+        // Sasaran::create($validatedData);
 
-
-        // dd($validatedData);
-
-
-        // dd($request[0]);
-
-        return redirect('/skp/realisasi/create')->with('toast_success', 'Realiasasi telah berhasil ditambahkan!');
+        // return redirect('/pengajuan/realisasi/create')->with('toast_success', 'Realiasasi telah berhasil ditambahkan!');
     }
 
     /**
@@ -178,7 +142,21 @@ class PengajuanRealisasiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // 
+        // dd($request->all());
+
+        $rules = [
+            'realisasi' => ['required'],
+            'pengajuan_nilai' => ['required']
+        ];
+
+        $validatedData = $request->validate($rules);
+
+        // dd($validatedData);
+        // dd($id);
+
+        Sasaran::where('id', $id)->update($validatedData);
+
+        return redirect('/pengajuan/realisasi/create')->with('toast_success', 'Realiasasi telah berhasil ditambahkan!');
     }
 
     /**

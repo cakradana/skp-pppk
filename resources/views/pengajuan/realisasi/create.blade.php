@@ -8,11 +8,12 @@
 
 <div class="row">
     <div class="col">
-        <form method="POST" action="/skp/realisasi/search/">
+        <form method="POST" action="/pengajuan/realisasi/search/">
             @csrf
             {{-- <input type="text" value="Januari" name="bulan"> --}}
             <div class="form-inline">
-                <a href="/skp/realisasi" class="btn btn-secondary mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
+                <a href="/pengajuan/realisasi" class="btn btn-secondary mb-3"><i class="fas fa-arrow-left"></i>
+                    Kembali</a>
                 <div class="input-group ml-1 mb-3" style="width: 25%">
                     <div class="input-group-prepend">
                         <div class="input-group-text">Pilih Bulan:</div>
@@ -39,14 +40,14 @@
         <button type="button" class="btn btn-success ml-auto p-2 mb-3" data-toggle="modal"
             data-target="#dasar-pengajuan-nilai"><i class="fas fa-eye"></i> Lihat Dasar Pengajuan Nilai</button>
     </div>
-    <div class="card card-secondary card-outline">
+    <div class="card card-primary card-outline">
         <div class="card-body table-responsive p-0">
             <div class="" style="padding: 20px 20px 20px;">
                 <table id="" class="table table-striped table-bordered small" style="width:100%">
                     <thead class="text-center">
                         <tr>
                             <th rowspan="2" class="align-middle p-1">No</th>
-                            <th rowspan="2" class="align-middle">Kegiatan Tugas Jabatan</th>
+                            <th rowspan="2" class="align-middle text-left">Kegiatan Tugas Jabatan</th>
                             <th rowspan="2" class="align-middle">AK</th>
                             <th colspan="2" class="">Target</th>
                             <th colspan="2" class="">Realisasi</th>
@@ -70,21 +71,18 @@
                             <td>{{ $rencana->kegiatan->ak * $rencana->kuantitas }}</td>
                             <td class="text-center p-3">{{ $rencana->kuantitas }}</td>
                             <td>{{ $rencana->output }}</td>
-                            <td class="text-center p-3">{{ $rencana->realisasi ? $rencana->realisasi->realisasi : ''
-                                }}</td>
+                            <td class="text-center p-3">{{ $rencana->realisasi }}</td>
                             <td>
                                 {{ $rencana->output }}
-                                {{-- <a href="/penilaian/persetujuan/{{ $pengajuan->user->id }}"
+                                {{-- <a href="/persetujuan/rencana-pegawai/{{ $pengajuan->user->id }}"
                                     class="btn btn-sm btn-success"><i class="fas fa-search"></i></a>
-                                <a href="/penilaian/persetujuan/setuju/{{ $pengajuan->user->id }}"
+                                <a href="/persetujuan/rencana-pegawai/setuju/{{ $pengajuan->user->id }}"
                                     class="btn btn-sm {{ $pengajuan->status == 'disetujui' ? 'btn-secondary disabled' : 'btn-primary' }}"><i
                                         class="fas fa-check"></i></a> --}}
                             </td>
                             <td>{{ $rencana->bulan }}</td>
-                            <td class="text-center p-3">{{ $rencana->realisasi ? $rencana->realisasi->pengajuan_nilai :
-                                '' }}</td>
-                            <td class="text-center p-3">{{ $rencana->realisasi ? $rencana->realisasi->nilai_atasan : ''
-                                }}</td>
+                            <td class="text-center p-3">{{ $rencana->pengajuan_nilai }}</td>
+                            <td class="text-center p-3">{{ $rencana->nilai_atasan }}</td>
                             <td>
                                 @if ($rencana->realisasi == null)
                                 <?php $disabled = "" ?>
@@ -97,7 +95,7 @@
                         </tr>
                         <div class="modal fade" id="isi-realisasi-{{ $rencana->id }}">
                             <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
+                                <div class="modal-content card-primary card-outline">
                                     <div class="modal-header">
                                         <h4 class="modal-title">Isi Realisasi</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -105,11 +103,13 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form action="/skp/realisasi" method="POST" enctype="multipart/form-data"
-                                            class="form-inline">
+                                        <form action="/pengajuan/realisasi/{{ $rencana->id }}" method="POST"
+                                            enctype="multipart/form-data" class="form-inline">
+                                            @method('put')
                                             @csrf
-                                            {{-- <input type="hidden" name="user_id" value="{{ $user->id }}"> --}}
-                                            <input type="hidden" name="rencana_id" value="{{ $rencana->id }}">
+                                            {{-- <input type="hidden" name="kegiatan_id"
+                                                value="{{ $rencana->kegiatan_id }}">
+                                            <input type="hidden" name="rencana_id" value="{{ $rencana->id }}"> --}}
                                             <div class="form-group row">
                                                 <label class="col-sm-3 col-form-label">Kegiatan Tugas Jabatan</label>
                                                 <div class="col-sm-9">
@@ -142,7 +142,7 @@
                                                     <div class="input-group mb-1">
                                                         <input type="number" class="form-control" min="0"
                                                             name="realisasi" max="{{ $rencana->kuantitas }}"
-                                                            value="{{ $rencana->realisasi ? $rencana->realisasi->realisasi : "" }}">
+                                                            value="blm tau" required>
                                                         <div class="input-group-append">
                                                             <span class="input-group-text">{{ $rencana->output }}</span>
                                                         </div>
@@ -153,7 +153,7 @@
                                                 <label class="col-sm-3 col-form-label">Pengajuan Nilai</label>
                                                 <div class="col-sm-9">
                                                     <input type="number" class="form-control" name="pengajuan_nilai"
-                                                        min="0" max="100">
+                                                        min="0" max="100" required>
                                                 </div>
                                             </div>
                                     </div>

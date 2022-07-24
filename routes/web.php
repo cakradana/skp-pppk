@@ -9,14 +9,12 @@ use App\Http\Controllers\PenilaiController;
 use App\Http\Controllers\PeriodeController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\ProfilController;
-use App\Http\Controllers\RencanaController;
-use App\Http\Controllers\PersetujuanController;
+use App\Http\Controllers\PersetujuanRencanaController;
 use App\Http\Controllers\PengajuanRealisasiController;
+use App\Http\Controllers\PengajuanRencanaController;
 use App\Http\Controllers\PenilaianRealisasiController;
-use App\Models\Rencana;
+use App\Http\Controllers\PenilaianPerilakuController;
 use Illuminate\Support\Facades\Route;
-
-use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,57 +27,72 @@ use App\Models\User;
 |
 */
 
-// halaman login
-Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
-// post login
-Route::post('/login', [LoginController::class, 'authenticate']);
-// post logout
-Route::post('/logout', [LoginController::class, 'logout']);
-
-// halaman profil
-Route::get('/profil', [ProfilController::class, 'index']);
-Route::put('/profil/profilUpdate/{id}', [ProfilController::class, 'profilUpdate'])->middleware('auth');
-Route::put('/profil/passwordUpdate/{id}', [ProfilController::class, 'passwordUpdate'])->middleware('auth');
-Route::put('/profil/fotoUpdate/{id}', [ProfilController::class, 'fotoUpdate'])->middleware('auth');
-Route::put('/profil/ttdUpdate/{id}', [ProfilController::class, 'ttdUpdate'])->middleware('auth');
-
+// landing page
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
-
-// resource periode
-Route::resource('/master/periode', PeriodeController::class)->middleware('admin');
-
-// resource pegawai
-Route::resource('/master/pegawai', PegawaiController::class)->middleware('admin');
-
-// resource penilai
-Route::resource('/master/penilai', PenilaiController::class)->middleware('admin');
-
-// resource pangkat
-Route::resource('/master/pangkat', PangkatController::class)->except('show')->middleware('admin');
-
-// resource jabatan
-Route::resource('/master/jabatan', JabatanController::class)->except('show')->middleware('admin');
-
-// resource kegiatan
-Route::resource('/master/kegiatan', KegiatanController::class)->middleware('admin');
-
-// resource rencana
-Route::resource('/skp/rencana', RencanaController::class)->middleware('auth');
-Route::get('/skp/rencana/cetak-rencana/{id}', [RencanaController::class, 'cetak']);
-
-// resource persetujuan
-Route::resource('/penilaian/persetujuan', PersetujuanController::class)->middleware('auth');
-Route::get('/penilaian/persetujuan/setuju/{id}', [PersetujuanController::class, 'update']);
-Route::get('/penilaian/persetujuan/tolak/{id}', [PersetujuanController::class, 'tolak']);
+Route::middleware(['guest'])->group(function () {
+    // halaman login
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    // post login
+    Route::post('/login', [LoginController::class, 'authenticate']);
+});
 
 
-// resource pengajuan realisasi
-Route::resource('/skp/realisasi', PengajuanRealisasiController::class)->middleware('auth');
-Route::post('/skp/realisasi/search/', [PengajuanRealisasiController::class, 'search'])->middleware('auth');
+Route::middleware(['auth'])->group(function () {
+    // post logout
+    Route::post('/logout', [LoginController::class, 'logout']);
+    // halaman dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+    // halaman profil
+    Route::get('/profil', [ProfilController::class, 'index']);
+    // update profil
+    Route::put('/profil/profilUpdate/{id}', [ProfilController::class, 'profilUpdate']);
+    // update password
+    Route::put('/profil/passwordUpdate/{id}', [ProfilController::class, 'passwordUpdate']);
+    // update foto
+    Route::put('/profil/fotoUpdate/{id}', [ProfilController::class, 'fotoUpdate']);
+    // update ttd
+    Route::put('/profil/ttdUpdate/{id}', [ProfilController::class, 'ttdUpdate']);
+});
 
-// resource penilaian realisasi
-Route::resource('/penilaian/prealisasi', PenilaianRealisasiController::class)->middleware('auth');
+Route::middleware(['admin'])->group(function () {
+    // resource periode
+    Route::resource('/master/periode', PeriodeController::class)->except('show');
+    // resource pegawai
+    Route::resource('/master/pegawai', PegawaiController::class);
+    // resource penilai
+    Route::resource('/master/penilai', PenilaiController::class);
+    // resource pangkat
+    Route::resource('/master/pangkat', PangkatController::class)->except('show');
+    // resource jabatan
+    Route::resource('/master/jabatan', JabatanController::class)->except('show');
+    // resource kegiatan
+    Route::resource('/master/kegiatan', KegiatanController::class)->except('show');
+});
+
+
+Route::middleware(['pegawai'])->group(function () {
+    // resource rencana
+    Route::resource('/pengajuan/rencana', PengajuanRencanaController::class);
+    // cetak rencana
+    Route::get('/pengajuan/rencana/cetak-rencana/{id}', [PengajuanRencanaController::class, 'cetak']);
+    // resource pengajuan realisasi
+    Route::resource('/pengajuan/realisasi', PengajuanRealisasiController::class);
+    // isi realisasi per bulan
+    Route::post('/pengajuan/realisasi/search/', [PengajuanRealisasiController::class, 'search']);
+});
+
+Route::middleware(['penilai'])->group(function () {
+    // resource persetujuan rencana
+    Route::resource('/persetujuan/rencana-pegawai', PersetujuanRencanaController::class);
+    // setuju rencana
+    Route::get('/persetujuan/rencana-pegawai/setuju/{id}', [PersetujuanRencanaController::class, 'setuju']);
+    // tolak rencana
+    Route::get('/persetujuan/rencana-pegawai/tolak/{id}', [PersetujuanRencanaController::class, 'tolak']);
+    // resource penilaian realisasi
+    Route::resource('/penilaian/realisasi-pegawai', PenilaianRealisasiController::class);
+    // resource penilaian perilaku
+    Route::resource('/penilaian/perilaku-pegawai', PenilaianPerilakuController::class);
+});

@@ -69,6 +69,11 @@ class User extends Authenticatable
         return $this->hasMany(Rencana::class);
     }
 
+    public function skp()
+    {
+        return $this->hasMany(SKP::class);
+    }
+
     // public function realisasi()
     // {
     //     return $this->hasMany(Realisasi::class);

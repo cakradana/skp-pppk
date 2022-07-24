@@ -27,7 +27,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($pengajuans as $pengajuan)
+                            {{-- @foreach ($pengajuans as $pengajuan)
                             <tr>
                                 <td class="">{{ $loop->iteration }}</td>
                                 <td>{{ $pengajuan->user->nip }}</td>
@@ -43,7 +43,7 @@
                                             class="fas fa-check"></i></a>
                                 </td>
                             </tr>
-                            @endforeach
+                            @endforeach --}}
                         </tbody>
                     </table>
                 </div>

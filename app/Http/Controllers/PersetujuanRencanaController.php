@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Rencana;
 use App\Models\User;
+// use App\Models\Rencana;
+use App\Models\Sasaran;
+use Illuminate\Http\Request;
 
-class PersetujuanController extends Controller
+class PersetujuanRencanaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +17,7 @@ class PersetujuanController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $pengajuans = Rencana::where('penilai_id', $user->id)->select(['status', 'user_id'])->groupBy(['user_id', 'status'])->get();
-        // $list = $pengajuan->user()->get();
-
-        // dd($pengajuans);
+        $pengajuans = Sasaran::where('penilai_id', $user->id)->select(['status', 'user_id'])->groupBy(['user_id', 'status'])->get();
 
         return view('penilaian.rencana.index', [
             "title" => "Persetujuan Rencana SKP",
@@ -57,14 +55,13 @@ class PersetujuanController extends Controller
     {
         $user = auth()->user();
 
-        // dd($id);
-        $disetujui = Rencana::where('user_id', $id)->where('status', 'disetujui')->get();
+        $disetujui = Sasaran::where('user_id', $id)->where('status', 'Disetujui')->get();
         if (count($disetujui) > 0) {
             $atribut = 'true';
         } else {
             $atribut = 'false';
         }
-        $rencanas = Rencana::where('user_id', $id)->select(['kegiatan_id', 'kuantitas', 'output'])->groupBy(['kegiatan_id', 'kuantitas', 'output'])->get();
+        $rencanas = Sasaran::where('user_id', $id)->select(['kegiatan_id', 'output'])->groupBy(['kegiatan_id', 'output'])->get();
         $pegawai = User::find($id);
 
         return view('penilaian.rencana.show', [
@@ -91,22 +88,22 @@ class PersetujuanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function setuju(Request $request, $id)
     {
-        Rencana::where('user_id', $id)->update([
-            'status' => 'disetujui'
+        Sasaran::where('user_id', $id)->update([
+            'status' => 'Disetujui'
         ]);
 
-        return redirect('/penilaian/persetujuan')->with('toast_success', 'Pengajuan telah berhasil disetujui!');
+        return redirect('/persetujuan/rencana-pegawai')->with('toast_success', 'Pengajuan telah berhasil disetujui!');
     }
 
     public function tolak(Request $request, $id)
     {
-        Rencana::where('user_id', $id)->update([
-            'status' => 'belum disetujui'
+        Sasaran::where('user_id', $id)->update([
+            'status' => 'Belum Disetujui'
         ]);
 
-        return redirect('/penilaian/persetujuan')->with('toast_success', 'Pengajuan telah berhasil ditolak!');
+        return redirect('/persetujuan/rencana-pegawai')->with('toast_success', 'Pengajuan telah berhasil ditolak!');
     }
 
     /**

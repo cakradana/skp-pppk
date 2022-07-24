@@ -7,21 +7,21 @@
 @section('isi')
 <div class="row">
     <div class="col">
-        <a href="/skp/rencana" class="btn btn-secondary mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
+        <a href="/pengajuan/rencana" class="btn btn-secondary mb-3"><i class="fas fa-arrow-left"></i> Kembali</a>
         <div class="card card-primary card-outline">
             {{-- <div class="card-header">
                 <h3 class="card-title mt-2">Tambah Kegiatan</h3>
             </div> --}}
             <div class="card-body p-0">
                 <div class="" style="padding: 20px 20px 20px;">
-                    <form action="/skp/rencana" method="POST" class="mb-5 input_fields_wrap"
+                    <form action="/pengajuan/rencana" method="POST" class="mb-5 input_fields_wrap"
                         enctype="multipart/form-data" id="">
                         @csrf
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Kegiatan</label>
                             <div class="col-sm-9">
                                 <select class="form-control select2 @error('kegiatan_id') is-invalid @enderror"
-                                    name="kegiatan_id" data-placeholder="Pilih Kegiatan" style="width: 100%;">
+                                    name="kegiatan_id" data-placeholder="Pilih Kegiatan" style="width: 100%;" required>
                                     <option value="">-- Pilih Kegiatan --</option>
                                     @foreach ($kegiatans as $kegiatan)
                                     @if (old('kegiatan_id') == $kegiatan->id)
@@ -42,7 +42,7 @@
                             <label for="output" class="col-sm-3 col-form-label">Output</label>
                             <div class="col-sm-9">
                                 <select class="form-control select2 @error('output') is-invalid @enderror" name="output"
-                                    id="output" data-placeholder="Pilih Output" style="width: 100%;">
+                                    id="output" data-placeholder="Pilih Output" style="width: 100%;" required>
                                     <option value="">-- Pilih Output --</option>
                                     <option value="Dokumen" {{ old('output')=='Dokumen' ? 'selected' : '' }}>
                                         Dokumen
@@ -66,7 +66,7 @@
                             <div class="col-sm-2">
                                 <input type="number" min="1"
                                     class="form-control @error('kuantitas') is-invalid @enderror" id="kuantitas"
-                                    name="kuantitas[]" value="{{ old('kuantitas[]') }}">
+                                    name="kuantitas[]" value="{{ old('kuantitas[]') }}" required>
                                 <div class="invalid-feedback">
                                     @error('kuantitas')
                                     {{ $message }}
@@ -75,7 +75,8 @@
                             </div>
                             <div class="col-sm-3">
                                 <select class="form-control @error('bulan') is-invalid @enderror" name="bulan[]"
-                                    data-placeholder="Pilih Bulan" value="{{ old('bulan[]') }}" style="width: 100%;">
+                                    data-placeholder="Pilih Bulan" value="{{ old('bulan[]') }}" style="width: 100%;"
+                                    required>
                                     <option value="" hidden>Pilih Bulan</option>
                                     <option value="Januari">Januari</option>
                                     <option value="Februari">Februari</option>

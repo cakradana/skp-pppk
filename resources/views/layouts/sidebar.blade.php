@@ -90,19 +90,22 @@
                 @can('Pegawai yang Dinilai')
 
                 <li class="nav-item">
-                    <a href="/skp/rencana" class="nav-link {{ Request::is('skp/rencana*') ? 'active' : '' }}">
+                    <a href="/pengajuan/rencana"
+                        class="nav-link {{ Request::is('pengajuan/rencana*') ? 'active' : '' }}">
                         <i class="fas fa-calendar-alt nav-icon"></i>
-                        <p>Rencana SKP</p>
+                        <p>Pengajuan Rencana</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/skp/realisasi" class="nav-link {{ Request::is('skp/realisasi*') ? 'active' : '' }}">
+                    <a href="/pengajuan/realisasi"
+                        class="nav-link {{ Request::is('pengajuan/realisasi*') ? 'active' : '' }}">
                         <i class="fas fa-calendar-check nav-icon"></i>
                         <p>Pengajuan Realisasi</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/skp/prestasi" class="nav-link {{ Request::is('skp/prestasi*') ? 'active' : '' }}">
+                    <a href="/nilai-prestasi-kerja"
+                        class="nav-link {{ Request::is('nilai-prestasi-kerja*') ? 'active' : '' }}">
                         <i class="fas fa-file nav-icon"></i>
                         <p>Nilai Prestasi Kerja</p>
                     </a>
@@ -111,22 +114,22 @@
                 @endcan
                 @can('Pejabat Penilai')
                 <li class="nav-item">
-                    <a href="/penilaian/persetujuan"
-                        class="nav-link {{ Request::is('penilaian/persetujuan*') ? 'active' : '' }}">
+                    <a href="/persetujuan/rencana-pegawai"
+                        class="nav-link {{ Request::is('persetujuan/rencana-pegawai*') ? 'active' : '' }}">
                         <i class="fas fa-calendar-alt nav-icon"></i>
                         <p>Persetujuan Rencana</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/penilaian/prealisasi"
-                        class="nav-link {{ Request::is('penilaian/prealisasi*') ? 'active' : '' }}">
+                    <a href="/penilaian/realisasi-pegawai"
+                        class="nav-link {{ Request::is('penilaian/realisasi-pegawai*') ? 'active' : '' }}">
                         <i class="fas fa-calendar-check nav-icon"></i>
                         <p>Penilaian Realisasi</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/penilaian/perilaku"
-                        class="nav-link {{ Request::is('penilaian/perilaku*') ? 'active' : '' }}">
+                    <a href="/penilaian/perilaku-pegawai"
+                        class="nav-link {{ Request::is('penilaian/perilaku-pegawai*') ? 'active' : '' }}">
                         <i class="fas fa-balance-scale nav-icon"></i>
                         <p>Penilaian Perilaku</p>
                     </a>
