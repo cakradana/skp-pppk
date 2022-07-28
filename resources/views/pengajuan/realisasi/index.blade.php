@@ -16,7 +16,6 @@
         @else
         <a href="/pengajuan/realisasi/create" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Isi Realisasi Per
             Bulan</a>
-        <a href="#cetak" class="btn btn-success mb-3"><i class="fas fa-file-pdf"></i> Cetak Realisasi</a>
         <div class="card card-secondary card-outline">
             <div class="card-body table-responsive p-0">
                 <div class="" style="padding: 20px 20px 20px;">
@@ -37,14 +36,25 @@
                         <tbody>
                             @foreach ($rencanas as $rencana)
                             <?php
+
+                                
+
+
                                 $perhitungan = 
 
 
 
-                                // dd($rencana->id);
-                                $realisasi = \App\Models\Sasaran::where('kegiatan_id', $rencana->kegiatan->id)->sum('realisasi');
-                                $kuantitas = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->select('kuantitas', $rencana->kuantitas)->sum('kuantitas');
+
+                                $realisasi = \App\Models\Sasaran::where('kegiatan_id', $rencana->kegiatan->id)->sum('realisasi_kuantitas');
+                                $kuantitas = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->select('target_kuantitas', $rencana->kuantitas)->sum('target_kuantitas');
                                 $waktu = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->count();
+                                $waktu_realisasi = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->whereNotNull('realisasi_kuantitas')->count();
+                                
+                                
+                                
+                                
+                                $aspek_kuantitas = $realisasi / $kuantitas * 100;
+                                $aspek_kualitas = 100 / 100;
                             ?>
                             <tr>
                                 <td rowspan="2" class="align-middle text-center p-3">{{ $loop->iteration }}</td>
@@ -58,7 +68,7 @@
                                         </div>
                                         <div class="col">
                                             <input type="text" class="form-control form-control-sm"
-                                                value="{{ $rencana->output }}" readonly>
+                                                value="{{ $rencana->output->nama }}" readonly>
                                         </div>
                                     </div>
                                 </td>
@@ -74,7 +84,8 @@
                             </tr>
                             <tr>
                                 <td class="p-3 font-weight-bold">Realisasi</td>
-                                <td class="text-center">{{ $rencana->kegiatan->ak * $realisasi }}</td>
+                                <td class="text-center">{{ $rencana->kegiatan->ak * $rencana->realisasi_kuantitas }}
+                                </td>
                                 <td>
                                     <div class="form-row">
                                         <div class="col">
@@ -84,7 +95,7 @@
                                         </div>
                                         <div class="col">
                                             <input type="text" class="form-control form-control-sm"
-                                                value="{{ $rencana->output }}" readonly>
+                                                value="{{ $rencana->output->nama }}" readonly>
                                         </div>
                                     </div>
                                 </td>
@@ -92,7 +103,7 @@
                                     <div class="form-row">
                                         <div class="col">
                                             <input type="number" max="12" min="1" class="form-control form-control-sm"
-                                                value="{{ $realisasi ? $waktu : '0' }}" readonly>
+                                                value="{{ $waktu_realisasi }}" readonly>
                                         </div>
                                     </div>
                                 </td>

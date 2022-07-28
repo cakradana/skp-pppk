@@ -40,7 +40,7 @@
                             @foreach ($rencanas as $rencana)
                             <?php 
                                 $waktu = \App\Models\Sasaran::where('user_id', $pegawai->id)->where('kegiatan_id', $rencana->kegiatan_id)->count();
-                                $kuantitas = \App\Models\Sasaran::where('user_id', $pegawai->id)->where('kegiatan_id', $rencana->kegiatan_id)->select('kuantitas', $rencana->kuantitas)->sum('kuantitas');
+                                $kuantitas = \App\Models\Sasaran::where('user_id', $pegawai->id)->where('kegiatan_id', $rencana->kegiatan_id)->select('target_kuantitas', $rencana->kuantitas)->sum('target_kuantitas');
                             ?>
                             <tr>
                                 <td class="text-center p-3">{{ $loop->iteration }}</td>
@@ -54,7 +54,7 @@
                                         </div>
                                         <div class="col">
                                             <input type="text" class="form-control form-control-sm"
-                                                value="{{ $rencana->output }}" readonly>
+                                                value="{{ $rencana->output->nama }}" readonly>
                                         </div>
                                     </div>
                                 </td>

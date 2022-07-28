@@ -85,6 +85,12 @@
                         <p>Master Kegiatan</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="/master/output" class="nav-link {{ Request::is('master/output*') ? 'active' : '' }}">
+                        <i class="fas fa-file-export nav-icon"></i>
+                        <p>Master Output</p>
+                    </a>
+                </li>
 
                 @endcan
                 @can('Pegawai yang Dinilai')

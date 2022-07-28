@@ -2,19 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Sasaran;
-use App\Models\Realisasi;
-use Exception;
+use Illuminate\Http\Request;
 
 class PengajuanRealisasiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index() //BELUM BERHASIL
+    public function index()
     {
         $user = auth()->user();
 
@@ -26,7 +19,7 @@ class PengajuanRealisasiController extends Controller
             $atribut = 'false';
         }
 
-        $rencana = Sasaran::where('user_id', $user->id)->select(['kegiatan_id', 'output'])->groupBy(['kegiatan_id', 'output'])->get();
+        $rencana = Sasaran::where('user_id', $user->id)->select(['kegiatan_id', 'output_id', 'realisasi_kuantitas'])->groupBy(['kegiatan_id', 'output_id', 'realisasi_kuantitas'])->get();
 
         return view('pengajuan.realisasi.index', [
             "title" => "Pengajuan Realisasi SKP",
@@ -51,13 +44,6 @@ class PengajuanRealisasiController extends Controller
             $rencanas = Sasaran::where('user_id', $user->id)->where('bulan', $bulan)->get();
         }
 
-        // echo ('tes');
-
-        // $search = $_GET['bulan'];
-        // $pilih_bulan = Sasaran::where('bulan', 'LIKE', '%' . $search . '%')->get();
-
-        // dd($search);
-
         return view('pengajuan.realisasi.create', compact('rencanas'), [
             "user" => $user,
             "selected" => $bulan,
@@ -65,18 +51,12 @@ class PengajuanRealisasiController extends Controller
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $user = auth()->user();
 
         $rencana = Sasaran::where('user_id', $user->id)->get();
 
-        // $realisasi = Realisasi::where('')
         // dd($rencana);
 
         return view('pengajuan.realisasi.create', [
@@ -87,14 +67,10 @@ class PengajuanRealisasiController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  App\Models\Jabatan  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
+        // dd($request->all());
+
         // $rules = [
         //     'rencana_id' => 'required',
         //     'realisasi' => 'required',
@@ -111,60 +87,35 @@ class PengajuanRealisasiController extends Controller
         // return redirect('/pengajuan/realisasi/create')->with('toast_success', 'Realiasasi telah berhasil ditambahkan!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Jabatan  $jabatan
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Jabatan  $jabatan
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         // 
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  App\Models\Jabatan  $request
-     * @param  \App\Models\Jabatan  $jabatan
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         // dd($request->all());
 
         $rules = [
-            'realisasi' => ['required'],
-            'pengajuan_nilai' => ['required']
+            'realisasi_kuantitas' => ['required'],
+            'pengajuan_nilai' => ['required'],
         ];
+
 
         $validatedData = $request->validate($rules);
 
-        // dd($validatedData);
-        // dd($id);
+        $validatedData['realisasi_biaya'] = $request->realisasi_biaya;
 
         Sasaran::where('id', $id)->update($validatedData);
 
         return redirect('/pengajuan/realisasi/create')->with('toast_success', 'Realiasasi telah berhasil ditambahkan!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Jabatan  $jabatan
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

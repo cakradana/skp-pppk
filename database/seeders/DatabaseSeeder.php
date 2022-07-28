@@ -106,7 +106,7 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'role' => 'Pegawai yang Dinilai',
-            'name' => 'Andriansyah Zakaria, S.Kom.,M.Kom.',
+            'name' => 'Andriansyah Zakaria, S.Kom., M.Kom.',
             'nip' => '198507252021211003',
             'pangkat_id' => 1,
             'jabatan_id' => 1,

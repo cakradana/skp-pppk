@@ -57,6 +57,24 @@ $(".tolak-pengajuan").on("click", function (event) {
         }
     });
 });
+//Confirm Reset SweetAlert2
+$(".reset-confirm").on("click", function (event) {
+    event.preventDefault();
+    var form = $(this).parents("form");
+    Swal.fire({
+        title: "Yakin Reset Rencana Ini?",
+        text: "Data yang telah direset dapat dipilih kembali",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Reset!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }
+    });
+});
 
 $(document).ready(function () {
     var countre = 1;
@@ -73,7 +91,7 @@ $(document).ready(function () {
     <div class="col-sm-2">\
         <input type="number" min="1"\
             class="form-control" id="kuantitas"\
-            name="kuantitas[]" required>\
+            name="target_kuantitas[]" required>\
     </div>\
     <div class="col-sm-3">\
         <select class="select2 form-control" name="bulan[]"\
@@ -116,3 +134,29 @@ $(document).ready(function () {
         x--;
     });
 });
+
+/* Dengan Rupiah */
+var dengan_rupiah = document.getElementById('dengan-rupiah');
+dengan_rupiah.addEventListener('keyup', function(e)
+{
+    dengan_rupiah.value = formatRupiah(this.value, 'Rp. ');
+});
+
+/* Fungsi */
+function formatRupiah(angka, prefix)
+{
+    var number_string = angka.replace(/[^,\d]/g, '').toString(),
+        split    = number_string.split(','),
+        sisa     = split[0].length % 3,
+        rupiah     = split[0].substr(0, sisa),
+        ribuan     = split[0].substr(sisa).match(/\d{3}/gi);
+        
+    if (ribuan) {
+        separator = sisa ? '.' : '';
+        rupiah += separator + ribuan.join('.');
+    }
+    
+    rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+    return prefix == undefined ? rupiah : (rupiah ? 'Rp' + rupiah : '');
+}
+

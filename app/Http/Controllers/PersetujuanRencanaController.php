@@ -61,7 +61,7 @@ class PersetujuanRencanaController extends Controller
         } else {
             $atribut = 'false';
         }
-        $rencanas = Sasaran::where('user_id', $id)->select(['kegiatan_id', 'output'])->groupBy(['kegiatan_id', 'output'])->get();
+        $rencanas = Sasaran::where('user_id', $id)->select(['kegiatan_id', 'output_id'])->groupBy(['kegiatan_id', 'output_id'])->get();
         $pegawai = User::find($id);
 
         return view('penilaian.rencana.show', [

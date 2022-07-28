@@ -52,7 +52,7 @@
 @endif
 
 @if (session()->has('loginError'))
-<div class="alert alert-primary alert-dismissible fade show" role="alert">
+<div class="alert alert-light alert-dismissible fade show" role="alert">
     <strong>{{ session('loginError') }}</strong> Silakan coba lagi.
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>

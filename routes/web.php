@@ -1,20 +1,21 @@
 <?php
 
-use App\Http\Controllers\DashboardController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\OutputController;
+use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\PangkatController;
-use App\Http\Controllers\KegiatanController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\PenilaiController;
 use App\Http\Controllers\PeriodeController;
-use App\Http\Controllers\JabatanController;
-use App\Http\Controllers\ProfilController;
-use App\Http\Controllers\PersetujuanRencanaController;
-use App\Http\Controllers\PengajuanRealisasiController;
+use App\Http\Controllers\KegiatanController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PengajuanRencanaController;
-use App\Http\Controllers\PenilaianRealisasiController;
 use App\Http\Controllers\PenilaianPerilakuController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PengajuanRealisasiController;
+use App\Http\Controllers\PenilaianRealisasiController;
+use App\Http\Controllers\PersetujuanRencanaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,12 +71,18 @@ Route::middleware(['admin'])->group(function () {
     Route::resource('/master/jabatan', JabatanController::class)->except('show');
     // resource kegiatan
     Route::resource('/master/kegiatan', KegiatanController::class)->except('show');
+    // resource output
+    Route::resource('/master/output', OutputController::class)->except('show');
 });
 
 
 Route::middleware(['pegawai'])->group(function () {
     // resource rencana
     Route::resource('/pengajuan/rencana', PengajuanRencanaController::class);
+    // tambah output
+    Route::post('/tambah-output', [PengajuanRencanaController::class, 'tambahOutput']);
+    // tambah kegiatan
+    Route::post('/tambah-kegiatan', [PengajuanRencanaController::class, 'tambahKegiatan']);
     // cetak rencana
     Route::get('/pengajuan/rencana/cetak-rencana/{id}', [PengajuanRencanaController::class, 'cetak']);
     // resource pengajuan realisasi

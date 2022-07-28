@@ -4,15 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Sasaran;
 use App\Models\Kegiatan;
+use App\Models\Output;
 use Illuminate\Http\Request;
 
 class PengajuanRencanaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $user = auth()->user();
@@ -24,7 +20,7 @@ class PengajuanRencanaController extends Controller
             $atribut = 'false';
         }
 
-        $rencana = Sasaran::where('user_id', $user->id)->select(['kegiatan_id', 'output'])->groupBy(['kegiatan_id', 'output'])->get();
+        $rencana = Sasaran::where('user_id', $user->id)->select(['kegiatan_id', 'output_id'])->groupBy(['kegiatan_id', 'output_id'])->get();
 
         return view('pengajuan.rencana.index', [
             "title" => "Rencana SKP",
@@ -38,7 +34,7 @@ class PengajuanRencanaController extends Controller
     {
         $user = auth()->user();
 
-        $rencana = Sasaran::where('user_id', $user->id)->select(['kegiatan_id', 'output'])->groupBy(['kegiatan_id', 'output'])->get();
+        $rencana = Sasaran::where('user_id', $user->id)->select(['kegiatan_id', 'output_id', 'target_biaya'])->groupBy(['kegiatan_id', 'output_id', 'target_biaya'])->get();
 
         $data = [
             "title" => "Cetak Rencana SKP",
@@ -54,17 +50,14 @@ class PengajuanRencanaController extends Controller
         // return $pdf->download('SKP ' . $user->name . '.pdf');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $user = auth()->user();
 
+        $output = Output::all();
+
         // get all kegiatan where jabatan_id and not in rencana by user_id year
-        $kegiatans = Kegiatan::where('jabatan_id', auth()->user()->jabatan_id)
+        $kegiatan = Kegiatan::where('jabatan_id', auth()->user()->jabatan_id)
             ->whereNotIn('id', function ($query) {
                 $query->select('kegiatan_id')
                     ->from('sasarans')
@@ -76,87 +69,103 @@ class PengajuanRencanaController extends Controller
         return view('pengajuan.rencana.create', [
             "title" => "Tambah Rencana",
             "user" => $user,
-            'kegiatans' => $kegiatans
+            "outputs" => $output,
+            "kegiatans" => $kegiatan
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
+        // dd($request->all());
+
         $validatedData = $request->validate([
             'kegiatan_id' => ['required'],
-            'kuantitas' => ['required'],
-            'output' => ['required'],
+            'target_kualitas' => ['required'],
+            'target_kuantitas' => ['required'],
+            // 'target_biaya' => ['required'],
+            'output_id' => ['required'],
             'bulan' => ['required']
         ]);
+
+        // dd($validatedData);
+
+        // $num = $request->target_biaya;
+        // $int = toInt();
+
+        // dd($int);
+
+        // $validatedData['target-biaya'] = $int;
 
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['penilai_id'] = auth()->user()->penilai_id;
         $validatedData['status'] = 'Belum Disetujui';
-        $validatedData['realisasi'] = null;
+        $validatedData['realisasi_kuantitas'] = null;
+        $validatedData['realisasi_biaya'] = null;
         $validatedData['pengajuan_nilai'] = null;
-        $validatedData['nilai_atasan'] = null;
+        $validatedData['realisasi_kualitas'] = null;
+
+        // dd($validatedData);
 
         $bulans = $request->bulan;
-        $kuantitases = $request->kuantitas;
+        $kuantitases = $request->target_kuantitas;
 
         foreach ($bulans as $index => $bulan) {
             $kuantitas = $kuantitases[$index];
             $validatedData['bulan'] = $bulan;
-            $validatedData['kuantitas'] = $kuantitas;
+            $validatedData['target_kuantitas'] = $kuantitas;
             Sasaran::create($validatedData);
         }
 
-        return redirect('/pengajuan/rencana')->with('toast_success', 'Rencana Kegiatan telah berhasil ditambahkan!');
+        return redirect()->back()->with('toast_success', 'Rencana Kegiatan telah berhasil ditambahkan!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Sasaran  $sasaran
-     * @return \Illuminate\Http\Response
-     */
     public function show(Sasaran $sasaran)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Sasaran  $sasaran
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Sasaran $sasaran)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Sasaran  $sasaran
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Sasaran $sasaran)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Sasaran  $sasaran
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Sasaran $sasaran)
+    public function destroy($id)
     {
-        //
+        $user = auth()->user();
+
+        Sasaran::where('user_id', $user->id)->where('kegiatan_id', $id)->delete();
+
+        return redirect()->back()->with('toast_success', 'Rencana telah berhasil dihapus!');
+    }
+
+    public function tambahOutput(Request $request)
+    {
+        $validatedData = $request->validate([
+            'nama' => ['required', 'unique:outputs']
+        ]);
+
+        Output::create($validatedData);
+
+        return redirect()->back()->with('toast_success', 'Output telah berhasil ditambahkan!');
+    }
+
+    public function tambahKegiatan(Request $request)
+    {
+        // dd($request->all());
+
+        $validatedData = $request->validate([
+            'nama' => ['required', 'unique:kegiatans'],
+            'jabatan_id' => ['required'],
+            'ak' => ['required'],
+        ]);
+
+        Kegiatan::create($validatedData);
+
+        return redirect()->back()->with('toast_success', 'Kegiatan telah berhasil ditambahkan!');
     }
 }

@@ -7,6 +7,7 @@ use App\Models\Kegiatan;
 use App\Models\Pangkat;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -14,8 +15,18 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
 
+        if ($user->ttd == null) {
+            $atribut = 'tdk ada ttd';
+        } else {
+            $atribut = 'ada ttd';
+        }
+
+        // dd($atribut);
+
+
         return view('dashboard.index', [
             "title" => "Dashboard",
+            "atribut" => $atribut,
             'user' => $user,
             "pegawai" => User::where('role', 'Pegawai yang Dinilai')->count(),
             "pejabat" => User::where('role', 'Pejabat Penilai')->count(),

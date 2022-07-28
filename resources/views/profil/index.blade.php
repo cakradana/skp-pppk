@@ -97,9 +97,10 @@
         <div class="card card-secondary card-outline">
             <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                    <li class="nav-item"><a class="nav-link active" href="#tab-foto" data-toggle="tab">Foto</a>
+                    <li class="nav-item"><a class="nav-link" href="#tab-foto" data-toggle="tab">Foto</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="#tab-ttd" data-toggle="tab">Ttd</a>
+                    <li class="nav-item"><a class="nav-link {{ Request::is('profil') ? 'active' : '' }}" href="#tab-ttd"
+                            data-toggle="tab">Ttd</a>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="#profil" data-toggle="tab">Profil</a></li>
                     <li class="nav-item"><a class="nav-link" href="#edit-password" data-toggle="tab">Password</a>
@@ -108,7 +109,7 @@
             </div>
             <div class="card-body">
                 <div class="tab-content">
-                    <div class="tab-pane active" id="tab-foto">
+                    <div class="tab-pane" id="tab-foto">
                         <form class="form-horizontal" action="/profil/fotoUpdate/{{ $user->id }}" method="POST"
                             enctype="multipart/form-data">
                             @method('PUT')
@@ -131,7 +132,7 @@
                             </div>
                         </form>
                     </div>
-                    <div class="tab-pane" id="tab-ttd">
+                    <div class="tab-pane {{ Request::is('profil') ? 'active' : '' }}" id="tab-ttd">
                         <div class="text-center mb-3">
                             <img src="{{ asset('/files'.'/'. $user->ttd) }}" class="border border-primary"
                                 style="width: 10%" alt="user-ttd">

@@ -15,9 +15,14 @@ class PenilaiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
+        $user = auth()->user();
+
         return view('master.penilai.index', [
+            "user" => $user,
             "title" => "Master Penilai",
             "penilais" => User::where('role', 'Pejabat Penilai')->get()
         ]);
@@ -30,7 +35,10 @@ class PenilaiController extends Controller
      */
     public function create()
     {
+        $user = auth()->user();
+
         return view('master.penilai.create', [
+            "user" => $user,
             "title" => "Tambah Penilai",
             'pangkats' => Pangkat::all(),
             'jabatans' => Jabatan::all(),
@@ -78,7 +86,10 @@ class PenilaiController extends Controller
      */
     public function show(User $penilai)
     {
+        $user = auth()->user();
+
         return view('master.penilai.show', [
+            "user" => $user,
             'title' => "Detail Penilai",
             'penilai' => $penilai
         ]);

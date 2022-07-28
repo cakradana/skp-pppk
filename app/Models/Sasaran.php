@@ -21,6 +21,11 @@ class Sasaran extends Model
         return $this->belongsTo(Kegiatan::class);
     }
 
+    public function output()
+    {
+        return $this->belongsTo(Output::class);
+    }
+
     public function penilai()
     {
         return $this->belongsTo(User::class, 'penilai_id');

@@ -6,6 +6,19 @@
 
 @section('isi')
 <div class="row">
+    <div class="col">
+        @if ($atribut == 'tdk ada ttd')
+        <div class="alert alert-warning alert-dismissible">
+            <h5><i class="icon fas fa-ban"></i>Mohon Upload Tanda Tangan Anda Terlebih Dahulu </h5>
+            Silakan upload tanda tangan <a href="profil/#tab-ttd"
+                class="text-decoration-none text-dark badge badge-warning">di
+                sini</a>
+        </div>
+        @endif
+    </div>
+
+
+
     <div class="col-lg-12 col-6">
         <div class="small-box bg-white card-primary card-outline">
             <div class="card-body">

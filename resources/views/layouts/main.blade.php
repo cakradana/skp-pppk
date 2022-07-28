@@ -36,6 +36,8 @@
 </head>
 
 <body class="hold-transition sidebar-mini">
+    <?php $user = auth()->user(); ?>
+
     <div class="wrapper">
         {{-- SweetAlert2 --}}
         @include('sweetalert::alert')
@@ -96,6 +98,7 @@
     <script src="/assets/plugins/select2/js/select2.full.min.js"></script>
     {{-- My Script --}}
     <script type="text/javascript" src="/assets/dist/js/myscript.js"></script>
+    @stack('script')
 </body>
 
 </html>

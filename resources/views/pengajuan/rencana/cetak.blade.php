@@ -106,7 +106,7 @@
             </tr>
             @foreach ($rencanas as $rencana)
             <?php 
-            $kuantitas = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->select('kuantitas', $rencana->kuantitas)->sum('kuantitas');
+            $kuantitas = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->select('target_kuantitas', $rencana->kuantitas)->sum('target_kuantitas');
             $waktu = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->count();
         ?>
             <tr class="row11">
@@ -114,11 +114,11 @@
                 <td class="column1 style5 s style5" colspan="3">{{ $rencana->kegiatan->nama }}</td>
                 <td class="column4 style1 s">{{ $rencana->kegiatan->ak * $kuantitas }}</td>
                 <td class="column5 style4 s">{{ $kuantitas }}</td>
-                <td class="column6 style19 s">{{ $rencana->output }}</td>
+                <td class="column6 style19 s">{{ $rencana->output->nama }}</td>
                 <td class="column7 style2 s">100</td>
                 <td class="column8 style3 s">{{ $waktu }}</td>
                 <td class="column9 style3 s">Bln</td>
-                <td class="column10 style20 s">-</td>
+                <td class="column10 style20 s">{{ $rencana->target_biaya ? $rencana->target_biaya : '-' }}</td>
             </tr>
             @endforeach
             <tr class="row12">

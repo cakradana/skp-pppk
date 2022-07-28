@@ -8,15 +8,20 @@
 
 <div class="row">
     <div class="col">
+
+
+
+
         @if ($atribut == 'true')
         <a href="/pengajuan/rencana/create" class="btn mb-3 btn-success disabled"><i class="fas fa-check"></i> Rencana
             Telah
             Disetujui Atasan</a>
-        <a href="/pengajuan/rencana/cetak-rencana/{{ $user->id }}" class="btn btn-success mb-3"><i
+        <a href="/pengajuan/rencana/cetak-rencana/{{ $user->id }}" class="btn btn-success mb-3 float-right"><i
                 class="fas fa-file-pdf"></i> Cetak Rencana</a>
         @else
         <a href="/pengajuan/rencana/create" class="btn mb-3 btn-primary"><i class="fas fa-plus"></i> Tambah Rencana</a>
-        <a href="#cetak" class="btn btn-success mb-3 disabled"><i class="fas fa-file-pdf"></i> Cetak Rencana</a>
+        <a href="#cetak" class="btn btn-success mb-3 float-right disabled"><i class="fas fa-file-pdf"></i> Cetak
+            Rencana</a>
         @endif
         {{-- <a href="/pengajuan/rencana/create"
             class="btn mb-3 {{ $atribut == 'true' ? 'btn-secondary disabled' : 'btn-primary' }}"><i
@@ -40,8 +45,11 @@
                         </thead>
                         <tbody>
                             @foreach ($rencanas as $rencana)
+
+                            {{-- {{ dd($rencana->kegiatan_id) }} --}}
+
                             <?php 
-                                $kuantitas = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->select('kuantitas', $rencana->kuantitas)->sum('kuantitas');
+                                $kuantitas = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->select('target_kuantitas', $rencana->kuantitas)->sum('target_kuantitas');
                                 $waktu = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->count();
                             ?>
                             <tr>
@@ -56,7 +64,7 @@
                                         </div>
                                         <div class="col">
                                             <input type="text" class="form-control form-control-sm"
-                                                value="{{ $rencana->output }}" readonly>
+                                                value="{{ $rencana->output->nama }}" readonly>
                                         </div>
                                     </div>
                                 </td>
@@ -68,7 +76,15 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td><a href="#" class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></a></td>
+                                <td>
+                                    <form action="/pengajuan/rencana/{{ $rencana->kegiatan_id }}" method="POST"
+                                        class="d-inline">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-sm btn-warning reset-confirm"><i
+                                                class="fas fa-sync-alt"></i></button>
+                                    </form>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
 use App\Models\Kegiatan;
-use App\Models\Rencana;
 use Illuminate\Http\Request;
 
 class KegiatanController extends Controller
@@ -16,7 +15,10 @@ class KegiatanController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
+
         return view('master.kegiatan.index', [
+            "user" => $user,
             "title" => "Master Kegiatan Tugas Jabatan",
             "kegiatans" => Kegiatan::all()
         ]);
@@ -29,7 +31,9 @@ class KegiatanController extends Controller
      */
     public function create()
     {
+        $user = auth()->user();
         return view('master.kegiatan.create', [
+            "user" => $user,
             "title" => "Tambah Kegiatan Tugas Jabatan",
             'jabatans' => Jabatan::all()
         ]);
@@ -80,7 +84,9 @@ class KegiatanController extends Controller
      */
     public function edit(Kegiatan $kegiatan)
     {
+        $user = auth()->user();
         return view('master.kegiatan.edit', [
+            "user" => $user,
             "title" => "Edit Kegiatan Tugas Jabatan",
             'kegiatan' => $kegiatan,
             'jabatans' => Jabatan::all()
@@ -119,7 +125,8 @@ class KegiatanController extends Controller
      */
     public function destroy(Kegiatan $kegiatan)
     {
-        if ($kegiatan->rencana->first()) {
+        // dd($kegiatan);
+        if ($kegiatan->sasaran->first()) {
             return redirect('/master/kegiatan')->with('toast_error', 'Kegiatan Tugas Jabatan tidak dapat dihapus!');
         }
         Kegiatan::destroy($kegiatan->id);

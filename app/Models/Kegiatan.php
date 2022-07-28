@@ -16,13 +16,8 @@ class Kegiatan extends Model
         return $this->belongsTo(Jabatan::class, 'jabatan_id');
     }
 
-    public function rencana()
+    public function sasaran()
     {
-        return $this->hasMany(Rencana::class);
-    }
-
-    public function skp()
-    {
-        return $this->hasMany(SKP::class);
+        return $this->hasMany(Sasaran::class);
     }
 }

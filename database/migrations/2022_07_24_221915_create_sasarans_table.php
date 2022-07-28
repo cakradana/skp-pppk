@@ -17,14 +17,23 @@ class CreateSasaransTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('kegiatan_id');
-            $table->integer('kuantitas');
-            $table->integer('realisasi')->nullable();
-            $table->string('output');
-            $table->string('bulan');
-            $table->enum('status', ['Disetujui', 'Belum Disetujui']);
+            $table->integer('target_kuantitas');
+            $table->integer('realisasi_kuantitas')->nullable();
+
+            $table->float('target_kualitas');
             $table->float('pengajuan_nilai')->nullable();
-            $table->float('nilai_atasan')->nullable();
+
+            $table->foreignId('output_id');
+            $table->string('bulan');
+
+            $table->integer('target_biaya')->nullable();
+            $table->integer('realisasi_biaya')->nullable();
+
+            $table->enum('status', ['Disetujui', 'Belum Disetujui']);
+
+            $table->float('realisasi_kulitas')->nullable();
             $table->foreignId('penilai_id');
+
             $table->timestamps();
         });
     }
