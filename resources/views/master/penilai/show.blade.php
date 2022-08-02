@@ -68,7 +68,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a href="/master/penilai/{{ $penilai->id }}/edit" class="btn btn-warning"><i
+                <a href="/master/penilai/{{ $penilai->id }}/edit" class="btn btn-warning text-white"><i
                         class="fas fa-user-edit"></i> Edit</a>
                 <form action="/master/penilai/{{ $penilai->id }}" method="POST" class="d-inline">
                     @csrf

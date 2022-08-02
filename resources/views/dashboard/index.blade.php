@@ -9,9 +9,9 @@
     <div class="col">
         @if ($atribut == 'tdk ada ttd')
         <div class="alert alert-warning alert-dismissible">
-            <h5><i class="icon fas fa-ban"></i>Mohon Upload Tanda Tangan Anda Terlebih Dahulu </h5>
-            Silakan upload tanda tangan <a href="profil/#tab-ttd"
-                class="text-decoration-none text-dark badge badge-warning">di
+            <h5><i class="icon fas fa-ban"></i>Anda Belum Melakukan Upload Tanda Tangan</h5>
+            Mohon upload tanda tangan anda terlebih dahulu <a href="profil/#tab-ttd"
+                class="text-decoration-none badge badge-warning text-white">di
                 sini</a>
         </div>
         @endif

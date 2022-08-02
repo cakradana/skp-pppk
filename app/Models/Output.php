@@ -10,4 +10,9 @@ class Output extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function sasaran()
+    {
+        return $this->hasMany(Sasaran::class);
+    }
 }

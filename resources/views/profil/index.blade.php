@@ -126,7 +126,8 @@
                                             File</label>
                                     </div>
                                     <div class="input-group-append">
-                                        <input type="submit" class="input-group-text bg-warning" value="Upload">
+                                        <input type="submit" class="input-group-text bg-warning text-white"
+                                            value="Upload">
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +154,8 @@
                                             File</label>
                                     </div>
                                     <div class="input-group-append">
-                                        <input type="submit" class="input-group-text bg-warning" value="Upload">
+                                        <input type="submit" class="input-group-text bg-warning text-white"
+                                            value="Upload">
                                     </div>
                                 </div>
                             </div>
@@ -192,7 +194,7 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn btn-warning"><i class="fas fa-save"></i>
+                                <button type="submit" class="btn btn-warning text-white"><i class="fas fa-save"></i>
                                     Simpan</button>
                             </div>
                         </form>
@@ -288,7 +290,7 @@
                                 </div>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn btn-warning"><i class="fas fa-save"></i>
+                                <button type="submit" class="btn btn-warning text-white"><i class="fas fa-save"></i>
                                     Simpan</button>
                             </div>
                         </form>

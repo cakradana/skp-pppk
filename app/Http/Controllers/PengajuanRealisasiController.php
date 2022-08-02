@@ -19,7 +19,8 @@ class PengajuanRealisasiController extends Controller
             $atribut = 'false';
         }
 
-        $rencana = Sasaran::where('user_id', $user->id)->select(['kegiatan_id', 'output_id', 'realisasi_kuantitas'])->groupBy(['kegiatan_id', 'output_id', 'realisasi_kuantitas'])->get();
+        $rencana = Sasaran::where('user_id', $user->id)->select(['kegiatan_id', 'output_id', 'target_kualitas', 'target_biaya'])
+            ->groupBy(['kegiatan_id', 'output_id', 'target_kualitas', 'target_biaya'])->get();
 
         return view('pengajuan.realisasi.index', [
             "title" => "Pengajuan Realisasi SKP",
@@ -114,6 +115,21 @@ class PengajuanRealisasiController extends Controller
         Sasaran::where('id', $id)->update($validatedData);
 
         return redirect('/pengajuan/realisasi/create')->with('toast_success', 'Realiasasi telah berhasil ditambahkan!');
+    }
+
+    public function reset($id)
+    {
+        // dd($request->all());
+
+        $validatedData['realisasi_biaya'] = null;
+        $validatedData['pengajuan_nilai'] = null;
+        $validatedData['realisasi_kuantitas'] = null;
+
+        // dd($validatedData);
+
+        Sasaran::where('id', $id)->update($validatedData);
+
+        return redirect('/pengajuan/realisasi/create')->with('toast_success', 'Realiasasi telah berhasil direset!');
     }
 
     public function destroy($id)

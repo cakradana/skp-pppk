@@ -139,6 +139,8 @@ class PegawaiController extends Controller
      */
     public function destroy(User $pegawai)
     {
+        // dd($pegawai->penilai);
+
         User::destroy($pegawai->id);
 
         return redirect('/master/pegawai')->with('toast_success', 'Pegawai telah berhasil dihapus!');

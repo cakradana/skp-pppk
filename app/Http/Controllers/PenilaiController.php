@@ -145,6 +145,12 @@ class PenilaiController extends Controller
      */
     public function destroy(User $penilai)
     {
+        // dd($penilai->pegawai);
+
+        if ($penilai->pegawai->first()) {
+            return redirect('/master/penilai')->with('toast_error', 'Penilai tidak dapat dihapus!');
+        }
+
         User::destroy($penilai->id);
 
         return redirect('/master/penilai')->with('toast_success', 'Penilai telah berhasil dihapus!');

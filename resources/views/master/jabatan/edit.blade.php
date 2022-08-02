@@ -33,7 +33,8 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button type="submit" class="btn btn-warning"><i class="fas fa-save"></i> Simpan</button>
+                <button type="submit" class="btn btn-warning text-white text-white"><i class="fas fa-save"></i>
+                    Simpan</button>
             </div>
             </form>
         </div>

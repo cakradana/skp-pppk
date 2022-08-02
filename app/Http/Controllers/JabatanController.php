@@ -102,6 +102,10 @@ class JabatanController extends Controller
      */
     public function destroy(Jabatan $jabatan)
     {
+        if ($jabatan->users->first()) {
+            return redirect('/master/jabatan')->with('toast_error', 'Jabatan tidak dapat dihapus!');
+        }
+
         Jabatan::destroy($jabatan->id);
 
         return redirect('/master/jabatan')->with('toast_success', 'Jabatan telah berhasil dihapus!');

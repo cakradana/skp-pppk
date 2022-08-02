@@ -31,7 +31,7 @@ class CreateSasaransTable extends Migration
 
             $table->enum('status', ['Disetujui', 'Belum Disetujui']);
 
-            $table->float('realisasi_kulitas')->nullable();
+            $table->float('realisasi_kualitas')->nullable();
             $table->foreignId('penilai_id');
 
             $table->timestamps();

@@ -34,7 +34,7 @@
                                 <td>{{ $kegiatan->ak }}</td>
                                 <td>
                                     <a href="/master/kegiatan/{{ $kegiatan->id }}/edit"
-                                        class="btn btn-sm btn-warning"><i class="fas fa-pen"></i></a>
+                                        class="btn btn-sm btn-warning text-white"><i class="fas fa-pen"></i></a>
                                     <form action="/master/kegiatan/{{ $kegiatan->id }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('delete')

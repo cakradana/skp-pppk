@@ -19,119 +19,115 @@
         <div class="card card-secondary card-outline">
             <div class="card-body table-responsive p-0">
                 <div class="" style="padding: 20px 20px 20px;">
-                    <table id="" class="table table-bordered small" style="width:100%">
+                    <table class="table table-striped table-bordered" style="width:100%; font-size:75%">
                         <thead class="text-center">
                             <tr>
                                 <th rowspan="2" class="align-middle p-1">No</th>
-                                <th rowspan="2" class="align-middle">Kegiatan Tugas Jabatan</th>
+                                <th rowspan="2" class="align-middle text-left">Kegiatan Tugas Jabatan</th>
                                 <th rowspan="2" class="align-middle">AK</th>
-                                <th colspan="2" class="">Target</th>
-                                <th rowspan="2" class="align-middle p-3">Nilai Mutu</th>
+                                <th colspan="6" class="align-middle">Target</th>
+                                <th rowspan="2" class="align-middle">AK</th>
+                                <th colspan="6" class="align-middle">Realisasi</th>
+                                <th rowspan="2" class="align-middle">Nilai Capaian SKP</th>
                             </tr>
                             <tr>
-                                <th class="col-3 align-middle p-3">Kuantitas / Output</th>
-                                <th class="col-2 p-3">Waktu (Bulan)</th>
+                                <th colspan="2">Kuantitas/ Output</th>
+                                <th class="align-middle">Kualitas</th>
+                                <th colspan="2" class="align-middle">Waktu</th>
+                                <th class="align-middle">Biaya</th>
+                                <th colspan="2">Kuantitas/ Output</th>
+                                <th class="align-middle">Kualitas</th>
+                                <th colspan="2" class="align-middle">Waktu</th>
+                                <th class="align-middle">Biaya</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php 
+                                $total_nilai = 0;
+                                $banyak_kegiatan = \App\Models\Sasaran::where('user_id', $user->id)->select('kegiatan_id')->groupBy('kegiatan_id')->get()->count();
+                            ?>
                             @foreach ($rencanas as $rencana)
                             <?php
 
+                                $target_kuantitas = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->select('target_kuantitas', $rencana->kuantitas)->sum('target_kuantitas');
+                                $realisasi_kuantitas = \App\Models\Sasaran::where('kegiatan_id', $rencana->kegiatan->id)->sum('realisasi_kuantitas');
                                 
-
-
-                                $perhitungan = 
-
-
-
-
-                                $realisasi = \App\Models\Sasaran::where('kegiatan_id', $rencana->kegiatan->id)->sum('realisasi_kuantitas');
-                                $kuantitas = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->select('target_kuantitas', $rencana->kuantitas)->sum('target_kuantitas');
-                                $waktu = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->count();
-                                $waktu_realisasi = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->whereNotNull('realisasi_kuantitas')->count();
+                                $target_waktu = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->count();
+                                $realisasi_waktu = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->whereNotNull('realisasi_kuantitas')->count();
                                 
-                                
-                                
-                                
-                                $aspek_kuantitas = $realisasi / $kuantitas * 100;
-                                $aspek_kualitas = 100 / 100;
+                                $realisasi_kualitas = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->whereNotNull('realisasi_kualitas')->value('realisasi_kualitas');
+
+                                $target_biaya = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->whereNotNull('target_biaya')->value('target_biaya');
+                                $realisasi_biaya = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->whereNotNull('realisasi_biaya')->value('realisasi_biaya');
+
+                                $aspek_kuantitas = $realisasi_kuantitas/$target_kuantitas*100;
+                                $aspek_kualitas = $realisasi_kualitas/$rencana->target_kualitas*100;
+
+                                $persen_waktu = 100-($realisasi_waktu/$target_waktu*100);
+                                if ($persen_waktu > 24) {
+                                    $aspek_waktu = 76-((((1.76*$target_waktu-$realisasi_waktu)/$target_waktu)*100)-100);
+                                } elseif ($persen_waktu < 24) {
+                                    $aspek_waktu = ((1.76*$target_waktu-$realisasi_waktu)/$target_waktu)*100;
+                                }
+
+                                if (!empty($target_biaya)) {
+                                    $persen_biaya = 100-($realisasi_biaya/$target_biaya*100);
+                                    if ($persen_biaya > 24) {
+                                    $aspek_biaya = 76-((((1.76*$target_biaya-$realisasi_biaya)/$target_biaya)*100)-100);
+                                    } elseif ($persen_biaya < 24) {
+                                    $aspek_biaya = ((1.76*$target_biaya-$realisasi_biaya)/$target_biaya)*100;
+                                    }
+                                } else {
+                                    $persen_biaya = null;
+                                    $aspek_biaya = null;    
+                                }
+
+                                $perhitungan = $aspek_kuantitas + $aspek_kualitas + $aspek_waktu + $aspek_biaya;
+
+                                if (!empty($target_biaya)) {
+                                    if ($realisasi_biaya == null) {
+                                        $nilai_skp = $perhitungan/3;
+                                    } else {
+                                        $nilai_skp = $perhitungan/4;
+                                    }
+                                } else {
+                                    $nilai_skp = $perhitungan/3;
+                                }
+
+                                $total_nilai += $nilai_skp;
                             ?>
                             <tr>
-                                <td rowspan="2" class="align-middle text-center p-3">{{ $loop->iteration }}</td>
+                                <td class="text-center p-3">{{ $loop->iteration }}</td>
                                 <td>{{ $rencana->kegiatan->nama }}</td>
-                                <td class="text-center">{{ $rencana->kegiatan->ak * $kuantitas }}</td>
-                                <td>
-                                    <div class="form-row">
-                                        <div class="col">
-                                            <input type="number" min="1" class="form-control form-control-sm"
-                                                value="{{ $kuantitas }}" readonly>
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control form-control-sm"
-                                                value="{{ $rencana->output->nama }}" readonly>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-row">
-                                        <div class="col">
-                                            <input type="number" max="12" min="1" class="form-control form-control-sm"
-                                                value="{{ $waktu }}" readonly>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td rowspan="2" class="align-middle text-center p-3">0.00</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-weight-bold">Realisasi</td>
-                                <td class="text-center">{{ $rencana->kegiatan->ak * $rencana->realisasi_kuantitas }}
-                                </td>
-                                <td>
-                                    <div class="form-row">
-                                        <div class="col">
-                                            <input type="number" min="1" class="form-control form-control-sm" {{--
-                                                value="{{ $loop->iteration }}" readonly> --}}
-                                            value="{{ $realisasi }}" readonly>
-                                        </div>
-                                        <div class="col">
-                                            <input type="text" class="form-control form-control-sm"
-                                                value="{{ $rencana->output->nama }}" readonly>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="form-row">
-                                        <div class="col">
-                                            <input type="number" max="12" min="1" class="form-control form-control-sm"
-                                                value="{{ $waktu_realisasi }}" readonly>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="6"></td>
+                                <td class="text-center">{{ $rencana->kegiatan->ak}}</td>
+                                <td class="text-center">{{ $target_kuantitas }}</td>
+                                <td>{{ $rencana->output->nama }}</td>
+                                <td class="text-center">{{ $rencana->target_kualitas }}</td>
+                                <td>{{ $target_waktu }}</td>
+                                <td>Bulan</td>
+                                <td class="text-center">{{ $target_biaya ? $target_biaya : '-' }}</td>
+                                <td class="text-center">{{ $rencana->kegiatan->ak * $realisasi_kuantitas}}</td>
+                                <td class="text-center">{{ $realisasi_kuantitas }}</td>
+                                <td>Dokumen</td>
+                                <td class="text-center">{{ $realisasi_kualitas ? $realisasi_kualitas : '-' }}</td>
+                                <td>{{ $realisasi_waktu }}</td>
+                                <td>Bulan</td>
+                                <td class="text-center">{{ $realisasi_biaya ? $realisasi_biaya : '-' }}</td>
+                                <td class="text-center">{{ $nilai_skp }}</td>
                             </tr>
                             @endforeach
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="16">Jumlah:</th>
+                                <td class="text-center">{{ $total_nilai / $banyak_kegiatan }}</td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>
         </div>
         @endif
-
-
-
-
-
-
-
-
-
-
-        {{-- <a href="/pengajuan/rencana/create"
-            class="btn mb-3 {{ $atribut == 'true' ? 'btn-secondary disabled' : 'btn-primary' }}"><i
-                class="fas fa-plus"></i> Tambah Rencana</a> --}}
-
     </div>
 </div>
 @endsection

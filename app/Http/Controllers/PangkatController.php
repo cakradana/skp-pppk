@@ -102,6 +102,12 @@ class PangkatController extends Controller
      */
     public function destroy(Pangkat $pangkat)
     {
+        // dd($pangkat->users);
+
+        if ($pangkat->users->first()) {
+            return redirect('/master/pangkat')->with('toast_error', 'Pangkat tidak dapat dihapus!');
+        }
+
         Pangkat::destroy($pangkat->id);
 
         return redirect('/master/pangkat')->with('toast_success', 'Pangkat telah berhasil dihapus!');

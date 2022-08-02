@@ -52,20 +52,17 @@
                         <tr>
                             <th rowspan="2" class="align-middle p-1">No</th>
                             <th rowspan="2" class="align-middle text-left">Kegiatan Tugas Jabatan</th>
-                            <th rowspan="2" class="align-middle">AK</th>
-                            <th colspan="2" class="">Target</th>
-                            <th rowspan="2" class="align-middle">AK</th>
-                            <th colspan="2" class="">Realisasi</th>
-                            <th rowspan="2" class="align-middle">Bulan</th>
+                            <th colspan="2" class="align-middle">Target</th>
+                            <th colspan="2" class="align-middle">Realisasi</th>
                             <th rowspan="2" class="align-middle">Pengajuan Nilai</th>
                             <th rowspan="2" class="align-middle">Nilai Atasan</th>
-                            <th rowspan="2" class="col-1 align-middle d-print-none">Aksi</th>
+                            <th rowspan="2" class="col-2 align-middle d-print-none">Aksi</th>
                         </tr>
                         <tr>
-                            <th class="align-middle p-3">Kuantitas</th>
-                            <th class="">Output</th>
                             <th class="align-middle">Kuantitas</th>
-                            <th class="">Output</th>
+                            <th class="align-middle">Output</th>
+                            <th class="align-middle">Kuantitas</th>
+                            <th class="align-middle">Output</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -73,18 +70,18 @@
                         <tr>
                             <td class="text-center p-3">{{ $loop->iteration }}</td>
                             <td>{{ $rencana->kegiatan->nama }}</td>
-                            <td>{{ $rencana->kegiatan->ak}}</td>
                             <td class="text-center p-3">{{ $rencana->target_kuantitas }}</td>
                             <td>{{ $rencana->output->nama }}</td>
-                            <td>{{ $rencana->kegiatan->ak * $rencana->realisasi_kuantitas}}</td>
-                            <td class="text-center p-3">{{ $rencana->realisasi_kuantitas }}</td>
+                            <td class="text-center p-3">{{ $rencana->realisasi_kuantitas ? $rencana->realisasi_kuantitas
+                                : '-' }}</td>
                             <td>
                                 {{ $rencana->output->nama }}
                             </td>
-                            <td>{{ $rencana->bulan }}</td>
-                            <td class="text-center p-3">{{ $rencana->pengajuan_nilai }}</td>
-                            <td class="text-center p-3">{{ $rencana->nilai_atasan }}</td>
-                            <td class="d-print-none">
+                            <td class="text-center p-3">{{ $rencana->pengajuan_nilai ? $rencana->pengajuan_nilai : '-'
+                                }}</td>
+                            <td class="text-center p-3">{{ $rencana->realisasi_kualitas ? $rencana->realisasi_kualitas :
+                                '-' }}</td>
+                            <td class="d-print-none d-flex justify-content-around">
                                 @if ($rencana->realisasi_kuantitas == null)
                                 <?php
                                     $disabled = "";
@@ -97,16 +94,25 @@
                                 ?>
                                 @endif
                                 <button {{ $disabled }} class="btn btn-sm btn-primary" data-toggle="modal"
-                                    data-target="#isi-realisasi-{{ $rencana->id }}"><i class="fas fa-plus"></i></button>
-                                <button {{ $enable }} class="btn btn-sm btn-warning reset-confirm"><i
-                                        class="fas fa-sync-alt"></i></button>
+                                    data-target="#isi-realisasi-{{ $rencana->id }}"><i class="fas fa-plus"></i> Isi
+                                    Realisasi</button>
+                                <form action="/pengajuan/realisasi/reset/{{ $rencana->id }}" method="POST"
+                                    enctype="multipart/form-data" class="form-inline">
+                                    @method('put')
+                                    @csrf
+                                    <button {{ $enable }}
+                                        class="text-white btn btn-sm btn-warning text-white reset-realisasi-confirm"><i
+                                            class="fas fa-sync-alt"></i> Reset Realisasi
+                                    </button>
+
+                                </form>
                             </td>
                         </tr>
                         <div class="modal fade" id="isi-realisasi-{{ $rencana->id }}">
                             <div class="modal-dialog modal-lg">
                                 <div class="modal-content card-primary card-outline">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Isi Realisasi</h4>
+                                        <h4 class="modal-title">Isi Realisasi Bulan {{ $rencana->bulan }}</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>

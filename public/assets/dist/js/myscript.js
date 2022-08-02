@@ -57,13 +57,31 @@ $(".tolak-pengajuan").on("click", function (event) {
         }
     });
 });
-//Confirm Reset SweetAlert2
-$(".reset-confirm").on("click", function (event) {
+//Confirm Reset Rencana SweetAlert2
+$(".reset-rencana-confirm").on("click", function (event) {
     event.preventDefault();
     var form = $(this).parents("form");
     Swal.fire({
         title: "Yakin Reset Rencana Ini?",
-        text: "Data yang telah direset dapat dipilih kembali",
+        text: "Rencana yang telah direset dapat dipilih kembali",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Reset!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }
+    });
+});
+//Confirm Reset Rencana SweetAlert2
+$(".reset-realisasi-confirm").on("click", function (event) {
+    event.preventDefault();
+    var form = $(this).parents("form");
+    Swal.fire({
+        title: "Yakin Reset Realisasi Ini?",
+        text: "Realisasi yang telah direset dapat dipilih kembali",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",

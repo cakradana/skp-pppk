@@ -28,8 +28,8 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $pangkat->nama }}</td>
                                 <td>
-                                    <a href="/master/pangkat/{{ $pangkat->id }}/edit" class="btn btn-warning"><i
-                                            class="fas fa-pen"></i> Edit</a>
+                                    <a href="/master/pangkat/{{ $pangkat->id }}/edit"
+                                        class="btn btn-warning text-white"><i class="fas fa-pen"></i> Edit</a>
                                     <form action="/master/pangkat/{{ $pangkat->id }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('delete')

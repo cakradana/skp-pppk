@@ -81,7 +81,8 @@
                                         class="d-inline">
                                         @csrf
                                         @method('delete')
-                                        <button class="btn btn-sm btn-warning reset-confirm"><i
+                                        <button class="btn btn-sm btn-warning text-white reset-rencana-confirm" {{
+                                            $atribut=='true' ? 'disabled' : '' }}><i
                                                 class="fas fa-sync-alt"></i></button>
                                     </form>
                                 </td>

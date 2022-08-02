@@ -28,8 +28,8 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $jabatan->nama }}</td>
                                 <td>
-                                    <a href="/master/jabatan/{{ $jabatan->id }}/edit" class="btn btn-warning"><i
-                                            class="fas fa-pen"></i> Edit</a>
+                                    <a href="/master/jabatan/{{ $jabatan->id }}/edit"
+                                        class="btn btn-warning text-white"><i class="fas fa-pen"></i> Edit</a>
                                     <form action="/master/jabatan/{{ $jabatan->id }}" method="POST" class="d-inline">
                                         @csrf
                                         @method('delete')

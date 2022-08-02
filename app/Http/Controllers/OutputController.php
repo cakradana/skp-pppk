@@ -82,6 +82,11 @@ class OutputController extends Controller
      */
     public function destroy(Output $output)
     {
+        // dd($output->sasaran);
+
+        if ($output->sasaran->first()) {
+            return redirect('/master/output')->with('toast_error', 'Output tidak dapat dihapus!');
+        }
         Output::destroy($output->id);
 
         return redirect('/master/output')->with('toast_success', 'Output telah berhasil dihapus!');
