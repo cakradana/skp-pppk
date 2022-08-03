@@ -40,29 +40,32 @@
                         class="fas fa-search d-print-none"></i>
                     Proses</button>
         </form>
-        <a href="#cetak" onclick="window.print()" class="btn btn-success mb-3 ml-auto d-print-none"><i
+        {{-- <a href="#cetak" onclick="window.print()" class="btn btn-success mb-3 ml-auto d-print-none"><i
                 class="fas fa-file-pdf"></i> Cetak
-            Realisasi</a>
+            Realisasi</a> --}}
     </div>
     <div class="card card-primary card-outline">
         <div class="card-body table-responsive p-0">
             <div class="" style="padding: 20px 20px 20px;">
-                <table id="" class="table table-striped table-bordered small" style="width:100%">
+                <table id="" class="table table-striped table-bordered small" style="width:100%; font-size:70%">
                     <thead class="text-center">
                         <tr>
                             <th rowspan="2" class="align-middle p-1">No</th>
                             <th rowspan="2" class="align-middle text-left">Kegiatan Tugas Jabatan</th>
                             <th colspan="2" class="align-middle">Target</th>
                             <th colspan="2" class="align-middle">Realisasi</th>
+                            <th rowspan="2" class="align-middle">Bulan</th>
                             <th rowspan="2" class="align-middle">Pengajuan Nilai</th>
                             <th rowspan="2" class="align-middle">Nilai Atasan</th>
-                            <th rowspan="2" class="col-2 align-middle d-print-none">Aksi</th>
+                            <th rowspan="2" class="align-middle d-print-none">Aksi</th>
                         </tr>
                         <tr>
-                            <th class="align-middle">Kuantitas</th>
-                            <th class="align-middle">Output</th>
-                            <th class="align-middle">Kuantitas</th>
-                            <th class="align-middle">Output</th>
+                            <th colspan="2" class="align-middle">Kuantitas/
+                                Output
+                            </th>
+                            <th colspan="2" class="align-middle">Kuantitas/
+                                Output
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,38 +77,47 @@
                             <td>{{ $rencana->output->nama }}</td>
                             <td class="text-center p-3">{{ $rencana->realisasi_kuantitas ? $rencana->realisasi_kuantitas
                                 : '-' }}</td>
-                            <td>
+                            <td class="text-center">
                                 {{ $rencana->output->nama }}
+                            </td>
+                            <td class="text-center">
+                                {{ $rencana->bulan }}
                             </td>
                             <td class="text-center p-3">{{ $rencana->pengajuan_nilai ? $rencana->pengajuan_nilai : '-'
                                 }}</td>
                             <td class="text-center p-3">{{ $rencana->realisasi_kualitas ? $rencana->realisasi_kualitas :
                                 '-' }}</td>
-                            <td class="d-print-none d-flex justify-content-around">
-                                @if ($rencana->realisasi_kuantitas == null)
-                                <?php
-                                    $disabled = "";
-                                    $enable = "disabled";
-                                ?>
-                                @else
-                                <?php
-                                    $disabled = "disabled";
-                                    $enable = "";
-                                ?>
-                                @endif
-                                <button {{ $disabled }} class="btn btn-sm btn-primary" data-toggle="modal"
-                                    data-target="#isi-realisasi-{{ $rencana->id }}"><i class="fas fa-plus"></i> Isi
-                                    Realisasi</button>
-                                <form action="/pengajuan/realisasi/reset/{{ $rencana->id }}" method="POST"
-                                    enctype="multipart/form-data" class="form-inline">
-                                    @method('put')
-                                    @csrf
-                                    <button {{ $enable }}
-                                        class="text-white btn btn-sm btn-warning text-white reset-realisasi-confirm"><i
-                                            class="fas fa-sync-alt"></i> Reset Realisasi
-                                    </button>
-
-                                </form>
+                            <td class="text-center" style="">
+                                <div class="d-inline-flex" style="inline-size: max-content; gap: 3px;">
+                                    @if ($rencana->realisasi_kuantitas == null)
+                                    <?php
+                                        $disabled = "";
+                                        $enable = "disabled";
+                                    ?>
+                                    @elseif ($rencana->realisasi_kualitas !== null)
+                                    <?php
+                                        $disabled = "disabled";
+                                        $enable = "disabled";
+                                    ?>
+                                    @else
+                                    <?php
+                                        $disabled = "disabled";
+                                        $enable = "";
+                                    ?>
+                                    @endif
+                                    <button {{ $disabled }} class="btn btn-sm btn-primary" data-toggle="modal"
+                                        data-target="#isi-realisasi-{{ $rencana->id }}"><i class="fas fa-plus"></i> Isi
+                                        Realisasi</button>
+                                    <form action="/pengajuan/realisasi/reset/{{ $rencana->id }}" method="POST"
+                                        enctype="multipart/form-data" class="">
+                                        @method('put')
+                                        @csrf
+                                        <button {{ $enable }}
+                                            class="text-white btn btn-sm btn-warning text-white reset-realisasi-confirm"><i
+                                                class="fas fa-sync-alt"></i> Reset Realisasi
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                         <div class="modal fade" id="isi-realisasi-{{ $rencana->id }}">

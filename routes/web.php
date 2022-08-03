@@ -87,7 +87,10 @@ Route::middleware(['pegawai'])->group(function () {
     Route::get('/pengajuan/rencana/cetak-rencana/{id}', [PengajuanRencanaController::class, 'cetak']);
     // resource pengajuan realisasi
     Route::resource('/pengajuan/realisasi', PengajuanRealisasiController::class);
+    // reset realisasi
     Route::put('/pengajuan/realisasi/reset/{id}', [PengajuanRealisasiController::class, 'reset']);
+    // cetak realisasi
+    Route::get('/pengajuan/realisasi/cetak-realisasi/{id}', [PengajuanRealisasiController::class, 'cetak']);
     // isi realisasi per bulan
     Route::post('/pengajuan/realisasi/search/', [PengajuanRealisasiController::class, 'search']);
 });

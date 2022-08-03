@@ -43,11 +43,6 @@ class PengajuanRencanaController extends Controller
         ];
 
         return view('pengajuan.rencana.cetak', $data);
-
-
-        // $pdf = PDF::loadView('pengajuan.rencana.cetak', $data);
-        // $pdf->setPaper('A4', 'landscape');
-        // return $pdf->download('SKP ' . $user->name . '.pdf');
     }
 
     public function create()

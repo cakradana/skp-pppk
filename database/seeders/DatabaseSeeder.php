@@ -29,10 +29,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Pangkat::create([
-            'nama' => 'Pembina, IV/a'
-        ]);
-
-        Pangkat::create([
             'nama' => 'Pembina Tingkat I, IV/b'
         ]);
 
@@ -44,10 +40,6 @@ class DatabaseSeeder extends Seeder
 
         Jabatan::create([
             'nama' => 'Analis Kepegawaian Ahli Muda'
-        ]);
-
-        Jabatan::create([
-            'nama' => 'Wakil Direktur Bidang Umum dan Keuangan'
         ]);
 
         Jabatan::create([
@@ -64,18 +56,6 @@ class DatabaseSeeder extends Seeder
             'jabatan_id' => '1',
             'nama' => 'Merencanakan program pemeliharaan/perawatan dan penyimpanan peralatan kategori 1 (satu)',
             'ak' => '0.25'
-        ]);
-
-        Kegiatan::create([
-            'jabatan_id' => '2',
-            'nama' => 'Menganalisis jabatan yang meliputi uraian jabatan, syarat jabatan, dan peta jabatan serta kekuatan pegawai yang menghasilkan informasi jabatan',
-            'ak' => '0.1'
-        ]);
-
-        Kegiatan::create([
-            'jabatan_id' => '2',
-            'nama' => 'Melaksanakan pengumpulan data, dengan: Mengumpulkan data pegawai tahun berjalan, untuk mengetahui pegawai yang pensiun meninggal dunia, naik pangkat, pindah instansi, maupun berhenti',
-            'ak' => '0.01'
         ]);
 
         Kegiatan::create([
@@ -111,18 +91,16 @@ class DatabaseSeeder extends Seeder
             'pangkat_id' => 1,
             'jabatan_id' => 1,
             'penilai_id' => 3,
-            'atasan_id' => 5,
+            'atasan_id' => 4,
             'password' => bcrypt('12345')
         ]);
 
         User::create([
-            'role' => 'Pegawai yang Dinilai',
+            'role' => 'Admin',
             'name' => 'Siti Markhatun, S.H.',
             'nip' => '196906111993032005',
             'pangkat_id' => 2,
             'jabatan_id' => 2,
-            'penilai_id' => 4,
-            'atasan_id' => 5,
             'password' => bcrypt('12345')
         ]);
 
@@ -133,18 +111,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'Nur Wahyu Rahadi, S.Kom., M.Eng.',
             'nip' => '198105092021211004',
             'pangkat_id' => 1,
-            'jabatan_id' => 4,
-            'atasan_id' => 5,
-            'password' => bcrypt('12345')
-        ]);
-
-        User::create([
-            'role' => 'Pejabat Penilai',
-            'name' => 'Dadang Hermawan, S.E., M.Si.',
-            'nip' => '195908041988121001',
-            'pangkat_id' => 3,
             'jabatan_id' => 3,
-            'atasan_id' => 5,
+            'atasan_id' => 4,
             'password' => bcrypt('12345')
         ]);
 
@@ -154,8 +122,8 @@ class DatabaseSeeder extends Seeder
             'role' => 'Atasan Pejabat Penilai',
             'name' => 'Dr.Ir. Aris Tjahyanto, M.Kom.',
             'nip' => '196503101991021001',
-            'pangkat_id' => 4,
-            'jabatan_id' => 5,
+            'pangkat_id' => 3,
+            'jabatan_id' => 4,
             'password' => bcrypt('12345')
         ]);
 
@@ -165,23 +133,11 @@ class DatabaseSeeder extends Seeder
             'role' => 'Admin',
             'name' => 'R. Cakradana',
             'nip' => '190202064',
-            'pangkat_id' => 4,
-            'jabatan_id' => 5,
+            'pangkat_id' => 3,
+            'jabatan_id' => 4,
             'password' => bcrypt('12345')
         ]);
 
         ////////////////////////////////////////////////////////////////////////////////////////////
-
-        // Rencana::create([
-        //     'user_id' => '1',
-        //     'kegiatan_id' => '1',
-        //     'kuantitas' => '2',
-        //     'output' => 'Dokumen',
-        //     'waktu' => '1',
-        //     'penilai_id' => '3',
-        //     'status' => 'belum disetujui'
-        // ]);
-
-        // \App\Models\User::factory(10)->create();
     }
 }

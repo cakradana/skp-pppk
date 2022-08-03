@@ -149,9 +149,8 @@
             </tr>
             <tr class="row15">
                 <td class="column0 style11 null style11" colspan="4"></td>
-                <td class="column4 style11 s style11" colspan="7">Cilacap, {{ Carbon\Carbon::now()->isoFormat('D
-                    MMMM Y')
-                    }}</td>
+                <td class="column4 style11 s style11" colspan="7">Cilacap, {{ Carbon\Carbon::now()->isoFormat('D MMMM
+                    Y') }}</td>
             </tr>
             <tr class="row16">
                 <td class="column0 style11 s style11" colspan="4">Pejabat Penilai,</td>

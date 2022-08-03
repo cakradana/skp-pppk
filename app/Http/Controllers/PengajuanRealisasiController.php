@@ -11,9 +11,17 @@ class PengajuanRealisasiController extends Controller
     {
         $user = auth()->user();
 
-        $disetujui = Sasaran::where('user_id', $user->id)->where('status', 'Disetujui')->get();
+        $disetujui = Sasaran::where('user_id', $user->id)->where('status', 'Disetujui')->get()->count();
 
-        if (count($disetujui) > 0) {
+        $belum_dinilai = Sasaran::where('user_id', $user->id)->where('realisasi_kualitas', null)->get()->count();
+
+        if ($belum_dinilai == 0) {
+            $cetak = 'bisa cetak';
+        } else {
+            $cetak = 'belum bisa cetak';
+        }
+
+        if ($disetujui > 0) {
             $atribut = 'true';
         } else {
             $atribut = 'false';
@@ -26,8 +34,29 @@ class PengajuanRealisasiController extends Controller
             "title" => "Pengajuan Realisasi SKP",
             "user" => $user,
             "rencanas" => $rencana,
-            "atribut" => $atribut
+            "atribut" => $atribut,
+            "cetak" => $cetak
         ]);
+    }
+
+    public function cetak()
+    {
+        $user = auth()->user();
+
+        $rencana = Sasaran::where('user_id', $user->id)->select(['kegiatan_id', 'output_id', 'target_biaya', 'target_kualitas'])->groupBy(['kegiatan_id', 'output_id', 'target_biaya', 'target_kualitas'])->get();
+
+        $data = [
+            "title" => "Cetak Rencana SKP",
+            "user" => $user,
+            "rencanas" => $rencana
+        ];
+
+        return view('pengajuan.realisasi.cetak', $data);
+
+
+        // $pdf = PDF::loadView('pengajuan.rencana.cetak', $data);
+        // $pdf->setPaper('A4', 'landscape');
+        // return $pdf->download('SKP ' . $user->name . '.pdf');
     }
 
     public function search(Request $request)

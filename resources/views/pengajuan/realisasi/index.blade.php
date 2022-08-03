@@ -9,17 +9,31 @@
     <div class="col">
 
         @if ($atribut == 'false')
-        <div class="alert alert-danger alert-dismissible">
-            <h5><i class="icon fas fa-ban"></i>Tidak Dapat Mengajukan Realisasi</h5>
-            {{ $user->penilai->name }} Belum Menyetujui Rencana Anda.
+        <div class="alert alert-warning alert-dismissible">
+            <h5><i class="icon fas fa-exclamation-triangle"></i>Belum Bisa Mengajukan Realisasi</h5>
+            Mohon tunggu {{ $user->penilai->name }} menyetujui rencana Anda.
         </div>
         @else
-        <a href="/pengajuan/realisasi/create" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Isi Realisasi Per
+        <a href="/pengajuan/realisasi/create" class="d-print-none btn btn-primary mb-3"><i class="fas fa-plus"></i> Isi
+            Realisasi Per
             Bulan</a>
-        <div class="card card-secondary card-outline">
+
+        @if ($cetak == 'bisa cetak')
+        <a href="/pengajuan/realisasi/cetak-realisasi/{{ $user->id }}"
+            class="btn btn-success mb-3 ml-auto d-print-none float-right"><i class="fas fa-file-pdf"></i>
+            Cetak
+            Realisasi</a>
+        @elseif ($cetak == 'belum bisa cetak')
+        <a href="/pengajuan/realisasi/cetak-realisasi/{{ $user->id }}"
+            class="btn btn-warning mb-3 ml-auto d-print-none float-right disabled"><i
+                class="fas fa-exclamation-triangle"></i>
+            Tunggu penilai menilai semua realisasi untuk dapat melakukan cetak realisasi</a>
+        @endif
+
+        <div class="d-print-none card card-secondary card-outline">
             <div class="card-body table-responsive p-0">
                 <div class="" style="padding: 20px 20px 20px;">
-                    <table class="table table-striped table-bordered" style="width:100%; font-size:75%">
+                    <table class="table table-striped table-bordered" style="width:100%; font-size:70%">
                         <thead class="text-center">
                             <tr>
                                 <th rowspan="2" class="align-middle p-1">No</th>
@@ -48,7 +62,6 @@
                             ?>
                             @foreach ($rencanas as $rencana)
                             <?php
-
                                 $target_kuantitas = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->select('target_kuantitas', $rencana->kuantitas)->sum('target_kuantitas');
                                 $realisasi_kuantitas = \App\Models\Sasaran::where('kegiatan_id', $rencana->kegiatan->id)->sum('realisasi_kuantitas');
                                 
@@ -108,19 +121,20 @@
                                 <td class="text-center">{{ $target_biaya ? $target_biaya : '-' }}</td>
                                 <td class="text-center">{{ $rencana->kegiatan->ak * $realisasi_kuantitas}}</td>
                                 <td class="text-center">{{ $realisasi_kuantitas }}</td>
-                                <td>Dokumen</td>
+                                <td>{{ $rencana->output->nama }}</td>
                                 <td class="text-center">{{ $realisasi_kualitas ? $realisasi_kualitas : '-' }}</td>
                                 <td>{{ $realisasi_waktu }}</td>
                                 <td>Bulan</td>
                                 <td class="text-center">{{ $realisasi_biaya ? $realisasi_biaya : '-' }}</td>
-                                <td class="text-center">{{ $nilai_skp }}</td>
+                                <td class="text-center">{{ round($nilai_skp, 2) }}</td>
                             </tr>
                             @endforeach
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th colspan="16">Jumlah:</th>
-                                <td class="text-center">{{ $total_nilai / $banyak_kegiatan }}</td>
+                                <th colspan="16" class="text-center font-weight-bold">Nilai Capaian SKP</th>
+                                <td class="text-center font-weight-bold">{{ round($total_nilai / $banyak_kegiatan, 2) }}
+                                </td>
                             </tr>
                         </tfoot>
                     </table>

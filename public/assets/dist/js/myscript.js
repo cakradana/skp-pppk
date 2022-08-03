@@ -107,7 +107,7 @@ $(document).ready(function () {
         '">\
     <label for="kuantitas" class="col-sm-3 col-form-label"></label>\
     <div class="col-sm-2">\
-        <input type="number" min="1"\
+        <input type="number" value="1" min="1"\
             class="form-control" id="kuantitas"\
             name="target_kuantitas[]" required>\
     </div>\

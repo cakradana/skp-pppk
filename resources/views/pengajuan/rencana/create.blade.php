@@ -63,6 +63,7 @@
                                         value="">
                                 </div>
                             </div>
+                            <span class="text-red pt-2 pl-3">*kosongi apabila tidak memakai biaya</span>
                         </div>
                         <div class="form-group row">
                             <label for="output" class="col-sm-3 col-form-label">Output</label>
