@@ -8,7 +8,7 @@
 
 <div class="row">
     <div class="col">
-        <form method="POST" action="/pengajuan/realisasi/search/">
+        <form method="POST" action="/pengajuan/realisasi">
             @csrf
             {{-- <input type="text" value="Januari" name="bulan"> --}}
             <div class="form-inline">

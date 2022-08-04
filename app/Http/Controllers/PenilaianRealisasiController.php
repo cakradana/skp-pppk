@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sasaran;
 use Illuminate\Http\Request;
 
 class PenilaianRealisasiController extends Controller
@@ -11,8 +12,30 @@ class PenilaianRealisasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // dd($request);
+
+        $user = auth()->user();
+
+        $bulan = $request->bulan;
+
+        if ($bulan == "Semua Bulan" || $bulan == null) {
+            $pengajuans = Sasaran::where('penilai_id', $user->id)->select(['user_id'])->groupBy(['user_id'])->get();
+            $bulan = "Semua Bulan";
+        } else {
+            $pengajuans = Sasaran::where('penilai_id', $user->id)->select(['user_id', 'bulan'])->groupBy(['user_id', 'bulan'])->where('bulan', $bulan)->get();
+        }
+
+        return view('penilaian.realisasi.index', [
+            "title" => "Penilaian Realisasi SKP",
+            "user" => $user,
+            "selected" => $bulan,
+            "pengajuans" => $pengajuans
+        ]);
+
+
+
         $user = auth()->user();
 
         return view('penilaian.realisasi.index', [

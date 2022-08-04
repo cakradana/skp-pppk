@@ -59,40 +59,47 @@ class PengajuanRealisasiController extends Controller
         // return $pdf->download('SKP ' . $user->name . '.pdf');
     }
 
-    public function search(Request $request)
+    // public function search(Request $request)
+    // {
+    //     // dd($request->all());
+
+
+    //     $user = auth()->user();
+
+    //     $bulan = $request->bulan;
+
+    //     if ($bulan == "Semua Bulan") {
+    //         $rencanas = Sasaran::where('user_id', $user->id)->get();
+    //     } else {
+    //         $rencanas = Sasaran::where('user_id', $user->id)->where('bulan', $bulan)->get();
+    //     }
+
+    //     return view('pengajuan.realisasi.create', compact('rencanas'), [
+    //         "user" => $user,
+    //         "selected" => $bulan,
+    //         "title" => "Realisasi SKP " . $bulan
+    //     ]);
+    // }
+
+    public function create(Request $request)
     {
-        // dd($request->all());
-
-
         $user = auth()->user();
 
         $bulan = $request->bulan;
 
-        if ($bulan == "Semua Bulan") {
-            $rencanas = Sasaran::where('user_id', $user->id)->get();
+        if ($bulan == "Semua Bulan" || $bulan == null) {
+            $rencana = Sasaran::where('user_id', $user->id)->get();
+            $bulan = "Semua Bulan";
         } else {
-            $rencanas = Sasaran::where('user_id', $user->id)->where('bulan', $bulan)->get();
+            $rencana = Sasaran::where('user_id', $user->id)->where('bulan', $bulan)->get();
         }
-
-        return view('pengajuan.realisasi.create', compact('rencanas'), [
-            "user" => $user,
-            "selected" => $bulan,
-            "title" => "Realisasi SKP " . $bulan
-        ]);
-    }
-
-    public function create()
-    {
-        $user = auth()->user();
-
-        $rencana = Sasaran::where('user_id', $user->id)->get();
 
         // dd($rencana);
 
         return view('pengajuan.realisasi.create', [
             "title" => "Isi Realisasi Per Bulan",
             "user" => $user,
-            "selected" => "Semua Bulan",
+            "selected" => $bulan,
             "rencanas" => $rencana
         ]);
     }

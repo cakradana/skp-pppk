@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Output;
 use App\Models\Sasaran;
 use App\Models\Kegiatan;
-use App\Models\Output;
 use Illuminate\Http\Request;
 
 class PengajuanRencanaController extends Controller
@@ -30,9 +31,21 @@ class PengajuanRencanaController extends Controller
         ]);
     }
 
-    public function cetak()
+    public function cetak($id)
     {
-        $user = auth()->user();
+        $cek_role = auth()->user();
+
+        // dd($cek_role);
+
+        if ($cek_role->role == 'Pejabat Penilai') {
+            $user = User::find($id);
+        } elseif ($cek_role->role == 'Pegawai yang Dinilai') {
+            $user = auth()->user();
+        }
+
+        // dd($aku);
+
+        // $user = auth()->user();
 
         $rencana = Sasaran::where('user_id', $user->id)->select(['kegiatan_id', 'output_id', 'target_biaya'])->groupBy(['kegiatan_id', 'output_id', 'target_biaya'])->get();
 

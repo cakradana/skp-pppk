@@ -56,6 +56,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/profil/fotoUpdate/{id}', [ProfilController::class, 'fotoUpdate']);
     // update ttd
     Route::put('/profil/ttdUpdate/{id}', [ProfilController::class, 'ttdUpdate']);
+
+    // cetak rencana
+    Route::get('/pengajuan/rencana/cetak-rencana/{id}', [PengajuanRencanaController::class, 'cetak']);
 });
 
 Route::middleware(['admin'])->group(function () {
@@ -83,16 +86,14 @@ Route::middleware(['pegawai'])->group(function () {
     Route::post('/tambah-output', [PengajuanRencanaController::class, 'tambahOutput']);
     // tambah kegiatan
     Route::post('/tambah-kegiatan', [PengajuanRencanaController::class, 'tambahKegiatan']);
-    // cetak rencana
-    Route::get('/pengajuan/rencana/cetak-rencana/{id}', [PengajuanRencanaController::class, 'cetak']);
     // resource pengajuan realisasi
-    Route::resource('/pengajuan/realisasi', PengajuanRealisasiController::class);
+    Route::resource('/pengajuan/realisasi', PengajuanRealisasiController::class)->except('store');
+    // post create
+    Route::post('/pengajuan/realisasi', [PengajuanRealisasiController::class, 'create']);
     // reset realisasi
     Route::put('/pengajuan/realisasi/reset/{id}', [PengajuanRealisasiController::class, 'reset']);
     // cetak realisasi
     Route::get('/pengajuan/realisasi/cetak-realisasi/{id}', [PengajuanRealisasiController::class, 'cetak']);
-    // isi realisasi per bulan
-    Route::post('/pengajuan/realisasi/search/', [PengajuanRealisasiController::class, 'search']);
 });
 
 Route::middleware(['penilai'])->group(function () {
@@ -102,8 +103,11 @@ Route::middleware(['penilai'])->group(function () {
     Route::get('/persetujuan/rencana-pegawai/setuju/{id}', [PersetujuanRencanaController::class, 'setuju']);
     // tolak rencana
     Route::get('/persetujuan/rencana-pegawai/tolak/{id}', [PersetujuanRencanaController::class, 'tolak']);
+
+    // post index
+    Route::post('/penilaian/realisasi-pegawai', [PenilaianRealisasiController::class, 'index']);
     // resource penilaian realisasi
-    Route::resource('/penilaian/realisasi-pegawai', PenilaianRealisasiController::class);
+    Route::resource('/penilaian/realisasi-pegawai', PenilaianRealisasiController::class)->except('store');
     // resource penilaian perilaku
     Route::resource('/penilaian/perilaku-pegawai', PenilaianPerilakuController::class);
 });
