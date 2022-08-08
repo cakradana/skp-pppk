@@ -116,8 +116,6 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('12345')
         ]);
 
-        ///////////////////////////////////////////////////////////////////////////////////////////
-
         User::create([
             'role' => 'Atasan Pejabat Penilai',
             'name' => 'Dr.Ir. Aris Tjahyanto, M.Kom.',
