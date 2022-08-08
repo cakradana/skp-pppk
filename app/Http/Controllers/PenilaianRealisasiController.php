@@ -20,12 +20,22 @@ class PenilaianRealisasiController extends Controller
 
         $bulan = $request->bulan;
 
-        if ($bulan == "Semua Bulan" || $bulan == null) {
-            $pengajuans = Sasaran::where('penilai_id', $user->id)->select(['user_id'])->groupBy(['user_id'])->get();
-            $bulan = "Semua Bulan";
+        if ($bulan == "Januari" || $bulan == null) {
+            $pengajuans = Sasaran::where('penilai_id', $user->id)->select(['user_id', 'bulan'])->groupBy(['user_id', 'bulan'])->where('bulan', 'Januari')->get();
+            $bulan = "Januari";
         } else {
             $pengajuans = Sasaran::where('penilai_id', $user->id)->select(['user_id', 'bulan'])->groupBy(['user_id', 'bulan'])->where('bulan', $bulan)->get();
         }
+
+        $pengajuans = Sasaran::where('penilai_id', $user->id)->select(['user_id', 'bulan'])->groupBy(['user_id', 'bulan'])->where('bulan', $bulan)->get();
+
+
+        // $status = Sasaran::where('penilai_id', $user->id)
+        //     ->where('user_id', 1)
+        //     ->select('realisasi_kuantitas')
+        //     ->get();
+
+        // dd($status);
 
         return view('penilaian.realisasi.index', [
             "title" => "Penilaian Realisasi SKP",

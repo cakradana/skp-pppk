@@ -52,34 +52,7 @@ class PengajuanRealisasiController extends Controller
         ];
 
         return view('pengajuan.realisasi.cetak', $data);
-
-
-        // $pdf = PDF::loadView('pengajuan.rencana.cetak', $data);
-        // $pdf->setPaper('A4', 'landscape');
-        // return $pdf->download('SKP ' . $user->name . '.pdf');
     }
-
-    // public function search(Request $request)
-    // {
-    //     // dd($request->all());
-
-
-    //     $user = auth()->user();
-
-    //     $bulan = $request->bulan;
-
-    //     if ($bulan == "Semua Bulan") {
-    //         $rencanas = Sasaran::where('user_id', $user->id)->get();
-    //     } else {
-    //         $rencanas = Sasaran::where('user_id', $user->id)->where('bulan', $bulan)->get();
-    //     }
-
-    //     return view('pengajuan.realisasi.create', compact('rencanas'), [
-    //         "user" => $user,
-    //         "selected" => $bulan,
-    //         "title" => "Realisasi SKP " . $bulan
-    //     ]);
-    // }
 
     public function create(Request $request)
     {

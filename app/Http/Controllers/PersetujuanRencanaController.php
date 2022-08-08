@@ -16,9 +16,43 @@ class PersetujuanRencanaController extends Controller
      */
     public function index()
     {
-        $user = auth()->user();
-        $pengajuans = Sasaran::where('penilai_id', $user->id)->select(['status', 'user_id'])->groupBy(['user_id', 'status'])->get();
+        $item = collect([]);
+        $items = collect([]);
 
+        $user = auth()->user();
+
+
+        // $pengajuans = Sasaran::where('penilai_id', $user->id)->select(['status', 'user_id'])->groupBy(['user_id', 'status'])->get();
+
+        $pengajuans = User::where('penilai_id', $user->id)->get();
+
+
+
+
+
+
+
+        // $pengajuans = User::with(['sasaran' => function ($query) {
+        //     return $query->select('user_id', 'status')->groupBy('user_id', 'status');
+        // }])->where('penilai_id', $user->id)->get();
+
+        // foreach ($pengajuans as $pengajuan) {
+        //     if (count($pengajuan->sasaran) == 0) {
+        //         $items = $item->push([
+        //             'user' => $pengajuan,
+        //             'status' => "Belum Mengajukan"
+        //         ]);
+        //     } else {
+        //         $item->push([
+        //             'user' => $pengajuan,
+        //             'status' => $pengajuan->sasaran[0]->status
+        //         ]);
+        //     }
+        // }
+
+        // $pengajuans = $items;
+
+        // dd($items);
         return view('penilaian.rencana.index', [
             "title" => "Persetujuan Rencana SKP",
             "user" => $user,

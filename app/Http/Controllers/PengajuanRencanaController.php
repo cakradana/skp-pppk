@@ -47,7 +47,7 @@ class PengajuanRencanaController extends Controller
 
         // $user = auth()->user();
 
-        $rencana = Sasaran::where('user_id', $user->id)->select(['kegiatan_id', 'output_id', 'target_biaya'])->groupBy(['kegiatan_id', 'output_id', 'target_biaya'])->get();
+        $rencana = Sasaran::where('user_id', $user->id)->select(['kegiatan_id', 'output_id', 'target_biaya', 'updated_at'])->groupBy(['kegiatan_id', 'output_id', 'target_biaya', 'updated_at'])->get();
 
         $data = [
             "title" => "Cetak Rencana SKP",

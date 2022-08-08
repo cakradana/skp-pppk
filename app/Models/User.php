@@ -64,18 +64,8 @@ class User extends Authenticatable
         return $this->belongsTo(User::class, 'atasan_id');
     }
 
-    public function rencana()
+    public function sasaran()
     {
-        return $this->hasMany(Rencana::class);
+        return $this->hasMany(Sasaran::class);
     }
-
-    public function skp()
-    {
-        return $this->hasMany(SKP::class);
-    }
-
-    // public function realisasi()
-    // {
-    //     return $this->hasMany(Realisasi::class);
-    // }
 }
