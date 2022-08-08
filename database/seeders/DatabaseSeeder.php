@@ -133,8 +133,10 @@ class DatabaseSeeder extends Seeder
             'role' => 'Admin',
             'name' => 'R. Cakradana',
             'nip' => '190202064',
-            'pangkat_id' => 3,
-            'jabatan_id' => 4,
+            'pangkat_id' => 1,
+            'jabatan_id' => 1,
+            'penilai_id' => 3,
+            'atasan_id' => 4,
             'password' => bcrypt('12345')
         ]);
 
