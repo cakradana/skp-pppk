@@ -105,21 +105,26 @@
                 <td class="column10 style18 s">BIAYA</td>
             </tr>
             @foreach ($rencanas as $rencana)
-            <?php 
-            $kuantitas = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->select('target_kuantitas', $rencana->kuantitas)->sum('target_kuantitas');
-            $waktu = \App\Models\Sasaran::where('user_id', $user->id)->where('kegiatan_id', $rencana->kegiatan_id)->count();
-        ?>
-            <tr class="row11">
-                <td class="column0 style4 n">{{$loop->iteration }}</td>
-                <td class="column1 style5 s style5" colspan="3">{{ $rencana->kegiatan->nama }}</td>
-                <td class="column4 style1 s">{{ $rencana->kegiatan->ak * $kuantitas }}</td>
-                <td class="column5 style4 s">{{ $kuantitas }}</td>
-                <td class="column6 style19 s">{{ $rencana->output->nama }}</td>
-                <td class="column7 style2 s">100</td>
-                <td class="column8 style3 s">{{ $waktu }}</td>
-                <td class="column9 style3 s">Bln</td>
-                <td class="column10 style20 s">{{ $rencana->target_biaya ? $rencana->target_biaya : '-' }}</td>
-            </tr>
+                <?php
+                $kuantitas = \App\Models\Sasaran::where('user_id', $user->id)
+                    ->where('kegiatan_id', $rencana->kegiatan_id)
+                    ->select('target_kuantitas', $rencana->kuantitas)
+                    ->sum('target_kuantitas');
+                $waktu = \App\Models\Sasaran::where('user_id', $user->id)
+                    ->where('kegiatan_id', $rencana->kegiatan_id)
+                    ->count();
+                ?>
+                <tr class="row11">
+                    <td class="column0 style4 n">{{ $loop->iteration }}</td>
+                    <td class="column1 style5 s style5" colspan="3">{{ $rencana->kegiatan->nama }}</td>
+                    <td class="column4 style1 s">{{ $rencana->kegiatan->ak * $kuantitas }}</td>
+                    <td class="column5 style4 s">{{ $kuantitas }}</td>
+                    <td class="column6 style19 s">{{ $rencana->output->nama }}</td>
+                    <td class="column7 style2 s">100</td>
+                    <td class="column8 style3 s">{{ $waktu }}</td>
+                    <td class="column9 style3 s">Bln</td>
+                    <td class="column10 style20 s">{{ $rencana->target_biaya ? $rencana->target_biaya : '-' }}</td>
+                </tr>
             @endforeach
             <tr class="row12">
                 <td class="column0 style4 null"></td>
@@ -149,8 +154,8 @@
             </tr>
             <tr class="row15">
                 <td class="column0 style11 null style11" colspan="4"></td>
-                <td class="column4 style11 s style11" colspan="7">Cilacap, {{ Carbon\Carbon::now()->isoFormat('D MMMM
-                    Y') }}</td>
+                <td class="column4 style11 s style11" colspan="7">Cilacap,
+                    {{ $rencana->updated_at->isoFormat('D MMMM Y') }}</td>
             </tr>
             <tr class="row16">
                 <td class="column0 style11 s style11" colspan="4">Pejabat Penilai,</td>
@@ -158,10 +163,10 @@
             </tr>
             <tr class="row17">
                 <td class="column0 style26 s style26" colspan="4"><img style="width:150px;margin:-10px"
-                        src="{{ asset('/files'.'/'. $user->penilai->ttd) }}" alt="ttd_pjb">
+                        src="{{ asset('/files' . '/' . $user->penilai->ttd) }}" alt="ttd_pjb">
                 </td>
                 <td class="column4 style26 s style26" colspan="7"><img style="width:150px;margin:-10px"
-                        src="{{ asset('/files'.'/'. $user->ttd) }}" alt="ttd_pgw"></td>
+                        src="{{ asset('/files' . '/' . $user->ttd) }}" alt="ttd_pgw"></td>
             </tr>
             <tr class="row20">
                 <td class="column0 style12 f style12" colspan="4">{{ $user->penilai->name }}</td>

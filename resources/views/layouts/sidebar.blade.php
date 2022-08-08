@@ -11,12 +11,11 @@
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image justify-content-center align-self-center">
-                <img class="img-circle elevation-2" @if($user->foto == NULL)
-                src="{{ asset('assets/dist/img/blank.png') }}"
+                <img class="img-circle elevation-2"
+                    @if ($user->foto == null) src="{{ asset('assets/dist/img/blank.png') }}"
                 @else
-                src="{{ asset('/files'.'/'. $user->foto) }}"
-                @endif
-                alt="User profile picture">
+                src="{{ asset('/files' . '/' . $user->foto) }}" @endif
+                    alt="User profile picture">
             </div>
             <div class="info" style="white-space: normal">
                 <a href="/profil" class="d-block">{{ $user->name }}</a>
@@ -38,7 +37,8 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                data-accordion="false">
                 <li class="nav-item">
                     <a href="/dashboard" class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -48,100 +48,103 @@
                     </a>
                 </li>
                 @can('Admin')
-
-                <li class="nav-item">
-                    <a href="/master/periode" class="nav-link {{ Request::is('master/periode*') ? 'active' : '' }}">
-                        <i class="fas fa-calendar-alt nav-icon"></i>
-                        <p>Master Periode</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/master/pangkat" class="nav-link {{ Request::is('master/pangkat*') ? 'active' : '' }}">
-                        <i class="fas fa-star nav-icon"></i>
-                        <p>Master Pangkat</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/master/jabatan" class="nav-link {{ Request::is('master/jabatan*') ? 'active' : '' }}">
-                        <i class="fas fa-briefcase nav-icon"></i>
-                        <p>Master Jabatan</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/master/pegawai" class="nav-link {{ Request::is('master/pegawai*') ? 'active' : '' }}">
-                        <i class="fas fa-users nav-icon"></i>
-                        <p>Master Pegawai</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/master/penilai" class="nav-link {{ Request::is('master/penilai*') ? 'active' : '' }}">
-                        <i class="fas fa-user-tie nav-icon"></i>
-                        <p>Master Penilai</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/master/kegiatan" class="nav-link {{ Request::is('master/kegiatan*') ? 'active' : '' }}">
-                        <i class="fas fa-tasks nav-icon"></i>
-                        <p>Master Kegiatan</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/master/output" class="nav-link {{ Request::is('master/output*') ? 'active' : '' }}">
-                        <i class="fas fa-file-export nav-icon"></i>
-                        <p>Master Output</p>
-                    </a>
-                </li>
-
+                    <li class="nav-item">
+                        <a href="/master/periode" class="nav-link {{ Request::is('master/periode*') ? 'active' : '' }}">
+                            <i class="fas fa-calendar-alt nav-icon"></i>
+                            <p>Master Periode</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/master/pangkat" class="nav-link {{ Request::is('master/pangkat*') ? 'active' : '' }}">
+                            <i class="fas fa-star nav-icon"></i>
+                            <p>Master Pangkat</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/master/jabatan" class="nav-link {{ Request::is('master/jabatan*') ? 'active' : '' }}">
+                            <i class="fas fa-briefcase nav-icon"></i>
+                            <p>Master Jabatan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/master/pegawai" class="nav-link {{ Request::is('master/pegawai*') ? 'active' : '' }}">
+                            <i class="fas fa-users nav-icon"></i>
+                            <p>Master Pegawai</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/master/penilai" class="nav-link {{ Request::is('master/penilai*') ? 'active' : '' }}">
+                            <i class="fas fa-user-tie nav-icon"></i>
+                            <p>Master Penilai</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/master/kegiatan" class="nav-link {{ Request::is('master/kegiatan*') ? 'active' : '' }}">
+                            <i class="fas fa-tasks nav-icon"></i>
+                            <p>Master Kegiatan</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/master/output" class="nav-link {{ Request::is('master/output*') ? 'active' : '' }}">
+                            <i class="fas fa-file-export nav-icon"></i>
+                            <p>Master Output</p>
+                        </a>
+                    </li>
                 @endcan
                 @can('Pegawai yang Dinilai')
-
-                <li class="nav-item">
-                    <a href="/pengajuan/rencana"
-                        class="nav-link {{ Request::is('pengajuan/rencana*') ? 'active' : '' }}">
-                        <i class="fas fa-calendar-alt nav-icon"></i>
-                        <p>Pengajuan Rencana</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/pengajuan/realisasi"
-                        class="nav-link {{ Request::is('pengajuan/realisasi*') ? 'active' : '' }}">
-                        <i class="fas fa-calendar-check nav-icon"></i>
-                        <p>Pengajuan Realisasi</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/nilai-prestasi-kerja"
-                        class="nav-link {{ Request::is('nilai-prestasi-kerja*') ? 'active' : '' }}">
-                        <i class="fas fa-file nav-icon"></i>
-                        <p>Nilai Prestasi Kerja</p>
-                    </a>
-                </li>
-
+                    <li class="nav-item">
+                        <a href="/pengajuan/rencana"
+                            class="nav-link {{ Request::is('pengajuan/rencana*') ? 'active' : '' }}">
+                            <i class="fas fa-calendar-alt nav-icon"></i>
+                            <p>Pengajuan Rencana</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/pengajuan/realisasi"
+                            class="nav-link {{ Request::is('pengajuan/realisasi*') ? 'active' : '' }}">
+                            <i class="fas fa-calendar-check nav-icon"></i>
+                            <p>Pengajuan Realisasi</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/nilai-prestasi-kerja"
+                            class="nav-link {{ Request::is('nilai-prestasi-kerja*') ? 'active' : '' }}">
+                            <i class="fas fa-file nav-icon"></i>
+                            <p>Nilai Prestasi Kerja</p>
+                        </a>
+                    </li>
                 @endcan
                 @can('Pejabat Penilai')
-                <li class="nav-item">
-                    <a href="/persetujuan/rencana-pegawai"
-                        class="nav-link {{ Request::is('persetujuan/rencana-pegawai*') ? 'active' : '' }}">
-                        <i class="fas fa-calendar-alt nav-icon"></i>
-                        <p>Persetujuan Rencana</p>
-                    </a>
+                    <li class="nav-item">
+                        <a href="/persetujuan/rencana-pegawai"
+                            class="nav-link {{ Request::is('persetujuan/rencana-pegawai*') ? 'active' : '' }}">
+                            <i class="fas fa-calendar-alt nav-icon"></i>
+                            <p>Persetujuan Rencana</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/penilaian/realisasi-pegawai"
+                            class="nav-link {{ Request::is('penilaian/realisasi-pegawai*') ? 'active' : '' }}">
+                            <i class="fas fa-calendar-check nav-icon"></i>
+                            <p>Penilaian Realisasi</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/penilaian/perilaku-pegawai"
+                            class="nav-link {{ Request::is('penilaian/perilaku-pegawai*') ? 'active' : '' }}">
+                            <i class="fas fa-balance-scale nav-icon"></i>
+                            <p>Penilaian Perilaku</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/nilai-prestasi-kerja-pegawai"
+                            class="nav-link {{ Request::is('nilai-prestasi-kerja-pegawai*') ? 'active' : '' }}">
+                            <i class="fas fa-file nav-icon"></i>
+                            <p>Nilai Prestasi Kerja</p>
+                        </a>
+                    </li>
+                </ul>
                 </li>
-                <li class="nav-item">
-                    <a href="/penilaian/realisasi-pegawai"
-                        class="nav-link {{ Request::is('penilaian/realisasi-pegawai*') ? 'active' : '' }}">
-                        <i class="fas fa-calendar-check nav-icon"></i>
-                        <p>Penilaian Realisasi</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/penilaian/perilaku-pegawai"
-                        class="nav-link {{ Request::is('penilaian/perilaku-pegawai*') ? 'active' : '' }}">
-                        <i class="fas fa-balance-scale nav-icon"></i>
-                        <p>Penilaian Perilaku</p>
-                    </a>
-                </li>
-            </ul>
-            </li>
             @endcan
             </ul>
         </nav>
