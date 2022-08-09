@@ -128,7 +128,7 @@ class DatabaseSeeder extends Seeder
         ///////////////////////////////////////////////////////////////////////////////////////////
 
         User::create([
-            'role' => 'Admin',
+            'role' => 'Pegawai yang Dinilai',
             'name' => 'R. Cakradana',
             'nip' => '190202064',
             'pangkat_id' => 1,
