@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Perilaku;
 use Illuminate\Http\Request;
 
 class PenilaianPerilakuController extends Controller
@@ -14,10 +16,13 @@ class PenilaianPerilakuController extends Controller
     public function index()
     {
         $user = auth()->user();
+        $pengajuans = User::where('penilai_id', $user->id)->get();
+
 
         return view('penilaian.perilaku.index', [
             "title" => "Penilaian Perilaku Pegawai",
-            "user" => $user
+            "user" => $user,
+            "pengajuans" => $pengajuans
         ]);
     }
 
@@ -39,7 +44,19 @@ class PenilaianPerilakuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'user_id' => ['required'],
+            'penilai_id' => ['required'],
+            'orientasi_pelayanan' => ['required'],
+            'integritas' => ['required'],
+            'komitmen' => ['required'],
+            'kerjasama' => ['required'],
+            'kepemimpinan' => ['required'],
+        ]);
+
+        Perilaku::create($validatedData);
+
+        return back()->with('toast_success', 'Berhasil Tambah Perilaku');
     }
 
     /**
@@ -84,6 +101,9 @@ class PenilaianPerilakuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $perilaku = Perilaku::where('user_id', $id)->first();
+        $perilaku->delete();
+
+        return back()->with('toast_success', 'Berhasil Reset Perilaku');
     }
 }

@@ -17,7 +17,7 @@ class CreatePerilakusTable extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->foreignId('penilai_id');
-            $table->double('orientasi_palayanan');
+            $table->double('orientasi_pelayanan');
             $table->double('integritas');
             $table->double('komitmen');
             $table->double('kerjasama');

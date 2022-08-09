@@ -68,4 +68,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Sasaran::class);
     }
+
+    public function perilaku()
+    {
+        return $this->hasOne(Perilaku::class);
+    }
 }

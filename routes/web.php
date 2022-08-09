@@ -15,6 +15,7 @@ use App\Http\Controllers\PengajuanRencanaController;
 use App\Http\Controllers\PenilaianPerilakuController;
 use App\Http\Controllers\PengajuanRealisasiController;
 use App\Http\Controllers\PenilaianRealisasiController;
+use App\Http\Controllers\PerilakuController;
 use App\Http\Controllers\PersetujuanRencanaController;
 
 /*
@@ -109,5 +110,5 @@ Route::middleware(['penilai'])->group(function () {
     // resource penilaian realisasi
     Route::resource('/penilaian/realisasi-pegawai', PenilaianRealisasiController::class)->except('store');
     // resource penilaian perilaku
-    Route::resource('/penilaian/perilaku-pegawai', PenilaianPerilakuController::class);
+    Route::resource('/penilaian/perilaku-pegawai', PenilaianPerilakuController::class)->except(['create', 'show', 'edit', 'update']);
 });
