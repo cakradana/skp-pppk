@@ -90,7 +90,7 @@ class PengajuanRencanaController extends Controller
             'kegiatan_id' => ['required'],
             'target_kualitas' => ['required'],
             'target_kuantitas' => ['required'],
-            // 'target_biaya' => ['required'],
+            'target_biaya' => ['required'],
             'output_id' => ['required'],
             'bulan' => ['required']
         ]);

@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('role');
+            $table->enum('role', ['Admin', 'Pegawai yang Dinilai', 'Pejabat Penilai', 'Atasan Pejabat Penilai']);
             $table->string('name');
             $table->string('nip')->unique();
             $table->foreignId('pangkat_id');
