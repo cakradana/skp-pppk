@@ -16,13 +16,13 @@ class PenilaianPerilakuController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $pengajuans = User::where('penilai_id', $user->id)->get();
+        $perilakus = User::where('penilai_id', $user->id)->get();
 
 
         return view('penilaian.perilaku.index', [
             "title" => "Penilaian Perilaku Pegawai",
             "user" => $user,
-            "pengajuans" => $pengajuans
+            "perilakus" => $perilakus
         ]);
     }
 
@@ -50,6 +50,7 @@ class PenilaianPerilakuController extends Controller
             'orientasi_pelayanan' => ['required'],
             'integritas' => ['required'],
             'komitmen' => ['required'],
+            'disiplin' => ['required'],
             'kerjasama' => ['required'],
             'kepemimpinan' => ['required'],
         ]);

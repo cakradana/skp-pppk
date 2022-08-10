@@ -93,6 +93,24 @@ $(".reset-realisasi-confirm").on("click", function (event) {
         }
     });
 });
+//Confirm Reset Perilaku SweetAlert2
+$(".reset-perilaku-confirm").on("click", function (event) {
+    event.preventDefault();
+    var form = $(this).parents("form");
+    Swal.fire({
+        title: "Yakin Reset Nilai Perilaku Ini?",
+        text: "Nilai Perilaku yang telah direset dapat dimasukkan kembali",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Reset!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }
+    });
+});
 
 $(document).ready(function () {
     var countre = 1;

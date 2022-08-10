@@ -20,6 +20,7 @@ class CreatePerilakusTable extends Migration
             $table->double('orientasi_pelayanan');
             $table->double('integritas');
             $table->double('komitmen');
+            $table->double('disiplin');
             $table->double('kerjasama');
             $table->double('kepemimpinan');
             $table->timestamps();
