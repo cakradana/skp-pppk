@@ -7,6 +7,7 @@ use App\Models\Pangkat;
 use App\Models\Penilai;
 use App\Models\Atasan;
 use App\Models\Kegiatan;
+use App\Models\Output;
 use App\Models\Rencana;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -139,5 +140,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         ////////////////////////////////////////////////////////////////////////////////////////////
+
+        Output::create([
+            'nama' => 'Dokumen'
+        ]);
     }
 }

@@ -70,7 +70,7 @@
                                                 </li>
                                             </ul>
                                         </td>
-                                        <td class="align-middle text-center">{{ $nilai_perilaku }}</td>
+                                        <td class="align-middle text-center">{{ round($nilai_perilaku, 2) }}</td>
                                         <td class="align-middle">
                                             <div class="d-inline-flex" style="inline-size: max-content; gap: 3px;">
                                                 <button {{ $perilaku->perilaku ? 'disabled' : '' }}

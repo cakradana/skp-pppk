@@ -90,7 +90,7 @@ class PengajuanRencanaController extends Controller
             'kegiatan_id' => ['required'],
             'target_kualitas' => ['required'],
             'target_kuantitas' => ['required'],
-            'target_biaya' => ['required'],
+            // 'target_biaya' => ['required'],
             'output_id' => ['required'],
             'bulan' => ['required']
         ]);
@@ -102,8 +102,7 @@ class PengajuanRencanaController extends Controller
 
         // dd($int);
 
-        // $validatedData['target-biaya'] = $int;
-
+        $validatedData['target-biaya'] = $request->target_biaya;
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['penilai_id'] = auth()->user()->penilai_id;
         $validatedData['status'] = 'Belum Disetujui';
