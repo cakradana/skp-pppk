@@ -111,6 +111,8 @@ class PengajuanRealisasiController extends Controller
     {
         // dd($request->all());
 
+        $bulan = $request->bulan;
+
         $rules = [
             'realisasi_kuantitas' => ['required'],
             'pengajuan_nilai' => ['required'],

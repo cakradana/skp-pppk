@@ -107,8 +107,10 @@ Route::middleware(['penilai'])->group(function () {
 
     // post index
     Route::post('/penilaian/realisasi-pegawai', [PenilaianRealisasiController::class, 'index']);
+    // post index
+    Route::post('/penilaian/realisasi-pegawai/{id}/edit', [PenilaianRealisasiController::class, 'edit']);
     // resource penilaian realisasi
-    Route::resource('/penilaian/realisasi-pegawai', PenilaianRealisasiController::class)->except('store');
+    Route::resource('/penilaian/realisasi-pegawai', PenilaianRealisasiController::class)->except(['store', 'update']);
     // resource penilaian perilaku
     Route::resource('/penilaian/perilaku-pegawai', PenilaianPerilakuController::class)->except(['create', 'show', 'edit', 'update']);
 });

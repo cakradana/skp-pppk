@@ -7,11 +7,11 @@
 @section('isi')
     <div class="row">
         <div class="col">
-            <form method="POST" action="/pengajuan/realisasi">
+            <form method="POST" action="/penilaian/realisasi-pegawai/{{ $pegawai->id }}/edit">
                 @csrf
                 {{-- <input type="text" value="Januari" name="bulan"> --}}
                 <div class="form-inline">
-                    <a href="/pengajuan/realisasi" class="btn btn-secondary mb-3 d-print-none"><i
+                    <a href="/penilaian/realisasi-pegawai" class="btn btn-secondary mb-3 d-print-none"><i
                             class="fas fa-arrow-left"></i>
                         Kembali</a>
                     <div class="input-group ml-1 mb-3 d-print-none" style="width: 25%">
@@ -69,34 +69,34 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($rencanas as $rencana)
+                            @foreach ($pengajuans as $pengajuan)
                                 <tr>
                                     <td class="text-center p-3">{{ $loop->iteration }}</td>
-                                    <td>{{ $rencana->kegiatan->nama }}</td>
-                                    <td class="text-center p-3">{{ $rencana->target_kuantitas }}</td>
-                                    <td>{{ $rencana->output->nama }}</td>
+                                    <td>{{ $pengajuan->kegiatan->nama }}</td>
+                                    <td class="text-center p-3">{{ $pengajuan->target_kuantitas }}</td>
+                                    <td>{{ $pengajuan->output->nama }}</td>
                                     <td class="text-center p-3">
-                                        {{ $rencana->realisasi_kuantitas ? $rencana->realisasi_kuantitas : '-' }}
+                                        {{ $pengajuan->realisasi_kuantitas ? $pengajuan->realisasi_kuantitas : '-' }}
                                     </td>
                                     <td class="text-center">
-                                        {{ $rencana->output->nama }}
+                                        {{ $pengajuan->output->nama }}
                                     </td>
                                     <td class="text-center">
-                                        {{ $rencana->bulan }}
+                                        {{ $pengajuan->bulan }}
                                     </td>
                                     <td class="text-center p-3">
-                                        {{ $rencana->pengajuan_nilai ? $rencana->pengajuan_nilai : '-' }}</td>
+                                        {{ $pengajuan->pengajuan_nilai ? $pengajuan->pengajuan_nilai : '-' }}</td>
                                     <td class="text-center p-3">
-                                        {{ $rencana->realisasi_kualitas ? $rencana->realisasi_kualitas : '-' }}
+                                        {{ $pengajuan->realisasi_kualitas ? $pengajuan->realisasi_kualitas : '-' }}
                                     </td>
                                     <td class="text-center" style="">
                                         <div class="d-inline-flex" style="inline-size: max-content; gap: 3px;">
-                                            @if ($rencana->realisasi_kuantitas == null)
+                                            @if ($pengajuan->realisasi_kuantitas == null)
                                                 <?php
                                                 $disabled = '';
                                                 $enable = 'disabled';
                                                 ?>
-                                            @elseif ($rencana->realisasi_kualitas !== null)
+                                            @elseif ($pengajuan->realisasi_kualitas !== null)
                                                 <?php
                                                 $disabled = 'disabled';
                                                 $enable = 'disabled';
@@ -108,10 +108,10 @@
                                                 ?>
                                             @endif
                                             <button {{ $disabled }} class="btn btn-sm btn-primary" data-toggle="modal"
-                                                data-target="#isi-realisasi-{{ $rencana->id }}"><i
+                                                data-target="#isi-realisasi-{{ $pengajuan->id }}"><i
                                                     class="fas fa-plus"></i> Isi
                                                 Realisasi</button>
-                                            <form action="/pengajuan/realisasi/reset/{{ $rencana->id }}" method="POST"
+                                            <form action="/pengajuan/realisasi/reset/{{ $pengajuan->id }}" method="POST"
                                                 enctype="multipart/form-data" class="">
                                                 @method('put')
                                                 @csrf
@@ -123,18 +123,18 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <div class="modal fade" id="isi-realisasi-{{ $rencana->id }}">
+                                <div class="modal fade" id="isi-realisasi-{{ $pengajuan->id }}">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content card-primary card-outline">
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Isi Realisasi Bulan {{ $rencana->bulan }}</h4>
+                                                <h4 class="modal-title">Isi Realisasi Bulan {{ $pengajuan->bulan }}</h4>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="/pengajuan/realisasi/{{ $rencana->id }}" method="POST"
+                                                <form action="/pengajuan/realisasi/{{ $pengajuan->id }}" method="POST"
                                                     enctype="multipart/form-data" class="form-inline">
                                                     @method('put')
                                                     @csrf
@@ -143,7 +143,7 @@
                                                         <label class="col-sm-3 col-form-label">Kegiatan Tugas
                                                             Jabatan</label>
                                                         <div class="col-sm-9">
-                                                            <textarea rows="3" type="text" class="form-control" disabled style="resize: none">{{ $rencana->kegiatan->nama }}</textarea>
+                                                            <textarea rows="3" type="text" class="form-control" disabled style="resize: none">{{ $pengajuan->kegiatan->nama }}</textarea>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
@@ -151,16 +151,16 @@
                                                         <div class="col-sm-9">
                                                             <div class="input-group mb-0">
                                                                 <input type="number" class="form-control" disabled
-                                                                    value="{{ $rencana->target_kuantitas }}"
-                                                                    id="samakan-kuantitas{{ $rencana->id }}">
+                                                                    value="{{ $pengajuan->target_kuantitas }}"
+                                                                    id="samakan-kuantitas{{ $pengajuan->id }}">
                                                                 <div class="input-group-append">
                                                                     <span
-                                                                        class="input-group-text">{{ $rencana->output->nama }}</span>
+                                                                        class="input-group-text">{{ $pengajuan->output->nama }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    @if ($rencana->target_biaya !== null)
+                                                    @if ($pengajuan->target_biaya !== null)
                                                         <div class="form-group row">
                                                             <label class="col-sm-3 col-form-label">Target Biaya</label>
                                                             <div class="col-sm-9">
@@ -169,8 +169,8 @@
                                                                         <span class="input-group-text">Rp</span>
                                                                     </div>
                                                                     <input type="number" class="form-control" disabled
-                                                                        value="{{ $rencana->target_biaya }}"
-                                                                        id="samakan-biaya{{ $rencana->id }}">
+                                                                        value="{{ $pengajuan->target_biaya }}"
+                                                                        id="samakan-biaya{{ $pengajuan->id }}">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -181,7 +181,7 @@
                                                         <label class="col-sm-3 col-form-label"></label>
                                                         <div class="col-sm-9">
                                                             <a href="#"
-                                                                onclick="myFunction('{{ $rencana->id }}')">Samakan
+                                                                onclick="myFunction('{{ $pengajuan->id }}')">Samakan
                                                                 realisasi dengan
                                                                 target</a>
                                                         </div>
@@ -192,16 +192,17 @@
                                                             <div class="input-group mb-1">
                                                                 <input type="number" class="form-control" min="0"
                                                                     name="realisasi_kuantitas"
-                                                                    max="{{ $rencana->target_kuantitas }}" value=""
-                                                                    id="disamakan-realisasi{{ $rencana->id }}" required>
+                                                                    max="{{ $pengajuan->target_kuantitas }}"
+                                                                    value=""
+                                                                    id="disamakan-realisasi{{ $pengajuan->id }}" required>
                                                                 <div class="input-group-append">
                                                                     <span
-                                                                        class="input-group-text">{{ $rencana->output->nama }}</span>
+                                                                        class="input-group-text">{{ $pengajuan->output->nama }}</span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    @if ($rencana->target_biaya !== null)
+                                                    @if ($pengajuan->target_biaya !== null)
                                                         <div class="form-group row">
                                                             <label class="col-sm-3 col-form-label">Realisasi Biaya</label>
                                                             <div class="col-sm-9">
@@ -212,7 +213,7 @@
                                                                     <input type="number" class="form-control"
                                                                         min="0" name="realisasi_biaya"
                                                                         max="" value=""
-                                                                        id="disamakan-biaya{{ $rencana->id }}" required>
+                                                                        id="disamakan-biaya{{ $pengajuan->id }}" required>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -303,17 +304,4 @@
             </div>
         </div>
     </div>
-    </div>
-    </div>
 @endsection
-@push('script')
-    <script>
-        function myFunction(p1) {
-            var p = $('#samakan-kuantitas' + p1).val();
-            $('#disamakan-realisasi' + p1).val(p)
-
-            var p = $('#samakan-biaya' + p1).val();
-            $('#disamakan-biaya' + p1).val(p)
-        }
-    </script>
-@endpush

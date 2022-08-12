@@ -59,8 +59,8 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text">Rp</span>
                                         </div>
-                                        <input type="number" placeholder="Biaya" class="form-control" name="target_biaya"
-                                            value="">
+                                        <input type="number" placeholder="Biaya" min="0" class="form-control"
+                                            name="target_biaya" value="">
                                     </div>
                                 </div>
                                 <span class="text-red pt-2 pl-3">*kosongi apabila tidak memerlukan biaya</span>
