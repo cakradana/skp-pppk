@@ -60,35 +60,35 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($pengajuans as $pengajuan)
+                                @foreach ($pegawais as $pegawai)
                                     <tr>
                                         <td class="text-center align-middle">
                                             {{ $loop->iteration }}
                                         </td>
                                         <td class="text-center align-middle">
-                                            {{ $pengajuan->user->nip }}
+                                            {{ $pegawai->nip }}
                                         </td>
                                         <td>
                                             <ul class="list-inline d-flex">
                                                 <li class="list-inline-item">
                                                     <img alt="Avatar" class="table-avatar"
-                                                        @if ($pengajuan->user->foto == null) src="{{ asset('assets/dist/img/blank.png') }}"
+                                                        @if ($pegawai->foto == null) src="{{ asset('assets/dist/img/blank.png') }}"
                                         @else
-                                        src="{{ asset('/files' . '/' . $pengajuan->user->foto) }}" @endif
+                                        src="{{ asset('/files' . '/' . $pegawai->foto) }}" @endif
                                                         alt="User profile picture">
                                                 </li>
                                                 <li class="list-inline-item">
-                                                    {{ $pengajuan->user->name }}
+                                                    {{ $pegawai->name }}
                                                     <br>
                                                     <small>
-                                                        {{ $pengajuan->user->jabatan->nama }}
+                                                        {{ $pegawai->jabatan->nama }}
                                                     </small>
                                                 </li>
                                             </ul>
                                         </td>
                                         <td class="project-actions text-center">
                                             <div class="d-inline-flex" style="inline-size:max-content; gap:3px;">
-                                                <a href="/penilaian/realisasi-pegawai/{{ $pengajuan->user->id }}/edit"
+                                                <a href="/penilaian/realisasi-pegawai/{{ $pegawai->id }}/edit"
                                                     class="btn btn-sm btn-primary"><i class="fas fa-plus"></i>
                                                     Isi
                                                     Penilaian Realisasi</a>

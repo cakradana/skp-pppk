@@ -22,8 +22,7 @@
     <link rel="stylesheet" href="/assets/plugins/toastr/toastr.min.css">
     {{-- Date Range Picker --}}
     <link rel="stylesheet" href="/assets/plugins/daterangepicker/daterangepicker.css">
-    {{--
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"> --}}
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"> --}}
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -72,7 +71,7 @@
         {{-- Footer --}}
         @include('layouts.footer')
     </div>
-    {{------------------------------------- SCRIPT -------------------------------------}}
+    {{-- ----------------------------------- SCRIPT ----------------------------------- --}}
     <!-- jQuery -->
     <script src="/assets/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
@@ -91,8 +90,7 @@
     {{-- <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script> --}}
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js">
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
     <script src="/assets/plugins/daterangepicker/daterangepicker.js"></script>
     {{-- Select2 --}}
     <script src="/assets/plugins/select2/js/select2.full.min.js"></script>

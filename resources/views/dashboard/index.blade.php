@@ -24,15 +24,12 @@
                 <div class="card-body">
                     {{-- <div class="jumbotron"> --}}
                     <h1 class="display-4">Hello, {{ auth()->user()->name }}</h1>
-                    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra
-                        attention
-                        to
-                        featured content or information.</p>
+                    <p class="lead"></p>
                     <hr class="my-4">
-                    <p>It uses utility classes for typography and spacing to space content out within the larger
-                        container.</p>
+                    <p>Selamat datang di Sistem Informasi Sasaran Kinerja Pegawai untuk PPPK di Politeknik
+                        Negeri Cilacap</p>
                     <p class="lead">
-                        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                        {{-- <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a> --}}
                     </p>
                     {{-- </div> --}}
                 </div>

@@ -17,6 +17,7 @@ use App\Http\Controllers\PengajuanRealisasiController;
 use App\Http\Controllers\PenilaianRealisasiController;
 use App\Http\Controllers\PerilakuController;
 use App\Http\Controllers\PersetujuanRencanaController;
+use App\Http\Controllers\NilaiPrestasiKerjaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +78,13 @@ Route::middleware(['admin'])->group(function () {
     Route::resource('/master/kegiatan', KegiatanController::class)->except('show');
     // resource output
     Route::resource('/master/output', OutputController::class)->except('show');
+
+
+    Route::get('/monitoring/rencana', [NilaiPrestasiKerjaController::class, 'monitor_rencana']);
+    Route::post('/monitoring/rencana', [NilaiPrestasiKerjaController::class, 'monitor_rencana']);
+
+    Route::get('/monitoring/nilai', [NilaiPrestasiKerjaController::class, 'monitor_nilai']);
+    Route::post('/monitoring/nilai', [NilaiPrestasiKerjaController::class, 'monitor_nilai']);
 });
 
 
@@ -95,6 +103,8 @@ Route::middleware(['pegawai'])->group(function () {
     Route::put('/pengajuan/realisasi/reset/{id}', [PengajuanRealisasiController::class, 'reset']);
     // cetak realisasi
     Route::get('/pengajuan/realisasi/cetak-realisasi/{id}', [PengajuanRealisasiController::class, 'cetak']);
+
+    Route::get('/nilai-prestasi-kerja', [NilaiPrestasiKerjaController::class, 'pegawai']);
 });
 
 Route::middleware(['penilai'])->group(function () {
@@ -107,10 +117,17 @@ Route::middleware(['penilai'])->group(function () {
 
     // post index
     Route::post('/penilaian/realisasi-pegawai', [PenilaianRealisasiController::class, 'index']);
-    // post index
-    Route::post('/penilaian/realisasi-pegawai/{id}/edit', [PenilaianRealisasiController::class, 'edit']);
+    // post edit
+    Route::post('/penilaian/realisasi-pegawai/{pegawai}/edit', [PenilaianRealisasiController::class, 'edit'])->name('nrp');
+    // put nilai
+    Route::put('/penilaian/realisasi-pegawai/{pegawai}/nilai/{id}', [PenilaianRealisasiController::class, 'nilai']);
+    // reset realisasi
+    Route::put('/penilaian/realisasi-pegawai/{pegawai}/reset/{id}', [PenilaianRealisasiController::class, 'reset']);
+
     // resource penilaian realisasi
     Route::resource('/penilaian/realisasi-pegawai', PenilaianRealisasiController::class)->except(['store', 'update']);
     // resource penilaian perilaku
     Route::resource('/penilaian/perilaku-pegawai', PenilaianPerilakuController::class)->except(['create', 'show', 'edit', 'update']);
+
+    Route::get('/nilai-prestasi-kerja-pegawai', [NilaiPrestasiKerjaController::class, 'penilai']);
 });

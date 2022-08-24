@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Pangkat::create([
-            'nama' => 'Penata Tingkat I, III/d'
+            'nama' => 'Penata Muda, III/a'
         ]);
 
         Pangkat::create([
@@ -40,7 +40,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Jabatan::create([
-            'nama' => 'Analis Kepegawaian Ahli Muda'
+            'nama' => 'Analis Sumber Daya Manusia Aparatur'
         ]);
 
         Jabatan::create([
@@ -49,6 +49,10 @@ class DatabaseSeeder extends Seeder
 
         Jabatan::create([
             'nama' => 'Direktur'
+        ]);
+
+        Jabatan::create([
+            'nama' => 'Arsiparis Ahli Pertama'
         ]);
 
         ///////////////////////////////////////////////////////////////////
@@ -83,6 +87,24 @@ class DatabaseSeeder extends Seeder
             'ak' => '0.2'
         ]);
 
+        Kegiatan::create([
+            'jabatan_id' => '5',
+            'nama' => 'Menyeleksi arsip inaktif yang akan dimusnahkan;',
+            'ak' => '0.2'
+        ]);
+        Kegiatan::create([
+            'jabatan_id' => '5',
+            'nama' => 'Melakukan laminasi arsip peta dan kearsitekturan;',
+            'ak' => '0.2'
+        ]);
+        Kegiatan::create([
+            'jabatan_id' => '5',
+            'nama' => 'Melakukan identifikasi dan pengolahan data arsip inaktif;',
+            'ak' => '0.2'
+        ]);
+
+
+
         //////////////////////////////////////////////////////////////////
 
         User::create([
@@ -98,8 +120,8 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'role' => 'Admin',
-            'name' => 'Siti Markhatun, S.H.',
-            'nip' => '196906111993032005',
+            'name' => 'Eka Kusuma Wardani, S.E.',
+            'nip' => '198402172019032011',
             'pangkat_id' => 2,
             'jabatan_id' => 2,
             'password' => bcrypt('12345')
@@ -130,10 +152,10 @@ class DatabaseSeeder extends Seeder
 
         User::create([
             'role' => 'Pegawai yang Dinilai',
-            'name' => 'R. Cakradana',
-            'nip' => '190202064',
-            'pangkat_id' => 1,
-            'jabatan_id' => 1,
+            'name' => 'Sriworo Werdiningsih, S.E.',
+            'nip' => '198412302021212003',
+            'pangkat_id' => 2,
+            'jabatan_id' => 5,
             'penilai_id' => 3,
             'atasan_id' => 4,
             'password' => bcrypt('12345')

@@ -70,7 +70,12 @@
                                                 </li>
                                             </ul>
                                         </td>
-                                        <td class="align-middle text-center">{{ round($nilai_perilaku, 2) }}</td>
+                                        <td class="align-middle text-center">
+                                            {{ round($nilai_perilaku, 2) }}
+                                            @php
+                                                \App\Models\Nilai::where('user_id', $perilaku->id)->update(['nilai_perilaku' => round($nilai_perilaku, 2)]);
+                                            @endphp
+                                        </td>
                                         <td class="align-middle">
                                             <div class="d-inline-flex" style="inline-size: max-content; gap: 3px;">
                                                 <button {{ $perilaku->perilaku ? 'disabled' : '' }}

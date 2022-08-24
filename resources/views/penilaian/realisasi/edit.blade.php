@@ -91,54 +91,60 @@
                                     </td>
                                     <td class="text-center" style="">
                                         <div class="d-inline-flex" style="inline-size: max-content; gap: 3px;">
-                                            @if ($pengajuan->realisasi_kuantitas == null)
+                                            @if ($pengajuan->realisasi_kualitas !== null && $pengajuan->realisasi_kuantitas !== null)
                                                 <?php
-                                                $disabled = '';
-                                                $enable = 'disabled';
+                                                $tambah = 'disabled';
+                                                $reset = '';
                                                 ?>
-                                            @elseif ($pengajuan->realisasi_kualitas !== null)
+                                            @elseif ($pengajuan->realisasi_kualitas == null && $pengajuan->realisasi_kuantitas !== null)
                                                 <?php
-                                                $disabled = 'disabled';
-                                                $enable = 'disabled';
+                                                $tambah = '';
+                                                $reset = 'disabled';
                                                 ?>
-                                            @else
+                                            @elseif ($pengajuan->realisasi_kualitas == null && $pengajuan->realisasi_kuantitas == null)
                                                 <?php
-                                                $disabled = 'disabled';
-                                                $enable = '';
+                                                $tambah = 'disabled';
+                                                $reset = 'disabled';
                                                 ?>
                                             @endif
-                                            <button {{ $disabled }} class="btn btn-sm btn-primary" data-toggle="modal"
+                                            <button {{ $tambah }} class="btn btn-sm btn-primary" data-toggle="modal"
                                                 data-target="#isi-realisasi-{{ $pengajuan->id }}"><i
-                                                    class="fas fa-plus"></i> Isi
-                                                Realisasi</button>
-                                            <form action="/pengajuan/realisasi/reset/{{ $pengajuan->id }}" method="POST"
-                                                enctype="multipart/form-data" class="">
+                                                    class="fas fa-plus"></i> Isi Penilaian</button>
+                                            <form
+                                                action="/penilaian/realisasi-pegawai/{{ $pegawai->id }}/reset/{{ $pengajuan->id }}"
+                                                method="POST" enctype="multipart/form-data" class="">
                                                 @method('put')
                                                 @csrf
-                                                <button {{ $enable }}
-                                                    class="text-white btn btn-sm btn-warning text-white reset-realisasi-confirm"><i
-                                                        class="fas fa-sync-alt"></i> Reset Realisasi
+                                                <button {{ $reset }}
+                                                    class="text-white btn btn-sm btn-warning text-white reset-nilai-realisasi-confirm"><i
+                                                        class="fas fa-sync-alt"></i> Reset Penilaian
                                                 </button>
                                             </form>
                                         </div>
                                     </td>
                                 </tr>
+
+
+
+
                                 <div class="modal fade" id="isi-realisasi-{{ $pengajuan->id }}">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content card-primary card-outline">
                                             <div class="modal-header">
-                                                <h4 class="modal-title">Isi Realisasi Bulan {{ $pengajuan->bulan }}</h4>
+                                                <h4 class="modal-title">Isi Penilaian Realisasi Bulan
+                                                    {{ $pengajuan->bulan }}</h4>
                                                 <button type="button" class="close" data-dismiss="modal"
                                                     aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="/pengajuan/realisasi/{{ $pengajuan->id }}" method="POST"
-                                                    enctype="multipart/form-data" class="form-inline">
+                                                <form
+                                                    action="/penilaian/realisasi-pegawai/{{ $pegawai->id }}/nilai/{{ $pengajuan->id }}"
+                                                    method="POST" enctype="multipart/form-data" class="form-inline">
                                                     @method('put')
                                                     @csrf
-                                                    <input type="hidden" name="bulan" value="{{ $selected }}">
+                                                    {{-- <input type="hidden" name="bulan" value="{{ $selected }}"> --}}
                                                     <div class="form-group row">
                                                         <label class="col-sm-3 col-form-label">Kegiatan Tugas
                                                             Jabatan</label>
@@ -148,11 +154,22 @@
                                                     </div>
                                                     <div class="form-group row">
                                                         <label class="col-sm-3 col-form-label">Target</label>
-                                                        <div class="col-sm-9">
+                                                        <div class="col-sm-3">
                                                             <div class="input-group mb-0">
                                                                 <input type="number" class="form-control" disabled
-                                                                    value="{{ $pengajuan->target_kuantitas }}"
-                                                                    id="samakan-kuantitas{{ $pengajuan->id }}">
+                                                                    value="{{ $pengajuan->target_kuantitas }}">
+                                                                <div class="input-group-append">
+                                                                    <span
+                                                                        class="input-group-text">{{ $pengajuan->output->nama }}</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <label class="col-sm-3 col-form-label">Realisasi</label>
+                                                        <div class="col-sm-3">
+                                                            <div class="input-group mb-1">
+                                                                <input type="number" class="form-control" min="0"
+                                                                    name="realisasi_kuantitas"
+                                                                    value="{{ $pengajuan->target_kuantitas }}" disabled>
                                                                 <div class="input-group-append">
                                                                     <span
                                                                         class="input-group-text">{{ $pengajuan->output->nama }}</span>
@@ -163,57 +180,26 @@
                                                     @if ($pengajuan->target_biaya !== null)
                                                         <div class="form-group row">
                                                             <label class="col-sm-3 col-form-label">Target Biaya</label>
-                                                            <div class="col-sm-9">
+                                                            <div class="col-sm-3">
                                                                 <div class="input-group mb-0">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text">Rp</span>
                                                                     </div>
                                                                     <input type="number" class="form-control" disabled
-                                                                        value="{{ $pengajuan->target_biaya }}"
-                                                                        id="samakan-biaya{{ $pengajuan->id }}">
+                                                                        value="{{ $pengajuan->target_biaya }}">
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    @endif
-
-                                                    {{-- Samakan realisasi dengan target --}}
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-3 col-form-label"></label>
-                                                        <div class="col-sm-9">
-                                                            <a href="#"
-                                                                onclick="myFunction('{{ $pengajuan->id }}')">Samakan
-                                                                realisasi dengan
-                                                                target</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-3 col-form-label">Realisasi</label>
-                                                        <div class="col-sm-9">
-                                                            <div class="input-group mb-1">
-                                                                <input type="number" class="form-control" min="0"
-                                                                    name="realisasi_kuantitas"
-                                                                    max="{{ $pengajuan->target_kuantitas }}"
-                                                                    value=""
-                                                                    id="disamakan-realisasi{{ $pengajuan->id }}" required>
-                                                                <div class="input-group-append">
-                                                                    <span
-                                                                        class="input-group-text">{{ $pengajuan->output->nama }}</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    @if ($pengajuan->target_biaya !== null)
-                                                        <div class="form-group row">
                                                             <label class="col-sm-3 col-form-label">Realisasi Biaya</label>
-                                                            <div class="col-sm-9">
+                                                            <div class="col-sm-3">
                                                                 <div class="input-group mb-1">
                                                                     <div class="input-group-prepend">
                                                                         <span class="input-group-text">Rp</span>
                                                                     </div>
                                                                     <input type="number" class="form-control"
                                                                         min="0" name="realisasi_biaya"
-                                                                        max="" value=""
-                                                                        id="disamakan-biaya{{ $pengajuan->id }}" required>
+                                                                        max=""
+                                                                        value="{{ $pengajuan->realisasi_biaya }}"
+                                                                        disabled>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -222,18 +208,15 @@
                                                         <label class="col-sm-3 col-form-label">Pengajuan Nilai</label>
                                                         <div class="col-sm-9">
                                                             <input type="number" class="form-control"
-                                                                name="pengajuan_nilai" min="0" max="100"
-                                                                required>
+                                                                name="pengajuan_nilai"
+                                                                value="{{ $pengajuan->pengajuan_nilai }}" disabled>
                                                         </div>
                                                     </div>
                                                     <div class="form-group row">
-                                                        <label class="col-sm-3 col-form-label"></label>
+                                                        <label class="col-sm-3 col-form-label">Nilai Realisasi</label>
                                                         <div class="col-sm-9">
-                                                            <a class="text-info" href="" data-toggle="modal"
-                                                                data-target="#dasar-pengajuan-nilai"><i
-                                                                    class="fas fa-eye"></i>
-                                                                Lihat Dasar
-                                                                Pengajuan Nilai</a>
+                                                            <input type="number" class="form-control"
+                                                                name="realisasi_kualitas" required>
                                                         </div>
                                                     </div>
                                             </div>
@@ -250,57 +233,6 @@
                 @endforeach
                 </tbody>
                 </table>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="dasar-pengajuan-nilai">
-        <div class="modal-dialog modal-md">
-            <div class="modal-content card-info card-outline">
-                <div class="modal-header">
-                    <h4 class="modal-title">Dasar Pengajuan Nilai</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <table class="table table-bordered table-striped small">
-                        <thead class="text-center">
-                            <tr>
-                                <th>Kriteria Nilai</th>
-                                <th class="align-middle">Keterangan</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="text-center">91 - 100</td>
-                                <td>Hasil kerja sempurna, tidak ada kesalahan, tidak ada revisi, dan pelayanan di atas
-                                    standar yang ditentukan, dll.</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">76 - 90</td>
-                                <td>Hasil kerja mempunyai 1 atau 2 kesalahan kecil, tidak ada kesalahan besar, revisi,
-                                    dan
-                                    pelayanan sesuai standar yang ditentukan, dll.</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">61 - 75</td>
-                                <td>Hasil kerja mempunyai 3 atau 4 kesalahan kecil, tidak ada kesalahan besar, revisi,
-                                    dan
-                                    pelayanan cukup memenuhi standar yang ditentukan, dll.</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">51 - 60</td>
-                                <td>Hasil kerja mempunyai 5 kesalahan kecil, ada kesalahan besar, revisi, dan pelayanan
-                                    tidak cukup memenuhi standar yang ditentukan, dll.</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">&lt; 50</td>
-                                <td>Hasil kerja mempunyai lebih dari 5 kesalahan kecil, ada kesalahan besar, kurang
-                                    memuaskan, revisi, dan pelayanan di bawah standar yang ditentukan, dll.</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
             </div>
         </div>
     </div>

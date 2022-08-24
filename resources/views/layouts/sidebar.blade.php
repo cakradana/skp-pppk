@@ -49,46 +49,89 @@
                 </li>
                 @can('Admin')
                     <li class="nav-item">
-                        <a href="/master/periode" class="nav-link {{ Request::is('master/periode*') ? 'active' : '' }}">
-                            <i class="fas fa-calendar-alt nav-icon"></i>
-                            <p>Master Periode</p>
+                        <a href="" class="nav-link {{ Request::is('master*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-database"></i>
+                            <p>
+                                Master
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/master/periode"
+                                    class="nav-link {{ Request::is('master/periode*') ? 'active' : '' }}">
+                                    <i class="fas fa-calendar-alt nav-icon"></i>
+                                    <p>Master Periode</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/master/pangkat"
+                                    class="nav-link {{ Request::is('master/pangkat*') ? 'active' : '' }}">
+                                    <i class="fas fa-star nav-icon"></i>
+                                    <p>Master Pangkat</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/master/jabatan"
+                                    class="nav-link {{ Request::is('master/jabatan*') ? 'active' : '' }}">
+                                    <i class="fas fa-briefcase nav-icon"></i>
+                                    <p>Master Jabatan</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/master/pegawai"
+                                    class="nav-link {{ Request::is('master/pegawai*') ? 'active' : '' }}">
+                                    <i class="fas fa-users nav-icon"></i>
+                                    <p>Master Pegawai</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/master/penilai"
+                                    class="nav-link {{ Request::is('master/penilai*') ? 'active' : '' }}">
+                                    <i class="fas fa-user-tie nav-icon"></i>
+                                    <p>Master Penilai</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/master/kegiatan"
+                                    class="nav-link {{ Request::is('master/kegiatan*') ? 'active' : '' }}">
+                                    <i class="fas fa-tasks nav-icon"></i>
+                                    <p>Master Kegiatan</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/master/output"
+                                    class="nav-link {{ Request::is('master/output*') ? 'active' : '' }}">
+                                    <i class="fas fa-file-export nav-icon"></i>
+                                    <p>Master Output</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="nav-item">
-                        <a href="/master/pangkat" class="nav-link {{ Request::is('master/pangkat*') ? 'active' : '' }}">
-                            <i class="fas fa-star nav-icon"></i>
-                            <p>Master Pangkat</p>
+                        <a href="" class="nav-link {{ Request::is('monitoring*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-desktop"></i>
+                            <p>
+                                Monitoring
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/master/jabatan" class="nav-link {{ Request::is('master/jabatan*') ? 'active' : '' }}">
-                            <i class="fas fa-briefcase nav-icon"></i>
-                            <p>Master Jabatan</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/master/pegawai" class="nav-link {{ Request::is('master/pegawai*') ? 'active' : '' }}">
-                            <i class="fas fa-users nav-icon"></i>
-                            <p>Master Pegawai</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/master/penilai" class="nav-link {{ Request::is('master/penilai*') ? 'active' : '' }}">
-                            <i class="fas fa-user-tie nav-icon"></i>
-                            <p>Master Penilai</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/master/kegiatan" class="nav-link {{ Request::is('master/kegiatan*') ? 'active' : '' }}">
-                            <i class="fas fa-tasks nav-icon"></i>
-                            <p>Master Kegiatan</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="/master/output" class="nav-link {{ Request::is('master/output*') ? 'active' : '' }}">
-                            <i class="fas fa-file-export nav-icon"></i>
-                            <p>Master Output</p>
-                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/monitoring/rencana"
+                                    class="nav-link {{ Request::is('monitoring/rencana*') ? 'active' : '' }}">
+                                    <i class="fas fa-calendar-alt nav-icon"></i>
+                                    <p>Monitoring Rencana</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/monitoring/nilai"
+                                    class="nav-link {{ Request::is('monitoring/nilai*') ? 'active' : '' }}">
+                                    <i class="fas fa-file nav-icon"></i>
+                                    <p>Monitoring Nilai</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 @endcan
                 @can('Pegawai yang Dinilai')

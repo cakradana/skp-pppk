@@ -57,7 +57,7 @@ class PenilaiController extends Controller
         $validatedData = $request->validate([
             'role' => ['required'],
             'name' => ['required'],
-            'nip' => ['required', 'unique:users', 'max:18'],
+            'nip' => ['required', 'unique:users', 'min:18', 'numeric'],
             'pangkat_id' => ['required'],
             'jabatan_id' => ['required'],
             'password' => ['required'],
@@ -127,7 +127,7 @@ class PenilaiController extends Controller
         ];
 
         if ($request->nip != $penilai->nip) {
-            $rules['nip'] = ['required', 'unique:users', 'max:18'];
+            $rules['nip'] = ['required', 'unique:users', 'min:18', 'numeric'];
         }
 
         $validatedData = $request->validate($rules);

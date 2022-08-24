@@ -73,4 +73,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Perilaku::class);
     }
+
+    public function nilai()
+    {
+        return $this->hasOne(Nilai::class);
+    }
 }

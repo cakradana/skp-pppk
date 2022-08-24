@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Jabatan;
 use App\Models\User;
+use App\Models\Nilai;
 use App\Models\Pangkat;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -50,7 +51,7 @@ class PegawaiController extends Controller
         $validatedData = $request->validate([
             'role' => ['required'],
             'name' => ['required'],
-            'nip' => ['required', 'unique:users', 'max:18'],
+            'nip' => ['required', 'unique:users', 'min:18', 'numeric'],
             'pangkat_id' => ['required'],
             'jabatan_id' => ['required'],
             'password' => ['required'],
@@ -67,7 +68,10 @@ class PegawaiController extends Controller
 
         $validatedData['password'] = Hash::make($validatedData['password']);
 
-        User::create($validatedData);
+        $user = User::create($validatedData);
+        $nilaiData['user_id'] = $user->id;
+        $nilaiData['penilai_id'] = $validatedData['penilai_id'];
+        Nilai::create($nilaiData);
 
         return redirect('/master/pegawai')->with('toast_success', 'Pegawai telah berhasil ditambahkan!');
     }
@@ -121,7 +125,7 @@ class PegawaiController extends Controller
         ];
 
         if ($request->nip != $pegawai->nip) {
-            $rules['nip'] = ['required', 'unique:users', 'max:18'];
+            $rules['nip'] = ['required', 'unique:users', 'min:18', 'numeric'];
         }
 
         $validatedData = $request->validate($rules);

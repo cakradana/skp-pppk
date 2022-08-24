@@ -24,14 +24,14 @@ class PenilaianRealisasiController extends Controller
         //     $pengajuans = Sasaran::where('penilai_id', $user->id)->select(['user_id', 'bulan'])->groupBy(['user_id', 'bulan'])->where('bulan', $bulan)->whereNotNull('realisasi_kuantitas')->get();
         // }
 
-        $pengajuans = Sasaran::where('penilai_id', $user->id)->select(['user_id'])->groupby('user_id')->get();
+        $pegawai = User::where('penilai_id', $user->id)->get();
 
 
         return view('penilaian.realisasi.index', [
             "title" => "Penilaian Realisasi SKP",
             "user" => $user,
             // "selected" => $bulan,
-            "pengajuans" => $pengajuans
+            "pegawais" => $pegawai
         ]);
 
 
@@ -59,22 +59,22 @@ class PenilaianRealisasiController extends Controller
         //
     }
 
-    public function edit($id, Request $request)
+    public function edit($pegawai, Request $request)
     {
         $penilai = auth()->user();
 
         $bulan = $request->bulan;
 
-        // $pengajuans = Sasaran::where('penilai_id', $user->id)->where('user_id', $id)->get();
+        // $pengajuans = Sasaran::where('penilai_id', $user->id)->where('user_id', $pegawai)->get();
 
         if ($bulan == "Semua Bulan" || $bulan == null) {
-            $pengajuans = Sasaran::where('user_id', $id)->get();
+            $pengajuans = Sasaran::where('user_id', $pegawai)->get();
             $bulan = "Semua Bulan";
         } else {
-            $pengajuans = Sasaran::where('user_id', $id)->where('bulan', $bulan)->get();
+            $pengajuans = Sasaran::where('user_id', $pegawai)->where('bulan', $bulan)->get();
         }
 
-        $user = User::find($id);
+        $user = User::find($pegawai);
 
         return view('penilaian.realisasi.edit', [
             "title" => "Penilaian Realisasi SKP " . $user->name,
@@ -87,7 +87,40 @@ class PenilaianRealisasiController extends Controller
 
     public function update(Request $request, $id)
     {
-        // 
+        //
+    }
+
+    public function nilai(Request $request, $pegawai, $id)
+    {
+        // dd($request->all());
+
+        // dd($pegawai);
+
+        $rules = [
+            'realisasi_kualitas' => ['required']
+        ];
+
+
+        $validatedData = $request->validate($rules);
+
+        // dd($validatedData);
+
+        Sasaran::where('id', $id)->update($validatedData);
+
+        return redirect()->route('nrp', ['pegawai' => $pegawai])->with('toast_success', 'Nilai Realiasasi telah berhasil ditambahkan!');
+    }
+
+    public function reset($pegawai, $id)
+    {
+        // dd($pegawai . $id);
+
+        $validatedData['realisasi_kualitas'] = null;
+
+        // dd($validatedData);
+
+        Sasaran::where('id', $id)->update($validatedData);
+
+        return redirect()->route('nrp', ['pegawai' => $pegawai])->with('toast_success', 'Nilai Realiasasi telah berhasil direset!');
     }
 
     public function destroy($id)

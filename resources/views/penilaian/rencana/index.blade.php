@@ -29,9 +29,9 @@
                                             Jabatan
                                         </small>
                                     </th>
-                                    <th class="align-middle">
+                                    {{-- <th class="align-middle">
                                         Jangka Waktu
-                                    </th>
+                                    </th> --}}
                                     <th class="text-center align-middle">
                                         Status
                                     </th>
@@ -67,7 +67,7 @@
                                                 </li>
                                             </ul>
                                         </td>
-                                        <td class="align-middle">1 Jan s/d 31 Des 2022</td>
+                                        {{-- <td class="align-middle">1 Jan s/d 31 Des 2022</td> --}}
 
 
 

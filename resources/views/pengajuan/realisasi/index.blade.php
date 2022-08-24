@@ -29,7 +29,6 @@
                             class="fas fa-exclamation-triangle"></i>
                         Tunggu penilai menilai semua realisasi untuk dapat melakukan cetak realisasi</a>
                 @endif
-
                 <div class="d-print-none card card-secondary card-outline">
                     <div class="card-body table-responsive p-0">
                         <div class="" style="padding: 20px 20px 20px;">
@@ -56,104 +55,33 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php
-                                    $total_nilai = 0;
-                                    $banyak_kegiatan = \App\Models\Sasaran::where('user_id', $user->id)
-                                        ->select('kegiatan_id')
-                                        ->groupBy('kegiatan_id')
-                                        ->get()
-                                        ->count();
-                                    ?>
                                     @foreach ($rencanas as $rencana)
-                                        <?php
-                                        $target_kuantitas = \App\Models\Sasaran::where('user_id', $user->id)
-                                            ->where('kegiatan_id', $rencana->kegiatan_id)
-                                            ->select('target_kuantitas', $rencana->kuantitas)
-                                            ->sum('target_kuantitas');
-                                        
-                                        $realisasi_kuantitas = \App\Models\Sasaran::where('user_id', $user->id)
-                                            ->where('kegiatan_id', $rencana->kegiatan->id)
-                                            ->sum('realisasi_kuantitas');
-                                        
-                                        $target_waktu = \App\Models\Sasaran::where('user_id', $user->id)
-                                            ->where('kegiatan_id', $rencana->kegiatan_id)
-                                            ->count();
-                                        $realisasi_waktu = \App\Models\Sasaran::where('user_id', $user->id)
-                                            ->where('kegiatan_id', $rencana->kegiatan_id)
-                                            ->whereNotNull('realisasi_kuantitas')
-                                            ->count();
-                                        
-                                        $realisasi_kualitas = \App\Models\Sasaran::where('user_id', $user->id)
-                                            ->where('kegiatan_id', $rencana->kegiatan_id)
-                                            ->whereNotNull('realisasi_kualitas')
-                                            ->value('realisasi_kualitas');
-                                        
-                                        $target_biaya = \App\Models\Sasaran::where('user_id', $user->id)
-                                            ->where('kegiatan_id', $rencana->kegiatan_id)
-                                            ->whereNotNull('target_biaya')
-                                            ->value('target_biaya');
-                                        
-                                        $realisasi_biaya = \App\Models\Sasaran::where('user_id', $user->id)
-                                            ->where('kegiatan_id', $rencana->kegiatan_id)
-                                            ->whereNotNull('realisasi_biaya')
-                                            ->value('realisasi_biaya');
-                                        
-                                        $aspek_kuantitas = ($realisasi_kuantitas / $target_kuantitas) * 100;
-                                        $aspek_kualitas = ($realisasi_kualitas / $rencana->target_kualitas) * 100;
-                                        
-                                        $persen_waktu = 100 - ($realisasi_waktu / $target_waktu) * 100;
-                                        if ($persen_waktu > 24) {
-                                            $aspek_waktu = 76 - (((1.76 * $target_waktu - $realisasi_waktu) / $target_waktu) * 100 - 100);
-                                        } elseif ($persen_waktu < 24) {
-                                            $aspek_waktu = ((1.76 * $target_waktu - $realisasi_waktu) / $target_waktu) * 100;
-                                        }
-                                        
-                                        if (!empty($target_biaya)) {
-                                            $persen_biaya = 100 - ($realisasi_biaya / $target_biaya) * 100;
-                                            if ($persen_biaya > 24) {
-                                                $aspek_biaya = 76 - (((1.76 * $target_biaya - $realisasi_biaya) / $target_biaya) * 100 - 100);
-                                            } elseif ($persen_biaya < 24) {
-                                                $aspek_biaya = ((1.76 * $target_biaya - $realisasi_biaya) / $target_biaya) * 100;
-                                            }
-                                        } else {
-                                            $persen_biaya = null;
-                                            $aspek_biaya = null;
-                                        }
-                                        
-                                        $perhitungan = $aspek_kuantitas + $aspek_kualitas + $aspek_waktu + $aspek_biaya;
-                                        
-                                        if (!empty($target_biaya)) {
-                                            if ($realisasi_biaya == null) {
-                                                $nilai_skp = $perhitungan / 3;
-                                            } else {
-                                                $nilai_skp = $perhitungan / 4;
-                                            }
-                                        } else {
-                                            $nilai_skp = $perhitungan / 3;
-                                        }
-                                        
-                                        $total_nilai += $nilai_skp;
-                                        ?>
                                         <tr>
                                             <td class="text-center p-3">{{ $loop->iteration }}</td>
                                             <td>{{ $rencana->kegiatan->nama }}</td>
                                             <td class="text-center">{{ $rencana->kegiatan->ak }}</td>
-                                            <td class="text-center">{{ $target_kuantitas }}</td>
+                                            <td class="text-center">{{ $target_kuantitas[$loop->iteration - 1] }}</td>
                                             <td>{{ $rencana->output->nama }}</td>
                                             <td class="text-center">{{ $rencana->target_kualitas }}</td>
-                                            <td>{{ $target_waktu }}</td>
+                                            <td>{{ $target_waktu[$loop->iteration - 1] }}</td>
                                             <td>Bulan</td>
-                                            <td class="text-center">{{ $target_biaya ? $target_biaya : '-' }}</td>
-                                            <td class="text-center">{{ $rencana->kegiatan->ak * $realisasi_kuantitas }}
+                                            <td class="text-center">
+                                                {{ $target_biaya[$loop->iteration - 1] ? $target_biaya[$loop->iteration - 1] : '-' }}
                                             </td>
-                                            <td class="text-center">{{ $realisasi_kuantitas }}</td>
+                                            <td class="text-center">
+                                                {{ $rencana->kegiatan->ak * $realisasi_kuantitas[$loop->iteration - 1] }}
+                                            </td>
+                                            <td class="text-center">{{ $realisasi_kuantitas[$loop->iteration - 1] }}</td>
                                             <td>{{ $rencana->output->nama }}</td>
-                                            <td class="text-center">{{ $realisasi_kualitas ? $realisasi_kualitas : '-' }}
+                                            <td class="text-center">
+                                                {{ $realisasi_kualitas[$loop->iteration - 1] ? $realisasi_kualitas[$loop->iteration - 1] : '-' }}
                                             </td>
-                                            <td>{{ $realisasi_waktu }}</td>
+                                            <td>{{ $realisasi_waktu[$loop->iteration - 1] }}</td>
                                             <td>Bulan</td>
-                                            <td class="text-center">{{ $realisasi_biaya ? $realisasi_biaya : '-' }}</td>
-                                            <td class="text-center">{{ round($nilai_skp, 2) }}</td>
+                                            <td class="text-center">
+                                                {{ $realisasi_biaya[$loop->iteration - 1] ? $realisasi_biaya[$loop->iteration - 1] : '-' }}
+                                            </td>
+                                            <td class="text-center">{{ round($nilai_skp[$loop->iteration - 1], 2) }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -161,7 +89,7 @@
                                     <tr>
                                         <th colspan="16" class="text-center font-weight-bold">Nilai Capaian SKP</th>
                                         <td class="text-center font-weight-bold">
-                                            {{ round($total_nilai / $banyak_kegiatan, 2) }}
+                                            {{ round($final, 2) }}
                                         </td>
                                     </tr>
                                 </tfoot>

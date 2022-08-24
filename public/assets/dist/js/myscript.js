@@ -93,6 +93,24 @@ $(".reset-realisasi-confirm").on("click", function (event) {
         }
     });
 });
+//Confirm Reset Nilai Realisasi SweetAlert2
+$(".reset-nilai-realisasi-confirm").on("click", function (event) {
+    event.preventDefault();
+    var form = $(this).parents("form");
+    Swal.fire({
+        title: "Yakin Reset Nilai Realisasi Ini?",
+        text: "Nilai Realisasi yang telah direset dapat dipilih kembali",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Reset!",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }
+    });
+});
 //Confirm Reset Perilaku SweetAlert2
 $(".reset-perilaku-confirm").on("click", function (event) {
     event.preventDefault();
